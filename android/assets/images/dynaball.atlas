@@ -1,0 +1,41 @@
+
+dynaball.png
+size: 512,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+arrow
+  rotate: false
+  xy: 2, 2
+  size: 20, 85
+  orig: 20, 85
+  offset: 0, 0
+  index: -1
+background
+  rotate: false
+  xy: 2, 89
+  size: 480, 800
+  orig: 480, 800
+  offset: 0, 0
+  index: -1
+ball
+  rotate: false
+  xy: 24, 47
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+bar
+  rotate: false
+  xy: 66, 67
+  size: 40, 20
+  orig: 40, 20
+  offset: 0, 0
+  index: -1
+player
+  rotate: false
+  xy: 24, 5
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
