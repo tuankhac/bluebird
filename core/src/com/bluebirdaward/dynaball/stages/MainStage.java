@@ -37,7 +37,7 @@ public class MainStage extends Stage {
 	private Rectangle _screenBottomSide;
 	private Vector3 _touchPoint;
 
-	private WorldLogic _worldLogic;
+	public WorldLogic _worldLogic;
 	
 	public Level _level;
 	public Timer _timer;
@@ -65,9 +65,9 @@ public class MainStage extends Stage {
 		_debugRenderer = new Box2DDebugRenderer();
 
 		_front = new StartView(this);
-		_gridLevel = new GridLevel(this);
-
 		_level = new Level();
+		_gridLevel = new GridLevel(this, _level);
+		
 		_timer = new Timer();
 		_background =new Background();
 		_worldLogic = new WorldLogic(this,_timer,_level);
@@ -199,16 +199,6 @@ public class MainStage extends Stage {
 				removeAllActorEnemy();
 			}
 			
-//			for(int i = _worldLogic.enemyLevel.getArr().size -1 ;i>=0;i--)
-//				if(_worldLogic.enemyLevel.getArr().get(i).isHit() == true){
-//					_enemyRender.getActor().get(i).remove();
-//					_worldLogic.enemyLevel.getArr().size--;
-//					break;
-//				}
-//			if (_worldLogic._resetPlayer) {
-//				_worldLogic.player.reset();
-//				_worldLogic._resetPlayer = false;
-//			}
 			_worldLogic.update();
 			
 			if(_worldLogic.gameOver == 1){

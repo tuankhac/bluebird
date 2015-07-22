@@ -65,10 +65,15 @@ public class WorldLogic {
 		catchRunning();
 	}
 	/*init new level when have new event*/
-	private void initNewLevel(){
-		_level ++;
-		level.level = _level;
-		enemyLevel.setArrSence("level/map"+ _level);
+	public void initNewLevel(){
+		if (_mainStage.globalState == GLOBAL_STATE.RUNNING) {
+			_level ++;
+			level.level = _level;
+			enemyLevel.setArrSence("level/map"+ _level);
+		} else if ( _mainStage.globalState == GLOBAL_STATE.GRID_LEVEL ) {
+			enemyLevel.setArrSence("level/map"+ (int)(level.level+1));
+		}
+		
 	}
 
 	public boolean isResetPlayer(){ return _resetPlayer;}

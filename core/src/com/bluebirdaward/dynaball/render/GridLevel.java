@@ -24,9 +24,11 @@ public class GridLevel extends Actor {
 
 	public TextButton[] buttons;
 	public boolean [] allowActiveButton;
+	private Level level;
  
-	public GridLevel(MainStage _mainStage){
+	public GridLevel(MainStage _mainStage, Level level){
 		this._mainStage = _mainStage;
+		this.level = level;
 		_displayGridLevel = new boolean[20];
 		allowActiveButton = new boolean[20];
 		for (int i = 0; i < _displayGridLevel.length; i++) {
@@ -99,6 +101,8 @@ public class GridLevel extends Actor {
 		button.addListener(new ClickListener(){
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 					System.out.println(""+ display + " | GAMESTATE: " + _mainStage.globalState);
+					level.level = display;
+					_mainStage._worldLogic.initNewLevel();
 					_mainStage.globalState = GLOBAL_STATE.PLAY;
 				return true;
 			}
