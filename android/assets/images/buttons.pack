@@ -3,52 +3,59 @@ buttons.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-grid_level_item_lock
-  rotate: false
-  xy: 1, 133
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
-grid_level_item_passed
-  rotate: false
-  xy: 1, 31
-  size: 100, 100
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
 button_playagain
   rotate: false
-  xy: 103, 157
+  xy: 1, 157
   size: 304, 76
   orig: 304, 76
   offset: 0, 0
   index: -1
 button_guide
   rotate: false
-  xy: 103, 79
+  xy: 1, 79
   size: 186, 76
   orig: 186, 76
   offset: 0, 0
   index: -1
 button_start
   rotate: false
-  xy: 103, 1
+  xy: 307, 157
   size: 177, 76
   orig: 177, 76
   offset: 0, 0
   index: -1
 button_back
   rotate: false
-  xy: 282, 1
+  xy: 1, 1
   size: 158, 76
   orig: 158, 76
   offset: 0, 0
   index: -1
 button_play
   rotate: false
-  xy: 291, 79
+  xy: 189, 79
   size: 154, 76
   orig: 154, 76
+  offset: 0, 0
+  index: -1
+grid_level_item_already
+  rotate: false
+  xy: 486, 133
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+grid_level_item_lock
+  rotate: false
+  xy: 588, 133
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+grid_level_item_passed
+  rotate: false
+  xy: 690, 133
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
