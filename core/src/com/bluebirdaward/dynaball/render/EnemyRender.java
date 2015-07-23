@@ -14,7 +14,6 @@ public class EnemyRender {
 	
 	public EnemyRender(WorldLogic worldLogic) {
 		this._worldLogic = worldLogic;
-		init();
 	}
 	
 	public void init(){

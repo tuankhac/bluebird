@@ -16,23 +16,6 @@ public class RenderActor extends Actor {
         screenRectangle = new Rectangle();
     }
     
-//    @Override public void act(float delta) {
-//        super.act(delta);
-//        if (gameLogic.getBody() != null) {
-//            updateRectangle();
-//        } else {
-//            // This means the world destroyed the body (enemy or runner went out of bounds)
-//            remove();
-//        }
-//    }
-    
-//    private void updateRectangle() {
-//        screenRectangle.x = transformToScreen(gameLogic.getPosition().x);
-//        screenRectangle.y = transformToScreen(gameLogic.getPosition().y);
-//        screenRectangle.width = transformToScreen(gameLogic.getWidth());
-//        screenRectangle.height = transformToScreen(gameLogic.getHeight());
-//    }
-
     protected float transformToScreen(float n) { return Constants.LOGIC_TO_RENDER * n; }
     
 }

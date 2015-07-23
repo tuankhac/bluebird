@@ -20,14 +20,7 @@ public class EnemyLevel {
 		this._world = world;
 	}
 
-
 	int countEnemy(){ return _countEnemy;}
-
-//	public void allowEnemyMove(int i,float vX, float vY){
-//		if(_listLogic.get(i).getBody().getUserData() == Constants.USERDATA_ENEMY){
-//			_listLogic.get(i).getBody().setLinearVelocity(vX, vY);
-//		}
-//	}
 
 	public Array<GameLogic> getArr(){ return _listLogic; }
 

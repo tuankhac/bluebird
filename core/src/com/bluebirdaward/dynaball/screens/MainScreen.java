@@ -17,6 +17,7 @@ public class MainScreen implements Screen {
         //Update the stage
         stage.draw();
         stage.act(delta);
+       
 	}
 	
 	@Override public void show() { }

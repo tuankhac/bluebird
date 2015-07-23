@@ -36,7 +36,8 @@ public class GameLogic {
 		setPosition(currentPosition);
 	}
 	
-	protected void reset() { hit = false; }
+//	protected void reset() { hit = false; }
+	public void reset() { hit = false; }
 	
 	public void hit() { hit = true; }
 	
@@ -108,8 +109,6 @@ public class GameLogic {
 	 * update position for Sprite via Body */
 	public void update() {
 		position = _gameObjBody.getPosition();
-//		position.x = _gameObjBody.getPosition().x;
-//		position.y = _gameObjBody.getPosition().y + 4*Constants.BALL_RADIUS ;
 	}
 	
 	// Get/set functions

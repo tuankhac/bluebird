@@ -18,26 +18,25 @@ import com.bluebirdaward.dynaball.stages.MainStage;
 import com.bluebirdaward.dynaball.utils.Constants.GLOBAL_STATE;
 
 public class GridLevel extends Actor {
-	public boolean[] _displayGridLevel;
+
 	private MainStage _mainStage;
 	private TextureAtlas _buttonsAtlas;
 
 	public TextButton[] buttons;
+	public int[] _displayGridLevel;
 	public boolean [] allowActiveButton;
-	private Level level;
- 
-	public GridLevel(MainStage _mainStage, Level level){
+
+	public GridLevel(MainStage _mainStage){
 		this._mainStage = _mainStage;
-		this.level = level;
-		_displayGridLevel = new boolean[20];
+		_displayGridLevel = new int[20];
 		allowActiveButton = new boolean[20];
 		for (int i = 0; i < _displayGridLevel.length; i++) {
 			if (i != 0) {
-				_displayGridLevel[i] = false;
+				_displayGridLevel[i] = -1;
 				allowActiveButton[i] = false;
 			} else 
 			{
-				_displayGridLevel[i] = true;
+				_displayGridLevel[i] = 0;
 				allowActiveButton[i] = true;
 			}
 		}
@@ -48,7 +47,6 @@ public class GridLevel extends Actor {
 
 	@Override public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-//		System.out.println("GridLevel STATE: "+ _mainStage.globalState);
 		for (int i = 0; i < _displayGridLevel.length; i++) {
 			buttons[i].draw(batch, parentAlpha);
 		}
@@ -61,21 +59,30 @@ public class GridLevel extends Actor {
 
 		initGridLevel();
 	}
-	
+
 	public void initGridLevel() {
 		float y = 600;
 		float x = 10;
 		for (int i = 0; i < buttons.length; i++) {
-
-			if (_displayGridLevel[i]) {
-				buttons[i] = initButton("grid_level_item_passed", ""+(i+1));
-				activeButton(buttons[i], "grid_level_item_passed", (i+1), x, y);
-			} else {
+			switch (_displayGridLevel[i]) {
+			case -1:
 				buttons[i] = initButton("grid_level_item_lock", ""+(i+1));
 				activeButton(buttons[i], "grid_level_item_lock", (i+1), x, y);
+				break;
+			case 0:
+				buttons[i] = initButton("grid_level_item_already", ""+(i+1));
+				activeButton(buttons[i], "grid_level_item_already", (i+1), x, y);
+				break;
+			case 1:
+				buttons[i] = initButton("grid_level_item_passed", ""+(i+1));
+				activeButton(buttons[i], "grid_level_item_passed", (i+1), x, y);
+				break;
+
+			default:
+				break;
 			}
-			x += 110;
-			if (x > 370) {
+			x += 120;
+			if (x > 380) {
 				y -= 110;
 				x = 10;
 			}
@@ -100,10 +107,10 @@ public class GridLevel extends Actor {
 		button.setBounds(x, y, button.getWidth(), button.getHeight());
 		button.addListener(new ClickListener(){
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-					System.out.println(""+ display + " | GAMESTATE: " + _mainStage.globalState);
-					level.level = display;
-					_mainStage._worldLogic.initNewLevel();
-					_mainStage.globalState = GLOBAL_STATE.PLAY;
+				System.out.println(""+ display + " | GAMESTATE: " + _mainStage.globalState);
+				_mainStage._worldLogic.countPressed ++;
+				_mainStage._level.level = display;
+				_mainStage.globalState = GLOBAL_STATE.PLAY;
 				return true;
 			}
 		});

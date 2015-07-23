@@ -17,20 +17,21 @@ public class WorldLogic {
 	public boolean allowHandle = true;
 	public EnemyLevel enemyLevel;
 	public  int gameOver;
-
-	public boolean _resetPlayer = false;
+	public int level = 0 ;
+	public int countPressed = 0;
+	private boolean _resetPlayer = false;
 	private World _world;
 	private int _getScore; 
-	private int _level = 0 ;
 	private Body _a,_b;
 	private Timer _timer;
-	private Level level;
+	private Level _level;
 	private MainStage _mainStage;
+	
 
 	public WorldLogic(MainStage _mainStage, Timer _timer,Level level) {
 
 		this._timer = _timer;
-		this.level = level;
+		this._level = level;
 		this._mainStage = _mainStage;
 
 		_world = new World(Constants.WORLD_GRAVITY, true);
@@ -66,18 +67,20 @@ public class WorldLogic {
 	}
 	/*init new level when have new event*/
 	public void initNewLevel(){
-		if (_mainStage.globalState == GLOBAL_STATE.RUNNING) {
-			_level ++;
-			level.level = _level;
-			enemyLevel.setArrSence("level/map"+ _level);
-		} else if ( _mainStage.globalState == GLOBAL_STATE.GRID_LEVEL ) {
-			enemyLevel.setArrSence("level/map"+ (int)(level.level+1));
+		if(countPressed > 1){
+			 level = _level.level;
+			enemyLevel.setArrSence("level/map"+ level);	
+			countPressed = 1;
 		}
-		
+		else{
+			level ++;
+			enemyLevel.setArrSence("level/map"+ level);	
+		}
 	}
 
-	public boolean isResetPlayer(){ return _resetPlayer;}
-	public void setResetPlayer(boolean reset){_resetPlayer = reset;}
+	// unused
+	 boolean isResetPlayer(){ return _resetPlayer;}
+	 void setResetPlayer(boolean reset){_resetPlayer = reset;}
 
 	/** Used to Debug logic */
 	public World getWorldLogic() { return _world; }
@@ -90,10 +93,9 @@ public class WorldLogic {
 		player.update();
 		for(int i= enemyLevel.getArr().size -1 ;i>=0;i--){
 			if(enemyLevel.getArr().get(i).isHit() == true){
-//								_world.destroyBody(enemyLevel.getArr().get(i).getBody());
 				enemyLevel.getArr().get(i).getBody().setTransform(Constants.VP_WIDTH -3*Constants.BALL_RADIUS,
 						Constants.VP_HEIGHT - 2*Constants.BALL_RADIUS,0);
-				enemyLevel.getArr().get(i).reset();
+//				enemyLevel.getArr().get(i).reset();
 				_getScore ++;
 				break;
 			}
@@ -106,32 +108,35 @@ public class WorldLogic {
 		//update timer and score
 		_timer.updateDeltaTime();
 		
-		//when gameover =1 we create events increase level
-		if(gameOver == 1){
-			_timer.timer = 10;
-			_getScore = 0;
-			for(int i=0;i < enemyLevel.getArr().size;i++ )
-				_world.destroyBody(enemyLevel.getArr().get(i).getBody());
-			enemyLevel.getArr().clear();
-			initNewLevel();
-		}
-		else if(gameOver == -1){
-			player.reset();
-			allowHandle = true;
-			_timer.timer = 10;
-			_getScore = 0;
-			for(int i=0;i<enemyLevel.getArr().size;i++ )
-				_world.destroyBody(enemyLevel.getArr().get(i).getBody());
-			enemyLevel.getArr().clear();
-			enemyLevel.setArrSence("level/map"+_level);
-		}
 		// reset level when over timer
 		if(_timer.timer == 0){
+			gameOver = -1;
 			_mainStage.globalState = GLOBAL_STATE.GAMEOVER;
 		}
 
 		if(_getScore == enemyLevel.countEnemy()){
-			_mainStage.globalState = GLOBAL_STATE.NEXT;
+			_mainStage.globalState = GLOBAL_STATE.GRID_LEVEL;
+			gameOver = 1;
 		}
+	}
+	
+	public void resetLevel(){
+		player.reset();
+		allowHandle = true;
+		_timer.timer = 10;
+		_getScore = 0;
+		for(int i=0;i<enemyLevel.getArr().size;i++ )
+			_world.destroyBody(enemyLevel.getArr().get(i).getBody());
+		enemyLevel.getArr().clear();
+		enemyLevel.setArrSence("level/map"+level);
+	}
+	
+	public void nextLevel(){
+		_timer.timer = 10;
+		_getScore = 0;
+		for(int i=0;i < enemyLevel.getArr().size;i++ )
+			_world.destroyBody(enemyLevel.getArr().get(i).getBody());
+		enemyLevel.getArr().clear();
+		initNewLevel();
 	}
 }

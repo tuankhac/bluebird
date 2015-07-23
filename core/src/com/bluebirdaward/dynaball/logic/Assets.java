@@ -38,7 +38,6 @@ public class Assets implements Disposable {
 
 	public AssetFonts fonts;
 
-	//lá»›p láº¥y thĂ´ng tin vá»� font
 	public class AssetFonts {
 		public final BitmapFont defaultSmall;
 

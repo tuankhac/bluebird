@@ -21,9 +21,8 @@ import com.bluebirdaward.dynaball.utils.Constants.GLOBAL_STATE;
 public class EventsButtons extends Actor {
 	public Button btnPlay;
 	public Button btnPlayAgain;
-	public Button btnNext;
+	public Button btnBack;
 	
-	public Button btnBackRunning;
 	
 	private TextureAtlas _buttonsAtlas;
 	private Skin _buttonSkin;
@@ -47,44 +46,13 @@ public class EventsButtons extends Actor {
 
 		btnPlay =initButton("button_play");
 		btnPlayAgain = initButton("button_playagain");
-		btnNext = initButton("button_play");
-		btnBackRunning = initButton("button_back");
+		btnBack = initButton("button_back");
 
 		activeButtonPlay(Constants.APP_HEIGHT/2);
 		activeButtonPlayAgain(Constants.APP_HEIGHT/2);
-		activeButtonNext(Constants.APP_HEIGHT/2 );
-		activeButtonBackRunning(0, 0);
+		activeButtonBack(Constants.APP_HEIGHT/2 );
 	}
 	
-	private void activeButtonBackRunning(float x, float y){
-		float btnWidth = (float)_buttonsAtlas.findRegion("button_back").getRegionWidth();
-		float btnHeight = (float)_buttonsAtlas.findRegion("button_back").getRegionHeight();
-		btnBackRunning.setSize(btnWidth, btnHeight);
-		btnBackRunning.setPosition(x, y);
-
-		btnBackRunning.setBounds(x, y, btnBackRunning.getWidth(), btnBackRunning.getHeight());
-		btnBackRunning.addListener(new ClickListener(){
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				btnBackRunning.remove();
-				
-//				_mainStage._worldLogic._world.destroyBody(_mainStage._worldLogic.player.getBody());
-//				for(GameLogic logic :_mainStage._worldLogic.enemyLevel.getArr()){
-//					_mainStage._worldLogic._world.destroyBody(logic.getBody());
-//				}
-				_mainStage._background.remove();
-				_mainStage._level.remove();
-				_mainStage._player.remove();
-				_mainStage._timer.remove();
-				for(Actor actor : _mainStage._enemyRender.getActor())
-					actor.remove();
-				
-				_mainStage._gridLevel.initGridLevel();
-				_mainStage.globalState = GLOBAL_STATE.GRID_LEVEL;
-				System.out.println(_mainStage.globalState);
-				return true;
-			}
-		});
-	}
 
 	private TextButton initButton(String name){
 		TextButtonStyle style = new TextButtonStyle();
@@ -111,19 +79,17 @@ public class EventsButtons extends Actor {
 		});
 	}
 
-	private void activeButtonNext(float y){
+	private void activeButtonBack(float y){
 		float btnWidth = (float)_buttonsAtlas.findRegion("button_play").getRegionWidth();
 		float btnHeight = (float)_buttonsAtlas.findRegion("button_play").getRegionHeight();
-		btnNext.setSize(btnWidth, btnHeight);
-		btnNext.setPosition(Constants.APP_WIDTH/2-btnWidth/2, y);
+		btnBack.setSize(btnWidth, btnHeight);
+		btnBack.setPosition(Constants.APP_WIDTH/2-btnWidth/2, y);
 
-		btnNext.setBounds(Constants.APP_WIDTH/2-btnWidth/2, y, btnNext.getWidth(), btnNext.getHeight());
-		btnNext.addListener(new ClickListener(){
+		btnBack.setBounds(Constants.APP_WIDTH/2-btnWidth/2, y, btnBack.getWidth(), btnBack.getHeight());
+		btnBack.addListener(new ClickListener(){
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				btnNext.remove();
-				_mainStage._gridLevel.allowActiveButton[_mainStage._level.level] = true;
-				_mainStage._gridLevel._displayGridLevel[_mainStage._level.level] = true;
-				_mainStage.globalState = GLOBAL_STATE.RUNNING;
+				btnBack.remove();
+				_mainStage.globalState = GLOBAL_STATE.START;
 				System.out.println(_mainStage.globalState);
 				return true;
 			}
@@ -140,6 +106,10 @@ public class EventsButtons extends Actor {
 		btnPlayAgain.addListener(new ClickListener(){
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				btnPlayAgain.remove();
+				_mainStage.removeAllActorEnemy();
+				_mainStage._worldLogic.resetLevel();
+				_mainStage._worldLogic.gameOver = 0;
+				_mainStage.setupNewRunning();
 				_mainStage.globalState = GLOBAL_STATE.RUNNING;
 				System.out.println(_mainStage.globalState);
 				return true;
