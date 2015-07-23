@@ -106,9 +106,6 @@ public class EventsButtons extends Actor {
 		btnPlayAgain.addListener(new ClickListener(){
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				btnPlayAgain.remove();
-				_mainStage.removeAllActorEnemy();
-				_mainStage._worldLogic.resetLevel();
-				_mainStage._worldLogic.gameOver = 0;
 				_mainStage.setupNewRunning();
 				_mainStage.globalState = GLOBAL_STATE.RUNNING;
 				System.out.println(_mainStage.globalState);

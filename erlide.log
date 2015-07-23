@@ -1,0 +1,26 @@
+23:52:41,034 I: (ErlangCore.java:64) : Starting CORE Thread[Worker-1,5,main]
+23:52:41,049 I: (ErlangCore.java:79) : *** starting Erlide v0.29.12.201507101554 (core=0.24.13.201507101554) (model api=0.24.12.201507101554) *** (Cp1258) ui
+23:52:41,065 I: (ErlangCore.java:86) : Started CORE
+23:52:41,065 F: (ErlangPlugin.java:88) : Core started
+23:52:42,799 F: (ErlangHostnameRetriever.java:40) : Test long hostname: null
+23:52:42,799 W: (ErlangHostnameRetriever.java:46) : Can't use null as long name
+23:52:44,378 F: (ErlangHostnameRetriever.java:40) : Test long hostname: Administrator
+23:52:45,425 W: (ErlangHostnameRetriever.java:46) : Can't use Administrator as long name
+23:52:46,081 F: (ErlangHostnameRetriever.java:40) : Test short hostname: Administrator
+23:52:46,096 F: (HostnameUtils.java:74) : Detected:: Administrator && null
+23:52:46,128 F: (BackendActivator.java:25) : Backend plugin started
+23:52:46,128 I: (ErlideUIPlugin.java:130) : Starting UI Thread[Worker-1,5,main]
+23:52:46,128 F: (ModelActivator.java:19) : Starting Erlang model api
+23:52:46,143 F: (BackendFactory.java:42) : Create ide backend 18.0.0
+23:52:46,143 F: (BackendFactory.java:56) : Create backend 83e73_Admin_ae7fbf_erlide
+23:52:46,253 F: (OtpNodeProxy.java:419) : START node :> ["c:\program files (x86)\erl7.0/bin/erl", -sname, 83e73_Admin_ae7fbf_erlide@Administrator, -setcookie, erlide] *** D:\ProjectAndroid\BlueBird
+23:52:46,253 F: (OtpNodeProxy.java:301) : Runtime 83e73_Admin_ae7fbf_erlide@Administrator starting
+23:52:46,268 F: (OtpNodeProxy.java:212) : 83e73_Admin_ae7fbf_erlide@Administrator: waiting connection to peer... 
+23:52:47,081 F: (OtpNodeProxy.java:219) : connected!
+23:52:47,347 F: (OtpNodeProxy.java:306) : Runtime 83e73_Admin_ae7fbf_erlide@Administrator running
+23:52:47,347 F: (LogEventHandler.java:27) : info: {"Monitoring java node",jerlide_6ae803c@Administrator}
+23:52:47,347 F: (LogEventHandler.java:27) : info: {"Start monitor process: ",10000000,50000000}
+23:52:47,737 F: (ModelActivator.java:30) : Started model api
+23:52:47,737 I: (ErlideUIPlugin.java:152) : Started UI
+23:55:04,120 F: (OtpNodeProxy.java:311) : Runtime 83e73_Admin_ae7fbf_erlide@Administrator stopping
+23:55:04,167 F: (OtpNodeProxy.java:271) : Runtime 83e73_Admin_ae7fbf_erlide@Administrator terminated
