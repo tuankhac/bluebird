@@ -63,6 +63,8 @@ public class WorldLogic {
 	}
 
 	public void update(){
+		_world.step(1/60f, 8, 3);
+		player.update();
 		catchRunning();
 	}
 	/*init new level when have new event*/
@@ -89,8 +91,6 @@ public class WorldLogic {
 	void remove(GameLogic object){ enemyLevel.getArr().removeIndex(enemyLevel.getArr().indexOf(object, true));}
 
 	private void catchRunning(){
-		_world.step(1/60f, 8, 3);
-		player.update();
 		for(int i= enemyLevel.getArr().size -1 ;i>=0;i--){
 			if(enemyLevel.getArr().get(i).isHit() == true){
 				enemyLevel.getArr().get(i).getBody().setTransform(Constants.VP_WIDTH -3*Constants.BALL_RADIUS,

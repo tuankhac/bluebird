@@ -13,10 +13,10 @@ public class AssetAtlats {
 	
 	public AssetAtlats(TextureAtlas atlas) {
 		super();
-		background=atlas.findRegion("background");
-		bar=atlas.findRegion("bar");
-		player=atlas.findRegion("player");
-		ball=atlas.findRegion("ball");
+		background=atlas.findRegion("bg_running");
+		bar=atlas.findRegion("bg_start");
+		player=atlas.findRegion("redball");
+		ball=atlas.findRegion("greenball");
 		arrow=atlas.findRegion("arrow");
 	}
 }
