@@ -12,14 +12,12 @@ import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.bluebirdaward.dynaball.logic.Assets;
 import com.bluebirdaward.dynaball.logic.WorldLogic;
-import com.bluebirdaward.dynaball.render.Background;
 import com.bluebirdaward.dynaball.render.EnemyRender;
 import com.bluebirdaward.dynaball.render.EventsButtons;
 import com.bluebirdaward.dynaball.render.GridLevel;
 import com.bluebirdaward.dynaball.render.Level;
 import com.bluebirdaward.dynaball.render.Player;
 import com.bluebirdaward.dynaball.render.StartView;
-import com.bluebirdaward.dynaball.render.Timer;
 import com.bluebirdaward.dynaball.utils.Constants;
 import com.bluebirdaward.dynaball.utils.Constants.GLOBAL_STATE;
 
@@ -31,20 +29,20 @@ public class MainStage extends Stage {
 	private static float VP_WIDTH = Constants.APP_WIDTH;
 	private OrthographicCamera _gUICam;
 	private Box2DDebugRenderer _debugRenderer;
-	
+
 	private Rectangle _screenTopSide;
 	private Rectangle _screenBottomSide;
 	private Vector3 _touchPoint;
-	
-	
-	private Timer _timer;
+
+
 	private	 Player _player ;
-	private Background _background;
 	private EnemyRender _enemyRender;
 
 	private GridLevel _gridLevel;
 	private StartView _front;
 	private EventsButtons _eventButtons;
+
+	private int vitri = 0;
 
 	public WorldLogic _worldLogic;
 	public Level _level;
@@ -64,11 +62,9 @@ public class MainStage extends Stage {
 
 		_front = new StartView(this);
 		_gridLevel = new GridLevel(this);
-		
+
 		_level = new Level();
-		_timer = new Timer();
-		_background =new Background();
-		_worldLogic = new WorldLogic(this,_timer,_level);
+		_worldLogic = new WorldLogic(this,_level);
 		_player = new Player(_worldLogic.player);
 		_enemyRender = new EnemyRender(_worldLogic);
 
@@ -94,8 +90,6 @@ public class MainStage extends Stage {
 
 	public void setupNewRunning(){
 		_enemyRender.init();
-		addActor(_background);
-		addActor(_timer);
 		addActor(_level);
 		addActor(_player);
 		for(Actor actor: _enemyRender.getActor()){
@@ -117,18 +111,25 @@ public class MainStage extends Stage {
 	}
 
 	public void removeAllActorEnemy(){
+		for (int i = 0; i < _gridLevel.buttons.length; i++) {
+			_gridLevel.buttons[i].remove();
+		}
+		_gridLevel.remove();
+		
+		_level.remove();
+		_player.remove();
 		for(Actor actor: _enemyRender.getActor()){
 			actor.remove();
 		}
 		_enemyRender.getActor().clear();
 	}
 
-//	public void addAllActorEnemy(){
-//		_enemyRender.init();
-//		for(Actor actor: _enemyRender.getActor()){
-//			addActor(actor);
-//		}
-//	}
+	//	public void addAllActorEnemy(){
+	//		_enemyRender.init();
+	//		for(Actor actor: _enemyRender.getActor()){
+	//			addActor(actor);
+	//		}
+	//	}
 
 	private void touchUpRunning(int screenX, int screenY){
 		float tempX = _gUICam.getPickRay(screenX, screenY).origin.x;
@@ -159,12 +160,14 @@ public class MainStage extends Stage {
 
 	@Override public void dispose(){
 		Assets.instance.dispose();
+		_front._buttonsAtlas.dispose();
+		_gridLevel.buttonsAtlas.dispose();
 	}
 
 	/** Logic */
 	@Override public void act(float delta) {
 		super.act(delta);
-		 System.out.println(Gdx.app.getJavaHeap());
+		System.out.println(Gdx.app.getJavaHeap());
 		switch (globalState) {
 		case START:
 			setupNewStart();
@@ -175,14 +178,19 @@ public class MainStage extends Stage {
 			_front.btnStart.remove();
 			_front.btnGuide.remove();
 			if(_worldLogic.gameOver == 1){
-				_background.remove();
-				_level.remove();
-				_player.remove();
-				_timer.remove();
+//				_level.remove();
+//				_player.remove();
+//				for (int i = 0; i < _gridLevel.buttons.length; i++) {
+//					_gridLevel.buttons[i].remove();
+//				}
+//				_gridLevel.remove();
 				removeAllActorEnemy();
-				_gridLevel._displayGridLevel[_worldLogic.level - 1] = 1;
-				_gridLevel._displayGridLevel[_worldLogic.level] = 0; 
-				_gridLevel.allowActiveButton[_worldLogic.level] = true;
+				if(vitri < _worldLogic.level){
+					vitri = _worldLogic.level;
+					_gridLevel._displayGridLevel[_worldLogic.level - 1] = 1;
+					_gridLevel._displayGridLevel[_worldLogic.level] = 0; 
+					_gridLevel.allowActiveButton[_worldLogic.level] = true;
+				}
 				_gridLevel.initGridLevel();
 			}
 
@@ -191,12 +199,13 @@ public class MainStage extends Stage {
 			break;
 
 		case PLAY:
-			_gridLevel.remove();
+
 			for (int i = 0; i < _gridLevel.buttons.length; i++) {
 				_gridLevel.buttons[i].remove();
 			}
-			if(_worldLogic.gameOver ==1){
-				removeAllActorEnemy();
+			_gridLevel.remove();
+			if(_worldLogic.gameOver == 1){
+				
 				_worldLogic.nextLevel();
 
 				_worldLogic.gameOver = 0;
@@ -209,7 +218,6 @@ public class MainStage extends Stage {
 		case RUNNING:
 			_debugRenderer.render(_worldLogic.getWorldLogic(), _gUICam.combined);
 			_worldLogic.update();
-//			removeAllActorEnemy();
 			for(int i= _worldLogic.enemyLevel.getArr().size -1 ;i >= 0;i--){
 				if(_worldLogic.enemyLevel.getArr().get(i).isHit() == true){
 					_enemyRender.getActor().get(i).remove();
@@ -218,10 +226,15 @@ public class MainStage extends Stage {
 					break;
 				}
 			}
-			
+
 			break;
 
 		case GAMEOVER:
+			_level.remove();
+			_player.remove();
+			removeAllActorEnemy();
+			_worldLogic.resetLevel();
+			_worldLogic.gameOver = 0;
 			touchUpEventPlayAgainButton();
 			break;
 		default:

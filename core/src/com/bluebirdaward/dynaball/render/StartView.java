@@ -17,7 +17,7 @@ import com.bluebirdaward.dynaball.stages.MainStage;
 import com.bluebirdaward.dynaball.utils.Constants;
 import com.bluebirdaward.dynaball.utils.Constants.GLOBAL_STATE;
 public class StartView extends Actor {
-	private TextureAtlas _buttonsAtlas;
+	public TextureAtlas _buttonsAtlas;
 	private Skin _buttonSkin;
 	private BitmapFont _scoreFont;
 	private MainStage _mainStage;

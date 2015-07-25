@@ -7,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.bluebirdaward.dynaball.render.Level;
-import com.bluebirdaward.dynaball.render.Timer;
 import com.bluebirdaward.dynaball.stages.MainStage;
 import com.bluebirdaward.dynaball.utils.Constants;
 import com.bluebirdaward.dynaball.utils.Constants.GLOBAL_STATE;
@@ -23,14 +22,12 @@ public class WorldLogic {
 	private World _world;
 	private int _getScore; 
 	private Body _a,_b;
-	private Timer _timer;
 	private Level _level;
 	private MainStage _mainStage;
 	
 
-	public WorldLogic(MainStage _mainStage, Timer _timer,Level level) {
+	public WorldLogic(MainStage _mainStage,Level level) {
 
-		this._timer = _timer;
 		this._level = level;
 		this._mainStage = _mainStage;
 
@@ -106,10 +103,10 @@ public class WorldLogic {
 		}
 
 		//update timer and score
-		_timer.updateDeltaTime();
+		_level.updateDeltaTime();
 		
 		// reset level when over timer
-		if(_timer.timer == 0){
+		if(_level.timer == 0){
 			gameOver = -1;
 			_mainStage.globalState = GLOBAL_STATE.GAMEOVER;
 		}
@@ -123,7 +120,7 @@ public class WorldLogic {
 	public void resetLevel(){
 		player.reset();
 		allowHandle = true;
-		_timer.timer = 10;
+		_level.timer = 10;
 		_getScore = 0;
 		for(int i=0;i<enemyLevel.getArr().size;i++ )
 			_world.destroyBody(enemyLevel.getArr().get(i).getBody());
@@ -132,7 +129,7 @@ public class WorldLogic {
 	}
 	
 	public void nextLevel(){
-		_timer.timer = 10;
+		_level.timer = 10;
 		_getScore = 0;
 		for(int i=0;i < enemyLevel.getArr().size;i++ )
 			_world.destroyBody(enemyLevel.getArr().get(i).getBody());

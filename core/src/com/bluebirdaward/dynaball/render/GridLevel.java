@@ -10,19 +10,22 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.bluebirdaward.dynaball.logic.Assets;
 import com.bluebirdaward.dynaball.stages.MainStage;
+import com.bluebirdaward.dynaball.utils.Constants;
 import com.bluebirdaward.dynaball.utils.Constants.GLOBAL_STATE;
 
 public class GridLevel extends Actor {
 
 	private MainStage _mainStage;
-	private TextureAtlas _buttonsAtlas;
+	public TextureAtlas buttonsAtlas;
 
-	public TextButton[] buttons;
+	public Button[] buttons;
 	public int[] _displayGridLevel;
 	public boolean [] allowActiveButton;
 
@@ -47,15 +50,16 @@ public class GridLevel extends Actor {
 
 	@Override public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
+		batch.draw(Assets.instance.assetatlas.background, 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
 		for (int i = 0; i < _displayGridLevel.length; i++) {
 			buttons[i].draw(batch, parentAlpha);
 		}
 	}
 
 	private void initButtons(){
-		_buttonsAtlas = new TextureAtlas("images/buttons.pack");
+		buttonsAtlas = new TextureAtlas("images/buttons.pack");
 		buttonSkin = new Skin();
-		buttonSkin.addRegions(_buttonsAtlas);
+		buttonSkin.addRegions(buttonsAtlas);
 
 		initGridLevel();
 	}
@@ -95,12 +99,13 @@ public class GridLevel extends Actor {
 		style.up = buttonSkin.getDrawable(name);
 		style.down = buttonSkin.getDrawable(name);
 		style.font = scoreFont;
+		buttonSkin.dispose();
 		return new TextButton(display, style);
 	}
 
-	private void activeButton(TextButton button, String name, final int display, float x, float y){
-		float btnWidth = (float)_buttonsAtlas.findRegion(name).getRegionWidth();
-		float btnHeight = (float)_buttonsAtlas.findRegion(name).getRegionHeight();
+	private void activeButton(Button button, String name, final int display, float x, float y){
+		float btnWidth = (float)buttonsAtlas.findRegion(name).getRegionWidth();
+		float btnHeight = (float)buttonsAtlas.findRegion(name).getRegionHeight();
 		button.setSize(btnWidth, btnHeight);
 
 		button.setPosition(x, y);
