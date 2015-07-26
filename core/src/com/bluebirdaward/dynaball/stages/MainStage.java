@@ -178,12 +178,6 @@ public class MainStage extends Stage {
 			_front.btnStart.remove();
 			_front.btnGuide.remove();
 			if(_worldLogic.gameOver == 1){
-//				_level.remove();
-//				_player.remove();
-//				for (int i = 0; i < _gridLevel.buttons.length; i++) {
-//					_gridLevel.buttons[i].remove();
-//				}
-//				_gridLevel.remove();
 				removeAllActorEnemy();
 				if(vitri < _worldLogic.level){
 					vitri = _worldLogic.level;
@@ -221,7 +215,6 @@ public class MainStage extends Stage {
 			for(int i= _worldLogic.enemyLevel.getArr().size -1 ;i >= 0;i--){
 				if(_worldLogic.enemyLevel.getArr().get(i).isHit() == true){
 					_enemyRender.getActor().get(i).remove();
-					_enemyRender.getActor().get(i).setVisible(false);
 					_worldLogic.enemyLevel.getArr().get(i).reset();
 					break;
 				}

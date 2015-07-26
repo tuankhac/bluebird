@@ -8,6 +8,6 @@ public class BarieLogic extends GameLogic {
 	public BarieLogic(World world) {
 		super();
 		initKinematicLimited(world, Constants.USERDATA_BARIE,
-				Constants.BALL_RADIUS*2, Constants.BALL_RADIUS);
+				Constants.BALL_RADIUS*2f, 2f*Constants.BALL_RADIUS);
 	}
 }

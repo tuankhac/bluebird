@@ -38,13 +38,13 @@ public class EnemyLevel {
 						switch (index) {
 						case 1:
 							_enemyLogic = new EnemyLogic(this._world, Constants.USERDATA_ENEMY);
-							_enemyLogic.setPosition(i * Constants.VP_WIDTH/12 + 2*Constants.BALL_RADIUS,(20-j)*Constants.VP_HEIGHT/20 );
+							_enemyLogic.setPosition((i+1) * Constants.VP_WIDTH/15 - Constants.BALL_RADIUS , (25-j)*Constants.VP_HEIGHT/25 - Constants.BALL_RADIUS);
 							_listLogic.add(_enemyLogic);
 							_countEnemy ++;
 							break;
 						case 2:
 							_barieLogic = new BarieLogic(this._world);
-							_barieLogic.setPosition(Constants.VP_WIDTH/12*i + 2*Constants.BALL_RADIUS, (20-j)*Constants.VP_HEIGHT/20 );
+							_barieLogic.setPosition((i+1) * Constants.VP_WIDTH/15 - Constants.BALL_RADIUS, (25-j)*Constants.VP_HEIGHT/25 - Constants.BALL_RADIUS);
 							_listLogic.add(_barieLogic);
 							break;
 						case 3:
