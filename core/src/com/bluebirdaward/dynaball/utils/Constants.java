@@ -4,10 +4,10 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Constants {
 	public static String TEXTURE_ATLAS_OBJECTS = "images/dynaball.atlas";
-	public static final int VP_WIDTH = 30;
-	public static final int VP_HEIGHT = 50;
-	public static final int APP_WIDTH = 30;
-	public static final int APP_HEIGHT = 50;
+	public static final float VP_WIDTH = 30;
+	public static final float VP_HEIGHT = 50;
+	public static final int APP_WIDTH = 480;
+	public static final int APP_HEIGHT = 800;
 	public static final float LOGIC_TO_RENDER = 16;
 
 	public static final Vector2 WORLD_GRAVITY = new Vector2(0, 0);

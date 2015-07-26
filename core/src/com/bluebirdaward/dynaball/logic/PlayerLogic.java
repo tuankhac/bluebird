@@ -11,9 +11,9 @@ public class PlayerLogic extends GameLogic{
 		reset();
 	}
 	
-	@Override public void reset() {
+	 public void reset() {
 		setPosition(Constants.VP_WIDTH/2, Constants.PLAYER_Y0  + Constants.BALL_RADIUS);
 		setVelocity(0, 0);
-		super.reset(); 
+//		super.reset(); 
 	}
 }
