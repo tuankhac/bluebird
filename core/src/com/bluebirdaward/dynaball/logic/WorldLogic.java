@@ -103,13 +103,13 @@ public class WorldLogic {
 		}
 
 		//update timer and score
-		_level.updateDeltaTime();
+		//_level.updateDeltaTime();
 		
 		// reset level when over timer
-		if(_level.timer == 0){
-			gameOver = -1;
-			_mainStage.globalState = GLOBAL_STATE.GAMEOVER;
-		}
+//		if(_level.timer == 0){
+//			gameOver = -1;
+//			_mainStage.globalState = GLOBAL_STATE.GAMEOVER;
+//		}
 
 		if(_getScore == enemyLevel.countEnemy()){
 			_mainStage.globalState = GLOBAL_STATE.GRID_LEVEL;

@@ -18,9 +18,9 @@ public class Bar extends RenderActor {
 	
 	@Override public void act(float delta) {
 		x = transformToScreen(gameLogic.getBody().getPosition().x -  Constants.BALL_RADIUS);
-		y = transformToScreen(gameLogic.getBody().getPosition().y - Constants.BALL_RADIUS/2);
+		y = transformToScreen(gameLogic.getBody().getPosition().y -  Constants.BALL_RADIUS);
 		width = transformToScreen(2*Constants.BALL_RADIUS);
-		height = transformToScreen(Constants.BALL_RADIUS);
+		height = transformToScreen(2*Constants.BALL_RADIUS);
 		super.act(delta);
 	}
 }

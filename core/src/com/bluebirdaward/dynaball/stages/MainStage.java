@@ -23,7 +23,7 @@ import com.bluebirdaward.dynaball.utils.Constants.GLOBAL_STATE;
 
 public class MainStage extends Stage {
 
-	public GLOBAL_STATE globalState = GLOBAL_STATE.START;
+	public GLOBAL_STATE globalState = GLOBAL_STATE.RUNNING;
 
 	private static float VP_HEIGHT = Constants.APP_HEIGHT;
 	private static float VP_WIDTH = Constants.APP_WIDTH;
@@ -220,7 +220,6 @@ public class MainStage extends Stage {
 			_worldLogic.update();
 			for(int i= _worldLogic.enemyLevel.getArr().size -1 ;i >= 0;i--){
 				if(_worldLogic.enemyLevel.getArr().get(i).isHit() == true){
-					_enemyRender.getActor().get(i).remove();
 					_enemyRender.getActor().get(i).setVisible(false);
 					_worldLogic.enemyLevel.getArr().get(i).reset();
 					break;

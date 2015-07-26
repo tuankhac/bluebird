@@ -72,9 +72,9 @@ public class GameLogic {
 		circle.dispose();
 	}
 	
-	protected void initDynamicLimited(World world, Object userData, float hWidth, float hHeight) {
-		createBarie(world, userData, BodyType.DynamicBody, hWidth, hHeight);
-	}
+//	protected void initDynamicLimited(World world, Object userData, float hWidth, float hHeight) {
+//		createBarie(world, userData, BodyType.DynamicBody, hWidth, hHeight);
+//	}
 	
 	protected void initStaticLimited(World world, Object userData, float hWidth, float hHeight, float x, float y) {
 		createBarie(world, userData, BodyType.StaticBody, hWidth, hHeight);
