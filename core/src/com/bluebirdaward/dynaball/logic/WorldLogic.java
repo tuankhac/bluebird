@@ -17,7 +17,7 @@ public class WorldLogic {
 	public boolean allowPlayerHandle = true;
 	public EnemyLevel enemyLevel;
 	public  int gameOver;
-	public int level = 1 ;
+	public int level = 4 ;
 	public int countPressed = 0;
 	private boolean _resetPlayer = false;
 	private World _world;
