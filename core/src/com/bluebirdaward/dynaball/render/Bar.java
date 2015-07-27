@@ -13,7 +13,10 @@ public class Bar extends RenderActor {
 	}
 	
 	@Override public void draw(Batch batch, float delta){
-		batch.draw(Assets.instance.assetatlas.bar, x, y, width, height);
+		if(gameLogic.allowHit)
+			batch.draw(Assets.instance.assetatlas.background, x, y, width, height);
+		else
+			batch.draw(Assets.instance.assetatlas.bar, x, y, width, height);
 	}
 	
 	@Override public void act(float delta) {

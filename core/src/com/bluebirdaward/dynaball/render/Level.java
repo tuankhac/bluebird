@@ -9,7 +9,7 @@ import com.bluebirdaward.dynaball.utils.Constants;
 public class Level extends Actor {
 	public int level = 0;
 private float _elapsed = 0;
-	public int timer = 5;
+	public int timer = 10;
 	
 	@Override public void draw(Batch batch,float delta){
 		batch.draw(Assets.instance.assetatlas.background, 0,0,Constants.APP_WIDTH,Constants.APP_HEIGHT);

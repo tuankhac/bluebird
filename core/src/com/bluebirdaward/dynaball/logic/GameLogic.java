@@ -18,6 +18,10 @@ public class GameLogic {
 	protected Vector2 position;
 	protected boolean hit;
 	
+	public boolean allowMotionHorizontal = false ;
+	public boolean allowMotionVertical = false ;
+	public boolean allowHit = false;
+	
 	public GameLogic() {
 		this.position = new Vector2();
 		hit = false;
@@ -72,9 +76,9 @@ public class GameLogic {
 		circle.dispose();
 	}
 	
-//	protected void initDynamicLimited(World world, Object userData, float hWidth, float hHeight) {
-//		createBarie(world, userData, BodyType.DynamicBody, hWidth, hHeight);
-//	}
+	protected void initDynamicLimited(World world, Object userData, float hWidth, float hHeight) {
+		createBarie(world, userData, BodyType.DynamicBody, hWidth, hHeight);
+	}
 	
 	protected void initStaticLimited(World world, Object userData, float hWidth, float hHeight, float x, float y) {
 		createBarie(world, userData, BodyType.StaticBody, hWidth, hHeight);
@@ -109,6 +113,10 @@ public class GameLogic {
 	 * update position for Sprite via Body */
 	public void update() {
 		position = _gameObjBody.getPosition();
+	}
+	
+	public void mAllowMotion(float vX, float vY){
+		setVelocity(vX,vY);
 	}
 	
 	// Get/set functions

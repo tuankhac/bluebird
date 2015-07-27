@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class AssetAtlats {
 	
 	public TextureRegion background;
+	public TextureRegion backgroundStart;
 	public TextureRegion bar;
 	public TextureRegion player;
 	public TextureRegion ball;
@@ -15,6 +16,7 @@ public class AssetAtlats {
 		super();
 		background=atlas.findRegion("bg_running");
 		bar=atlas.findRegion("bg_start");
+		backgroundStart = atlas.findRegion("bg_start");
 		player=atlas.findRegion("redball");
 		ball=atlas.findRegion("greenball");
 		arrow=atlas.findRegion("arrow");

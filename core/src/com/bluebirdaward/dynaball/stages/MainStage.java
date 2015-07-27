@@ -35,7 +35,7 @@ public class MainStage extends Stage {
 	private Vector3 _touchPoint;
 
 
-	private	 Player _player ;
+	public	 Player _player ;
 	private EnemyRender _enemyRender;
 
 	private GridLevel _gridLevel;
@@ -80,6 +80,7 @@ public class MainStage extends Stage {
 	}
 
 	private void setupNewStart(){
+		addActor(_front);
 		addActor(_front.btnStart);
 		addActor(_front.btnGuide);
 	}
@@ -138,9 +139,9 @@ public class MainStage extends Stage {
 		getCamera().unproject(_touchPoint.set(screenX, screenY, 0));
 
 		if (bottomSideTouched(_touchPoint.x, _touchPoint.y)) {
-			if (_worldLogic.allowHandle){
+			if (_worldLogic.allowPlayerHandle){
 				_worldLogic.player.setVelocity(velocityOrigin.sub(Constants.AXES_ORIGIN).scl(0.35f));
-				_worldLogic.allowHandle = false;
+				_worldLogic.allowPlayerHandle = false;
 			}
 
 		}
@@ -214,7 +215,7 @@ public class MainStage extends Stage {
 			_worldLogic.update();
 			for(int i= _worldLogic.enemyLevel.getArr().size -1 ;i >= 0;i--){
 				if(_worldLogic.enemyLevel.getArr().get(i).isHit() == true){
-					_enemyRender.getActor().get(i).remove();
+//					_enemyRender.getActor().get(i).remove();
 					_worldLogic.enemyLevel.getArr().get(i).reset();
 					break;
 				}
@@ -223,11 +224,6 @@ public class MainStage extends Stage {
 			break;
 
 		case GAMEOVER:
-			_level.remove();
-			_player.remove();
-			removeAllActorEnemy();
-			_worldLogic.resetLevel();
-			_worldLogic.gameOver = 0;
 			touchUpEventPlayAgainButton();
 			break;
 		default:
