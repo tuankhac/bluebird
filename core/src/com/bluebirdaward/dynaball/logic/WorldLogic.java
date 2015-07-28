@@ -17,7 +17,7 @@ public class WorldLogic {
 	public boolean allowPlayerHandle = true;
 	public EnemyLevel enemyLevel;
 	public  int gameOver;
-	public int level = 20 ;
+	public int level = 20;
 	public int countPressed = 0;
 	private boolean _resetPlayer = false;
 	private World _world;
@@ -85,7 +85,7 @@ public class WorldLogic {
 			countPressed = 1;
 		}
 		else{
-//			level ++;
+			//			level ++;
 			enemyLevel.setArrSence("level/map"+ level);	
 		}
 	}
@@ -121,7 +121,13 @@ public class WorldLogic {
 					vXBarie *= -1;
 				}
 				break;
-			case 8: break;
+			case 8:
+				vXBarie = 0;
+				if(_elapse >= 2){
+					_elapse = 0;
+					vYBarie *= -1;
+				}
+				break;
 			case 9:
 				vXBarie = 0;
 				if(_elapse >= 2){
@@ -152,29 +158,33 @@ public class WorldLogic {
 				}
 				break;
 			case 16:
-				vXBarie = 0;
+				vYBarie = 0;
 				if(_elapse >= 2){
 					_elapse = 0;
-					vYBarie *= -1;
+					vXBarie *= -1;
 				}
+				break;
 			case 17:
 				vXBarie = 0;
 				if(_elapse >= 2){
 					_elapse = 0;
 					vYBarie *= -1;
 				}
+				break;
 			case 18:
 				vYBarie = 0;
 				if(_elapse >= 2){
 					_elapse = 0;
 					vXBarie *= -1;
 				}
+				break;
 			case 19:
 				vYBarie = 0;
 				if(_elapse >= 2){
 					_elapse = 0;
 					vXBarie *= -1;
 				}
+				break;
 			case 20:
 				vYBarie = 0;
 				if(_elapse >= 2){
@@ -185,14 +195,14 @@ public class WorldLogic {
 			default:
 				break;
 			}
-//						if(enemyLevel.getArr().get(i).getBody().getUserData() == Constants.USERDATA_ENEMY){
-//							enemyLevel.getArr().get(i).mAllowMotion(vXBalloon, vYBalloon);
-//						}
+			//						if(enemyLevel.getArr().get(i).getBody().getUserData() == Constants.USERDATA_ENEMY){
+			//							enemyLevel.getArr().get(i).mAllowMotion(vXBalloon, vYBalloon);
+			//						}
 			//			
-						if(enemyLevel.getArr().get(i).allowMotionHorizontal == true ||
-								enemyLevel.getArr().get(i).allowMotionVertical == true){
-							enemyLevel.getArr().get(i).mAllowMotion(vXBarie, vYBarie);
-						}
+			if(enemyLevel.getArr().get(i).allowMotionHorizontal == true ||
+					enemyLevel.getArr().get(i).allowMotionVertical == true){
+				enemyLevel.getArr().get(i).mAllowMotion(vXBarie, vYBarie);
+			}
 		}
 
 		if (_resetPlayer) {
@@ -201,13 +211,13 @@ public class WorldLogic {
 		}
 
 		//update timer and score
-//		_level.updateDeltaTime();
+		_level.updateDeltaTime();
 
 		// reset level when over timer
-//		if(_level.timer == 0){
-//			gameOver = -1;
-//			_mainStage.globalState = GLOBAL_STATE.GAMEOVER;
-//		}
+		if(_level.timer == 0){
+			gameOver = -1;
+			_mainStage.globalState = GLOBAL_STATE.GAMEOVER;
+		}
 
 		if(_getScore == enemyLevel.countEnemy()){
 			_mainStage.globalState = GLOBAL_STATE.GRID_LEVEL;
@@ -278,8 +288,8 @@ public class WorldLogic {
 			break;
 		}
 		_getScore = 0;
-		 vXBarie = 3f; vYBarie = 3f;
-		 vXBalloon = 3f ; vYBalloon = 3f;
+		vXBarie = 3f; vYBarie = 3f;
+		vXBalloon = 3f ; vYBalloon = 3f;
 		for(int i=0;i<enemyLevel.getArr().size;i++ )
 			_world.destroyBody(enemyLevel.getArr().get(i).getBody());
 		enemyLevel.getArr().clear();
@@ -352,7 +362,7 @@ public class WorldLogic {
 		}
 		_getScore = 0;
 		vXBarie = 3f; vYBarie = 3f;
-		 vXBalloon = 3f ; vYBalloon = 3f;
+		vXBalloon = 3f ; vYBalloon = 3f;
 		for(int i=0;i < enemyLevel.getArr().size;i++ )
 			_world.destroyBody(enemyLevel.getArr().get(i).getBody());
 		enemyLevel.getArr().clear();
