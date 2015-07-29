@@ -27,9 +27,6 @@ public class Constants {
 	public static final String USERDATA_GROUND = "GROUND";
 	public static final String USERDATA_LIMITED = "LIMITED";
 
-	public static short PLAYER = 0X01;
-	public static short ENEMY = 0x02;
-
 	public static final Vector2 AXES_ORIGIN = new Vector2(APP_WIDTH/2, PLAYER_Y0);
 
 	public enum GLOBAL_STATE { RUNNING,GAMEOVER,START,PLAY,GUIDE,GRID_LEVEL,NEXT }
