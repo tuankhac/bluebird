@@ -43,6 +43,7 @@ public class MainStage extends Stage {
 	private EventsButtons _eventButtons;
 
 	private int vitri = 0;
+	private boolean finish = false;
 
 	public WorldLogic _worldLogic;
 	public Level _level;
@@ -100,7 +101,8 @@ public class MainStage extends Stage {
 
 	private void setupCamera() {
 		_gUICam = new OrthographicCamera(VP_WIDTH, VP_HEIGHT);
-		_gUICam.position.set(_gUICam.viewportWidth / 2, _gUICam.viewportHeight / 2, 0f);
+		//_gUICam.position.set(_gUICam.viewportWidth / 2, _gUICam.viewportHeight / 2, 0f);
+		_gUICam.position.set(14f*Constants.BALL_RADIUS, _gUICam.viewportHeight / 2, 0f);
 		_gUICam.update();
 	}
 
@@ -116,7 +118,7 @@ public class MainStage extends Stage {
 			_gridLevel.buttons[i].remove();
 		}
 		_gridLevel.remove();
-		
+
 		_level.remove();
 		_player.remove();
 		for(Actor actor: _enemyRender.getActor()){
@@ -140,12 +142,21 @@ public class MainStage extends Stage {
 
 		if (bottomSideTouched(_touchPoint.x, _touchPoint.y)) {
 			if (_worldLogic.allowPlayerHandle){
-				_worldLogic.player.setVelocity(velocityOrigin.sub(Constants.AXES_ORIGIN).scl(0.35f));
+				_worldLogic.player.setVelocity(velocityOrigin.scl(0.35f));
 				_worldLogic.allowPlayerHandle = false;
 			}
 
 		}
 		else if (topSideTouched(_touchPoint.x, _touchPoint.y)) {}
+	}
+
+	private void touchDragRunning(int screenX, int screenY){
+		if (bottomSideTouched(_touchPoint.x, _touchPoint.y)) {
+			if (_worldLogic.allowPlayerHandle){
+				float tempX  = _gUICam.getPickRay(screenX, screenY).origin.x;
+				_level.rotation = -(float)Math.atan2(tempX , Constants.APP_WIDTH/2 - 1.1f* Constants.BARIE_WIDTH)* 90 ;
+			}
+		}else if (topSideTouched(_touchPoint.x, _touchPoint.y)) ;
 	}
 
 	private void touchUpGridLevel(){
@@ -168,7 +179,6 @@ public class MainStage extends Stage {
 	/** Logic */
 	@Override public void act(float delta) {
 		super.act(delta);
-		System.out.println(Gdx.app.getJavaHeap());
 		switch (globalState) {
 		case START:
 			setupNewStart();
@@ -183,14 +193,20 @@ public class MainStage extends Stage {
 				if(vitri < _worldLogic.level){
 					vitri = _worldLogic.level;
 					_gridLevel._displayGridLevel[_worldLogic.level - 1] = 1;
-					_gridLevel._displayGridLevel[_worldLogic.level] = 0; 
-					_gridLevel.allowActiveButton[_worldLogic.level] = true;
+					if(_worldLogic.level< 20){
+						_gridLevel._displayGridLevel[_worldLogic.level] = 0; 
+						_gridLevel.allowActiveButton[_worldLogic.level] = true;
+					}
+					else{
+						finish = true;
+					}
 				}
-				_gridLevel.initGridLevel();
 			}
-
-			setupGridView();
-			touchUpGridLevel();
+			if(finish == false){
+				_gridLevel.initGridLevel();
+				setupGridView();
+				touchUpGridLevel();
+			}
 			break;
 
 		case PLAY:
@@ -200,7 +216,7 @@ public class MainStage extends Stage {
 			}
 			_gridLevel.remove();
 			if(_worldLogic.gameOver == 1){
-				
+
 				_worldLogic.nextLevel();
 
 				_worldLogic.gameOver = 0;
@@ -215,7 +231,7 @@ public class MainStage extends Stage {
 			_worldLogic.update();
 			for(int i= _worldLogic.enemyLevel.getArr().size -1 ;i >= 0;i--){
 				if(_worldLogic.enemyLevel.getArr().get(i).isHit() == true){
-//					_enemyRender.getActor().get(i).remove();
+					//					_enemyRender.getActor().get(i).remove();
 					_worldLogic.enemyLevel.getArr().get(i).reset();
 					break;
 				}
@@ -236,6 +252,7 @@ public class MainStage extends Stage {
 		switch (globalState) {
 		case RUNNING:
 			touchUpRunning(screenX,screenY);
+
 			break;
 
 		default:
@@ -247,13 +264,28 @@ public class MainStage extends Stage {
 
 	@Override public boolean touchDragged(int screenX, int screenY, int pointer) {
 
+		switch (globalState) {
+		case RUNNING:
+			touchDragRunning(screenX, screenY);
+			break;
+
+		default:
+			break;
+		}
 		return super.touchDragged(screenX, screenY, pointer);
 	}
 
 	@Override public boolean touchDown(int x, int y, int pointer, int button) {
 		// Need to get the actual coordinates
 		getCamera().unproject(_touchPoint.set(x, y, 0));
+		switch (globalState) {
+		case RUNNING:
+			touchDragRunning(x, y);
+			break;
 
+		default:
+			break;
+		}
 		return super.touchDown(x, y, pointer, button);
 	}
 }
