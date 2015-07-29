@@ -11,6 +11,7 @@ public class AssetAtlats {
 	public TextureRegion player;
 	public TextureRegion ball;
 	public TextureRegion arrow;
+	public TextureRegion btTop;
 	
 	public AssetAtlats(TextureAtlas atlas) {
 		super();
@@ -20,5 +21,6 @@ public class AssetAtlats {
 		player=atlas.findRegion("redball");
 		ball=atlas.findRegion("greenball");
 		arrow=atlas.findRegion("arrow");
+		btTop = atlas.findRegion("btTop");
 	}
 }
