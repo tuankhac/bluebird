@@ -17,7 +17,11 @@ public class WorldLogic {
 	public boolean allowPlayerHandle = true;
 	public EnemyLevel enemyLevel;
 	public  int gameOver;
+<<<<<<< HEAD
 	public int level = 6;
+=======
+	public int level = 1;
+>>>>>>> 4b86d5da0a0517686fb145c3f579d1c0e93548d8
 	public int countPressed = 0;
 	private boolean _resetPlayer = false;
 	private World _world;
@@ -43,7 +47,6 @@ public class WorldLogic {
 			@Override public void beginContact(Contact contact) {
 				_a = contact.getFixtureA().getBody();
 				_b = contact.getFixtureB().getBody();
-				//				System.out.println("Begin contact a/b: " + _a.getUserData() + "/" + _b.getUserData());
 
 				if (_a.getUserData() != Constants.USERDATA_LIMITED ) {
 					_resetPlayer = true;
