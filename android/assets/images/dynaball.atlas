@@ -1,40 +1,46 @@
 
 dynaball.png
-size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 bg_running
   rotate: false
-  xy: 1, 197
+  xy: 1, 209
   size: 480, 800
   orig: 480, 800
   offset: 0, 0
   index: -1
-bg_start
+game_over
   rotate: false
-  xy: 483, 197
-  size: 480, 800
-  orig: 480, 800
+  xy: 483, 708
+  size: 363, 301
+  orig: 363, 301
+  offset: 0, 0
+  index: -1
+bt_top
+  rotate: false
+  xy: 1, 157
+  size: 480, 50
+  orig: 480, 50
   offset: 0, 0
   index: -1
 greenball
   rotate: false
-  xy: 1, 99
+  xy: 483, 610
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 redball
   rotate: false
-  xy: 1, 1
+  xy: 848, 913
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 arrow
   rotate: false
-  xy: 965, 843
+  xy: 1, 1
   size: 30, 154
   orig: 30, 154
   offset: 0, 0
