@@ -17,11 +17,8 @@ public class WorldLogic {
 	public boolean allowPlayerHandle = true;
 	public EnemyLevel enemyLevel;
 	public  int gameOver;
-<<<<<<< HEAD
 	public int level = 6;
-=======
-	public int level = 1;
->>>>>>> 4b86d5da0a0517686fb145c3f579d1c0e93548d8
+
 	public int countPressed = 0;
 	private boolean _resetPlayer = false;
 	private World _world;
