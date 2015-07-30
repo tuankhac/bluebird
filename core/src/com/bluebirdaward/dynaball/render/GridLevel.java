@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.bluebirdaward.dynaball.logic.Assets;
+import com.bluebirdaward.dynaball.utils.Audios;
 import com.bluebirdaward.dynaball.utils.Constants;
 
 public class GridLevel extends Actor {
@@ -111,6 +112,7 @@ public class GridLevel extends Actor {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				touchedGridButton = true;
 				GridLevel.this.display = display;
+				Audios.audio.play(Audios.audio.click_grid);
 				return true;
 			}
 		});

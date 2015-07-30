@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.bluebirdaward.dynaball.logic.Assets;
 import com.bluebirdaward.dynaball.stages.MainStage;
+import com.bluebirdaward.dynaball.utils.Audios;
 import com.bluebirdaward.dynaball.utils.Constants;
 import com.bluebirdaward.dynaball.utils.Constants.GLOBAL_STATE;
 public class StartView extends Actor {
@@ -69,6 +70,7 @@ public class StartView extends Actor {
 		btnStart.addListener(new ClickListener(){
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				_mainStage.globalState = GLOBAL_STATE.GRID_LEVEL;
+				Audios.audio.play(Audios.audio.click_grid);
 				System.out.println(_mainStage.globalState);
 				return true;
 			}
@@ -86,6 +88,7 @@ public class StartView extends Actor {
 		btnGuide.addListener(new ClickListener(){
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				_mainStage.globalState = GLOBAL_STATE.GUIDE;
+				Audios.audio.play(Audios.audio.click_grid);
 				return true;
 			}
 		});

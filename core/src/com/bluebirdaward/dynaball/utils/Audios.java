@@ -9,8 +9,6 @@ public class Audios {
 	public  Sound click_grid;
 	public  Sound player_hit_enemy;
 	public  Sound game_over;
-//	public  Sound bum_tank ;
-//	public  Sound level_completed ;
 	public  boolean canPlay = true;
 
 	public static Audios audio = new Audios();
@@ -23,14 +21,12 @@ public class Audios {
 		click_grid = Gdx.audio.newSound(Gdx.files.internal("sounds/click01.mp3"));
 		player_hit_enemy = Gdx.audio.newSound(Gdx.files.internal("sounds/ball_hit_enemy.mp3"));
 		game_over = Gdx.audio.newSound(Gdx.files.internal("sounds/gameOver07.mp3"));
-//		bum_tank = Gdx.audio.newSound(Gdx.files.internal("sounds/bum_tank.wav"));
-//		level_completed = Gdx.audio.newSound(Gdx.files.internal("sounds/level_completed.wav"));
 	}
 	public  void play(final Sound sound) {
 		if (canPlay) {
 			sound.play();
-			if (sound == click_grid)
-				click_grid.loop();
+			if (sound == player_hit_enemy)
+				player_hit_enemy.play(0.3f);
 		}
 	}
 
@@ -40,8 +36,6 @@ public class Audios {
 		click_grid.stop();
 		player_hit_enemy.stop();
 		game_over.stop();
-//		bum_tank.stop();
-//		level_completed.stop();
 	}
 	public void disposeAll(){
 		play_ball.dispose();
@@ -49,7 +43,5 @@ public class Audios {
 		player_hit_enemy.dispose();
 		click_grid.dispose();
 		game_over.dispose();
-//		bum_tank.dispose();
-//		level_completed.dispose();
 	}
 }

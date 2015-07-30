@@ -18,6 +18,7 @@ import com.bluebirdaward.dynaball.render.GridLevel;
 import com.bluebirdaward.dynaball.render.Level;
 import com.bluebirdaward.dynaball.render.Player;
 import com.bluebirdaward.dynaball.render.StartView;
+import com.bluebirdaward.dynaball.utils.Audios;
 import com.bluebirdaward.dynaball.utils.Constants;
 import com.bluebirdaward.dynaball.utils.Constants.GLOBAL_STATE;
 
@@ -205,6 +206,7 @@ public class MainStage extends Stage {
 				setupNewStart();
 				addedStart = false;
 			}
+//			Audios.audio.play(Audios.audio.play_ball);
 			break;
 
 		case GRID_LEVEL:

@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.bluebirdaward.dynaball.render.Level;
 import com.bluebirdaward.dynaball.stages.MainStage;
+import com.bluebirdaward.dynaball.utils.Audios;
 import com.bluebirdaward.dynaball.utils.Constants;
 import com.bluebirdaward.dynaball.utils.Constants.GLOBAL_STATE;
 
@@ -17,7 +18,7 @@ public class WorldLogic {
 	public boolean allowPlayerHandle = true;
 	public EnemyLevel enemyLevel;
 	public  int gameOver;
-	public int level = 20;
+	public int level = 2;
 
 	public int countPressed = 0;
 	private boolean _resetPlayer = false;
@@ -49,6 +50,7 @@ public class WorldLogic {
 					_resetPlayer = true;
 					allowPlayerHandle = true;
 					if((_a.getUserData() == Constants.USERDATA_BARIE|| _b.getUserData() == Constants.USERDATA_BARIE)){
+						Audios.audio.play(Audios.audio.ball_restitution);
 						for(GameLogic logic: enemyLevel.getArr())
 							if((logic.getBody() == _b || logic.getBody() == _a) && logic.allowHit){
 								_resetPlayer= false;
@@ -60,6 +62,7 @@ public class WorldLogic {
 					if((_a.getUserData() == Constants.USERDATA_ENEMY || _b.getUserData() == Constants.USERDATA_ENEMY)){
 						for(GameLogic logic: enemyLevel.getArr())
 							if(logic.getBody() == _b || logic.getBody() == _a){
+								Audios.audio.play(Audios.audio.player_hit_enemy);
 								logic.hit();
 							}
 					}
@@ -216,6 +219,7 @@ public class WorldLogic {
 
 		// reset level when over timer
 		if(_level.timer == 0){
+			Audios.audio.play(Audios.audio.game_over);
 			gameOver = -1;
 			_mainStage.globalState = GLOBAL_STATE.GAMEOVER;
 		}
