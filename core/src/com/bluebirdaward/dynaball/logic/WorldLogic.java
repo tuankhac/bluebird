@@ -69,7 +69,7 @@ public class WorldLogic {
 
 		player = new PlayerLogic(_world);
 		enemyLevel = new EnemyLevel(_world);
-		initNewLevel();
+//		initNewLevel();
 		new LimitedLogic(_world);
 	}
 
@@ -106,7 +106,7 @@ public class WorldLogic {
 			if(enemyLevel.getArr().get(i).isHit() == true){
 				//				enemyLevel.getArr().get(i).getBody().setTransform(Constants.VP_WIDTH -3*Constants.BALL_RADIUS,
 				//						Constants.VP_HEIGHT - 2*Constants.BALL_RADIUS,0);
-				//				enemyLevel.getArr().get(i).reset();
+//								enemyLevel.getArr().get(i).reset();
 				_getScore ++;
 				break;
 			}

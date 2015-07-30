@@ -4,13 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 
 public class Audios {
-	public  Sound enter_game ;
-	public  Sound life ;
-	public  Sound move;
-	public  Sound shoot;
-	public  Sound bum;
-	public  Sound bum_tank ;
-	public  Sound level_completed ;
+	public  Sound play_ball ;
+	public  Sound ball_restitution ;
+	public  Sound click_grid;
+	public  Sound player_hit_enemy;
+	public  Sound game_over;
+//	public  Sound bum_tank ;
+//	public  Sound level_completed ;
 	public  boolean canPlay = true;
 
 	public static Audios audio = new Audios();
@@ -18,38 +18,38 @@ public class Audios {
 	private Audios() {}
 
 	public void initAudio(){
-		enter_game = Gdx.audio.newSound(Gdx.files	.internal("sounds/enter_game.wav"));
-		life = Gdx.audio.newSound(Gdx.files.internal("sounds/life.wav"));
-		move = Gdx.audio.newSound(Gdx.files.internal("sounds/move.wav"));
-		shoot = Gdx.audio.newSound(Gdx.files.internal("sounds/shoot.wav"));
-		bum = Gdx.audio.newSound(Gdx.files.internal("sounds/bum.wav"));
-		bum_tank = Gdx.audio.newSound(Gdx.files.internal("sounds/bum_tank.wav"));
-		level_completed = Gdx.audio.newSound(Gdx.files.internal("sounds/level_completed.wav"));
+		play_ball = Gdx.audio.newSound(Gdx.files.internal("sounds/play_ball.mp3"));
+		ball_restitution = Gdx.audio.newSound(Gdx.files.internal("sounds/ball_restitution.mp3"));
+		click_grid = Gdx.audio.newSound(Gdx.files.internal("sounds/click01.mp3"));
+		player_hit_enemy = Gdx.audio.newSound(Gdx.files.internal("sounds/ball_hit_enemy.mp3"));
+		game_over = Gdx.audio.newSound(Gdx.files.internal("sounds/gameOver07.mp3"));
+//		bum_tank = Gdx.audio.newSound(Gdx.files.internal("sounds/bum_tank.wav"));
+//		level_completed = Gdx.audio.newSound(Gdx.files.internal("sounds/level_completed.wav"));
 	}
 	public  void play(final Sound sound) {
 		if (canPlay) {
 			sound.play();
-			if (sound == move)
-				move.loop();
+			if (sound == click_grid)
+				click_grid.loop();
 		}
 	}
 
 	public  void stopAll() {
-		enter_game.stop();
-		life.stop();
-		move.stop();
-		shoot.stop();
-		bum.stop();
-		bum_tank.stop();
-		level_completed.stop();
+		play_ball.stop();
+		ball_restitution.stop();
+		click_grid.stop();
+		player_hit_enemy.stop();
+		game_over.stop();
+//		bum_tank.stop();
+//		level_completed.stop();
 	}
 	public void disposeAll(){
-		enter_game.dispose();
-		life.dispose();
-		shoot.dispose();
-		move.dispose();
-		bum.dispose();
-		bum_tank.dispose();
-		level_completed.dispose();
+		play_ball.dispose();
+		ball_restitution.dispose();
+		player_hit_enemy.dispose();
+		click_grid.dispose();
+		game_over.dispose();
+//		bum_tank.dispose();
+//		level_completed.dispose();
 	}
 }
