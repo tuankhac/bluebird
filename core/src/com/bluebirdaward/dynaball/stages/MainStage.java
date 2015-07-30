@@ -34,8 +34,8 @@ public class MainStage extends Stage {
 	private Rectangle _screenBottomSide;
 	private Vector3 _touchPoint;
 
-
-	public	 Player _player ;
+	private Level _level;
+	private	 Player _player ;
 	private EnemyRender _enemyRender;
 
 	private GridLevel _gridLevel;
@@ -43,10 +43,13 @@ public class MainStage extends Stage {
 	private EventsButtons _eventButtons;
 
 	private int vitri = 0;
-	private boolean finish = false;
+	private boolean addedPlay = true;
+	private boolean addedGrid = true;
+	private boolean addedStart = true;
+	private boolean addedPlayAgain = true;
 
-	public WorldLogic _worldLogic;
-	public Level _level;
+	private WorldLogic _worldLogic;
+
 	public MainStage() {
 		super(new ScalingViewport(Scaling.stretch, VP_WIDTH, VP_HEIGHT,
 				new OrthographicCamera(VP_WIDTH, VP_HEIGHT)));
@@ -62,7 +65,7 @@ public class MainStage extends Stage {
 		_debugRenderer = new Box2DDebugRenderer();
 
 		_front = new StartView(this);
-		_gridLevel = new GridLevel(this);
+		_gridLevel = new GridLevel();
 
 		_level = new Level();
 		_worldLogic = new WorldLogic(this,_level);
@@ -70,14 +73,6 @@ public class MainStage extends Stage {
 		_enemyRender = new EnemyRender(_worldLogic);
 
 		_eventButtons = new EventsButtons(this);
-	}
-
-	private void touchUpEventPlayButton(){
-		addActor(_eventButtons.btnPlay);
-	}
-
-	private void touchUpEventPlayAgainButton(){
-		addActor(_eventButtons.btnPlayAgain);
 	}
 
 	private void setupNewStart(){
@@ -97,11 +92,11 @@ public class MainStage extends Stage {
 		for(Actor actor: _enemyRender.getActor()){
 			addActor(actor);
 		}
+		addActor(_eventButtons);
 	}
 
 	private void setupCamera() {
 		_gUICam = new OrthographicCamera(VP_WIDTH, VP_HEIGHT);
-		//_gUICam.position.set(_gUICam.viewportWidth / 2, _gUICam.viewportHeight / 2, 0f);
 		_gUICam.position.set(14f*Constants.BALL_RADIUS, _gUICam.viewportHeight / 2, 0f);
 		_gUICam.update();
 	}
@@ -113,12 +108,15 @@ public class MainStage extends Stage {
 		_screenTopSide = new Rectangle(0, vpHeight, getCamera().viewportWidth, vpHeight * 2);
 	}
 
-	public void removeAllActorEnemy(){
+	private void removeGrid(){
+		_gridLevel.remove();
+
 		for (int i = 0; i < _gridLevel.buttons.length; i++) {
 			_gridLevel.buttons[i].remove();
 		}
-		_gridLevel.remove();
-
+	}
+	public void removeAllActor(){
+		removeGrid();
 		_level.remove();
 		_player.remove();
 		for(Actor actor: _enemyRender.getActor()){
@@ -127,13 +125,29 @@ public class MainStage extends Stage {
 		_enemyRender.getActor().clear();
 	}
 
-	//	public void addAllActorEnemy(){
-	//		_enemyRender.init();
-	//		for(Actor actor: _enemyRender.getActor()){
-	//			addActor(actor);
-	//		}
-	//	}
+	private void touchUpEventPlayButton(){
+		addActor(_eventButtons.btnPlay);
+	}
 
+	private void touchUpEventPlayAgainButton(){
+
+		addActor(_eventButtons.btnPlayAgain);
+	}
+
+	private void touchGridButton(){
+		_worldLogic.countPressed ++;
+		_level.level = _gridLevel.display;
+		_worldLogic.initNewLevel();
+		globalState = GLOBAL_STATE.PLAY;
+	}
+	private void touchPlayAgain(){
+		_worldLogic.resetLevel();
+		_worldLogic.gameOver = 0;
+		removeAllActor();
+		setupNewRunning();
+		globalState = GLOBAL_STATE.RUNNING;
+		addedPlayAgain = true;
+	}
 	private void touchUpRunning(int screenX, int screenY){
 		float tempX = _gUICam.getPickRay(screenX, screenY).origin.x;
 		float tempY = _gUICam.getPickRay(screenX, screenY).origin.y;
@@ -154,7 +168,10 @@ public class MainStage extends Stage {
 		if (bottomSideTouched(_touchPoint.x, _touchPoint.y)) {
 			if (_worldLogic.allowPlayerHandle){
 				float tempX  = _gUICam.getPickRay(screenX, screenY).origin.x;
-				_level.rotation = -(float)Math.atan2(tempX , Constants.APP_WIDTH/2 - 1.1f* Constants.BARIE_WIDTH)* 90 ;
+				if(tempX > 0)
+					_level.rotation = -(float)Math.atan2(tempX ,_level._xArrow)* 100 + Constants.BALL_RADIUS ;
+				else if(tempX < 0)
+					_level.rotation = -(float)Math.atan2(tempX , _level._xArrow)* 100 - Constants.BALL_RADIUS ;
 			}
 		}else if (topSideTouched(_touchPoint.x, _touchPoint.y)) ;
 	}
@@ -171,9 +188,12 @@ public class MainStage extends Stage {
 	private boolean bottomSideTouched(float x, float y) { return _screenBottomSide.contains(x, y); }
 
 	@Override public void dispose(){
+		addedStart = true;
 		Assets.instance.dispose();
-		_front._buttonsAtlas.dispose();
+		_debugRenderer.dispose();
+		_front.buttonsAtlas.dispose();
 		_gridLevel.buttonsAtlas.dispose();
+		dispose();
 	}
 
 	/** Logic */
@@ -181,7 +201,10 @@ public class MainStage extends Stage {
 		super.act(delta);
 		switch (globalState) {
 		case START:
-			setupNewStart();
+			if(addedStart){
+				setupNewStart();
+				addedStart = false;
+			}
 			break;
 
 		case GRID_LEVEL:
@@ -189,7 +212,7 @@ public class MainStage extends Stage {
 			_front.btnStart.remove();
 			_front.btnGuide.remove();
 			if(_worldLogic.gameOver == 1){
-				removeAllActorEnemy();
+				removeAllActor();
 				if(vitri < _worldLogic.level){
 					vitri = _worldLogic.level;
 					_gridLevel._displayGridLevel[_worldLogic.level - 1] = 1;
@@ -198,32 +221,42 @@ public class MainStage extends Stage {
 						_gridLevel.allowActiveButton[_worldLogic.level] = true;
 					}
 					else{
-						finish = true;
+						globalState = GLOBAL_STATE.CONGRATULATION;
+
 					}
 				}
+				addedGrid = true;
 			}
-			if(finish == false){
-				_gridLevel.initGridLevel();
-				setupGridView();
-				touchUpGridLevel();
+			if(globalState !=GLOBAL_STATE.CONGRATULATION){
+				if(addedGrid){
+					_gridLevel.initGridLevel();
+					setupGridView();
+					touchUpGridLevel();
+					addedGrid = false;
+				}
+				if(_gridLevel.touchedGridButton){
+					touchGridButton();
+					_gridLevel.touchedGridButton = false;
+				}
 			}
 			break;
 
 		case PLAY:
+			removeGrid();
 
-			for (int i = 0; i < _gridLevel.buttons.length; i++) {
-				_gridLevel.buttons[i].remove();
-			}
-			_gridLevel.remove();
 			if(_worldLogic.gameOver == 1){
 
 				_worldLogic.nextLevel();
-
 				_worldLogic.gameOver = 0;
+				addedPlay = true;
+				addedGrid = true;
+				addedPlayAgain = true;
 			}
-
-			setupNewRunning();
-			touchUpEventPlayButton();
+			if(addedPlay){
+				setupNewRunning();
+				touchUpEventPlayButton();
+				addedPlay = false;
+			}
 			break;
 
 		case RUNNING:
@@ -231,7 +264,10 @@ public class MainStage extends Stage {
 			_worldLogic.update();
 			for(int i= _worldLogic.enemyLevel.getArr().size -1 ;i >= 0;i--){
 				if(_worldLogic.enemyLevel.getArr().get(i).isHit() == true){
-					//					_enemyRender.getActor().get(i).remove();
+					_enemyRender.getActor().get(i).remove();
+					_enemyRender.getActor().get(i).clear();
+					_worldLogic.enemyLevel.getArr().get(i).getBody().setTransform(Constants.VP_WIDTH -3*Constants.BALL_RADIUS,
+							Constants.VP_HEIGHT - 2*Constants.BALL_RADIUS,0);
 					_worldLogic.enemyLevel.getArr().get(i).reset();
 					break;
 				}
@@ -240,7 +276,16 @@ public class MainStage extends Stage {
 			break;
 
 		case GAMEOVER:
-			touchUpEventPlayAgainButton();
+			if(addedPlayAgain){
+				touchUpEventPlayAgainButton();
+				addedPlayAgain = false;
+			}
+			if(_eventButtons.touchedPlayAgain){
+				touchPlayAgain();
+				_eventButtons.touchedPlayAgain = false;
+			}
+			addedPlay = true;
+			addedGrid = true;
 			break;
 		default:
 			break;
@@ -252,13 +297,11 @@ public class MainStage extends Stage {
 		switch (globalState) {
 		case RUNNING:
 			touchUpRunning(screenX,screenY);
-
 			break;
 
 		default:
 			break;
 		}
-
 		return super.touchUp(screenX, screenY, pointer, button);
 	}
 

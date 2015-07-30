@@ -18,7 +18,8 @@ import com.bluebirdaward.dynaball.stages.MainStage;
 import com.bluebirdaward.dynaball.utils.Constants;
 import com.bluebirdaward.dynaball.utils.Constants.GLOBAL_STATE;
 public class StartView extends Actor {
-	public TextureAtlas _buttonsAtlas;
+	public TextureAtlas buttonsAtlas;
+	
 	private Skin _buttonSkin;
 	private BitmapFont _scoreFont;
 	private MainStage _mainStage;
@@ -34,14 +35,12 @@ public class StartView extends Actor {
 	@Override public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		batch.draw(Assets.instance.assetatlas.background, 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
-		btnStart.draw(batch, parentAlpha);
-		btnGuide.draw(batch, parentAlpha);
 	}
 
 	private void initButtons(){
-		_buttonsAtlas = new TextureAtlas("images/buttons.pack");
+		buttonsAtlas = new TextureAtlas("images/buttons.pack");
 		_buttonSkin = new Skin();
-		_buttonSkin.addRegions(_buttonsAtlas);
+		_buttonSkin.addRegions(buttonsAtlas);
 
 		btnStart = initButton("button_start");
 		btnGuide = initButton("button_guide");
@@ -60,8 +59,8 @@ public class StartView extends Actor {
 	}
 
 	private void activeButtonStart(float y){
-		float btnWidth = (float)_buttonsAtlas.findRegion("button_start").getRegionWidth();
-		float btnHeight = (float)_buttonsAtlas.findRegion("button_start").getRegionHeight();
+		float btnWidth = (float)buttonsAtlas.findRegion("button_start").getRegionWidth();
+		float btnHeight = (float)buttonsAtlas.findRegion("button_start").getRegionHeight();
 		btnStart.setSize(btnWidth, btnHeight);
 		btnStart.setPosition(Constants.APP_WIDTH/2-btnWidth/2, y);
 
@@ -77,8 +76,8 @@ public class StartView extends Actor {
 	}
 
 	private void activeButtonGuide(float y){
-		float btnWidth = (float)_buttonsAtlas.findRegion("button_guide").getRegionWidth();
-		float btnHeight = (float)_buttonsAtlas.findRegion("button_guide").getRegionHeight();
+		float btnWidth = (float)buttonsAtlas.findRegion("button_guide").getRegionWidth();
+		float btnHeight = (float)buttonsAtlas.findRegion("button_guide").getRegionHeight();
 		btnGuide.setSize(btnWidth, btnHeight);
 		btnGuide.setPosition(Constants.APP_WIDTH/2-btnWidth/2, y);
 

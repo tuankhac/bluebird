@@ -17,11 +17,11 @@ public class WorldLogic {
 	public boolean allowPlayerHandle = true;
 	public EnemyLevel enemyLevel;
 	public  int gameOver;
-	public int level = 6;
+	public int level = 20;
 
 	public int countPressed = 0;
 	private boolean _resetPlayer = false;
-	private World _world;
+	public World _world;
 	private int _getScore; 
 	private Body _a,_b;
 	private Level _level;
@@ -52,6 +52,7 @@ public class WorldLogic {
 						for(GameLogic logic: enemyLevel.getArr())
 							if((logic.getBody() == _b || logic.getBody() == _a) && logic.allowHit){
 								_resetPlayer= false;
+								allowPlayerHandle = false;
 								break;
 							}
 
@@ -79,13 +80,13 @@ public class WorldLogic {
 	}
 	/*init new level when have new event*/
 	public void initNewLevel(){
-		if(countPressed > 1){
+		if(countPressed >1){
 			level = _level.level;
 			enemyLevel.setArrSence("level/map"+ level);	
 			countPressed = 1;
 		}
-		else{
-			//			level ++;
+		else {
+			_level.level = level;
 			enemyLevel.setArrSence("level/map"+ level);	
 		}
 	}
@@ -103,8 +104,8 @@ public class WorldLogic {
 	private void catchRunning(){
 		for(int i= enemyLevel.getArr().size -1 ;i>=0;i--){
 			if(enemyLevel.getArr().get(i).isHit() == true){
-				enemyLevel.getArr().get(i).getBody().setTransform(Constants.VP_WIDTH -3*Constants.BALL_RADIUS,
-						Constants.VP_HEIGHT - 2*Constants.BALL_RADIUS,0);
+				//				enemyLevel.getArr().get(i).getBody().setTransform(Constants.VP_WIDTH -3*Constants.BALL_RADIUS,
+				//						Constants.VP_HEIGHT - 2*Constants.BALL_RADIUS,0);
 				//				enemyLevel.getArr().get(i).reset();
 				_getScore ++;
 				break;

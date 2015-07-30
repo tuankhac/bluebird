@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.bluebirdaward.dynaball.logic.Assets;
 import com.bluebirdaward.dynaball.stages.MainStage;
 import com.bluebirdaward.dynaball.utils.Constants;
 import com.bluebirdaward.dynaball.utils.Constants.GLOBAL_STATE;
@@ -22,22 +24,35 @@ public class EventsButtons extends Actor {
 	public Button btnPlay;
 	public Button btnPlayAgain;
 	public Button btnBack;
-	
-	
+	public boolean touchedPlayAgain = false;
+
 	private TextureAtlas _buttonsAtlas;
 	private Skin _buttonSkin;
 	private MainStage _mainStage;
 	private BitmapFont _scoreFont;
 
+	private Sprite sprite = new Sprite(Assets.instance.assetatlas.finish);
+	private float alphaModulation = 0;
+	
 	public EventsButtons(MainStage _mainStage) {
 		this._mainStage = _mainStage;
 		initFont();
 		initButtons();
+
+		sprite.setPosition(Constants.APP_WIDTH/8, Constants.APP_HEIGHT/3);
 	}
 
-	@Override public void draw(Batch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha);
-		btnPlay.draw(batch, parentAlpha);
+	@Override public void draw(Batch batch, float delta) {
+		super.draw(batch, delta);
+		if(_mainStage.globalState == GLOBAL_STATE.GAMEOVER)
+			batch.draw(Assets.instance.assetatlas.gameOver, Constants.APP_WIDTH/8, Constants.APP_HEIGHT/3, 3*Constants.APP_WIDTH/4, Constants.APP_HEIGHT/3);
+		if(_mainStage.globalState == GLOBAL_STATE.CONGRATULATION){
+			batch.draw(Assets.instance.assetatlas.background, 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
+
+			if(alphaModulation < 1f)
+				alphaModulation += Gdx.graphics.getDeltaTime()/2;
+			sprite.draw(batch, alphaModulation);
+		}
 	}
 	private void initButtons(){
 		_buttonsAtlas = new TextureAtlas("images/buttons.pack");
@@ -49,10 +64,10 @@ public class EventsButtons extends Actor {
 		btnBack = initButton("button_back");
 
 		activeButtonPlay(Constants.APP_HEIGHT/2);
-		activeButtonPlayAgain(Constants.APP_HEIGHT/2);
+		activeButtonPlayAgain(Constants.APP_HEIGHT/3 + Constants.BARIE_WIDTH);
 		activeButtonBack(Constants.APP_HEIGHT/2 );
 	}
-	
+
 
 	private TextButton initButton(String name){
 		TextButtonStyle style = new TextButtonStyle();
@@ -95,7 +110,7 @@ public class EventsButtons extends Actor {
 			}
 		});
 	}
-	
+
 	private void activeButtonPlayAgain(float y){
 		float btnWidth = (float)_buttonsAtlas.findRegion("button_playagain").getRegionWidth()*0.75f;
 		float btnHeight = (float)_buttonsAtlas.findRegion("button_playagain").getRegionHeight()*0.75f;
@@ -105,20 +120,14 @@ public class EventsButtons extends Actor {
 		btnPlayAgain.setBounds(Constants.APP_WIDTH/2-btnWidth/2, y, btnPlayAgain.getWidth(), btnPlayAgain.getHeight());
 		btnPlayAgain.addListener(new ClickListener(){
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				touchedPlayAgain = true;
 				btnPlayAgain.remove();
-				_mainStage._worldLogic.resetLevel();
-				_mainStage._worldLogic.gameOver = 0;
-				_mainStage._level.remove();
-				_mainStage._player.remove();
-				_mainStage.removeAllActorEnemy();
-				_mainStage.setupNewRunning();
-				_mainStage.globalState = GLOBAL_STATE.RUNNING;
 				System.out.println(_mainStage.globalState);
 				return true;
 			}
 		});
 	}
-	
+
 	private void initFont(){
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/avenir_game.ttf"));
 		_scoreFont = new BitmapFont();

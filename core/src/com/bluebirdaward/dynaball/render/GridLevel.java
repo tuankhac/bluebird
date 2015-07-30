@@ -16,21 +16,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.bluebirdaward.dynaball.logic.Assets;
-import com.bluebirdaward.dynaball.stages.MainStage;
 import com.bluebirdaward.dynaball.utils.Constants;
-import com.bluebirdaward.dynaball.utils.Constants.GLOBAL_STATE;
 
 public class GridLevel extends Actor {
 
-	private MainStage _mainStage;
 	public TextureAtlas buttonsAtlas;
 
 	public Button[] buttons;
 	public int[] _displayGridLevel;
 	public boolean [] allowActiveButton;
-
-	public GridLevel(MainStage _mainStage){
-		this._mainStage = _mainStage;
+	public boolean touchedGridButton = false;
+	public int display;
+	public GridLevel(){
 		_displayGridLevel = new int[20];
 		allowActiveButton = new boolean[20];
 		for (int i = 0; i < _displayGridLevel.length; i++) {
@@ -112,10 +109,8 @@ public class GridLevel extends Actor {
 		button.setBounds(x, y, button.getWidth(), button.getHeight());
 		button.addListener(new ClickListener(){
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				System.out.println(""+ display + " | GAMESTATE: " + _mainStage.globalState);
-				_mainStage._worldLogic.countPressed ++;
-				_mainStage._level.level = display;
-				_mainStage.globalState = GLOBAL_STATE.PLAY;
+				touchedGridButton = true;
+				GridLevel.this.display = display;
 				return true;
 			}
 		});
