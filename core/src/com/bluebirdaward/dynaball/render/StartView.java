@@ -1,5 +1,9 @@
 package com.bluebirdaward.dynaball.render;
-
+/*
+ *  created by tuankhac 
+ *  group losers
+ *  update 31/7/2015
+ * */
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -13,20 +17,21 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Disposable;
 import com.bluebirdaward.dynaball.logic.Assets;
 import com.bluebirdaward.dynaball.stages.MainStage;
 import com.bluebirdaward.dynaball.utils.Audios;
 import com.bluebirdaward.dynaball.utils.Constants;
 import com.bluebirdaward.dynaball.utils.Constants.GLOBAL_STATE;
-public class StartView extends Actor {
-	public TextureAtlas buttonsAtlas;
-	
+public class StartView extends Actor implements Disposable {
+	private TextureAtlas _buttonsAtlas;
+
 	private Skin _buttonSkin;
 	private BitmapFont _scoreFont;
 	private MainStage _mainStage;
-	
+
 	public TextButton btnStart, btnGuide;
-	
+
 	public StartView(MainStage mainStage){
 		this._mainStage = mainStage;
 		initFont();
@@ -39,15 +44,15 @@ public class StartView extends Actor {
 	}
 
 	private void initButtons(){
-		buttonsAtlas = new TextureAtlas("images/buttons.pack");
+		_buttonsAtlas = new TextureAtlas("images/buttons.pack");
 		_buttonSkin = new Skin();
-		_buttonSkin.addRegions(buttonsAtlas);
+		_buttonSkin.addRegions(_buttonsAtlas);
 
 		btnStart = initButton("button_start");
 		btnGuide = initButton("button_guide");
 
-		activeButtonStart(Constants.APP_HEIGHT/2 + 55);
-		activeButtonGuide(Constants.APP_HEIGHT/2 - 55 );
+		activeButton(btnStart,"button_start",Constants.APP_HEIGHT/2 + 55);
+		activeButton(btnGuide,"button_guide",Constants.APP_HEIGHT/2 - 55 );
 
 	}
 
@@ -59,36 +64,24 @@ public class StartView extends Actor {
 		return new TextButton("", style);
 	}
 
-	private void activeButtonStart(float y){
-		float btnWidth = (float)buttonsAtlas.findRegion("button_start").getRegionWidth();
-		float btnHeight = (float)buttonsAtlas.findRegion("button_start").getRegionHeight();
-		btnStart.setSize(btnWidth, btnHeight);
-		btnStart.setPosition(Constants.APP_WIDTH/2-btnWidth/2, y);
+	private void activeButton(final TextButton textbutton,String name,float y){
+		float btnWidth = (float)_buttonsAtlas.findRegion(name).getRegionWidth();
+		float btnHeight = (float)_buttonsAtlas.findRegion(name).getRegionHeight();
+		textbutton.setSize(btnWidth, btnHeight);
+		textbutton.setPosition(Constants.APP_WIDTH/2-btnWidth/2, y);
 
-		btnStart.setBounds(Constants.APP_WIDTH/2-btnWidth/2, y,
-				btnStart.getWidth(), btnStart.getHeight());
-		btnStart.addListener(new ClickListener(){
+		textbutton.setBounds(Constants.APP_WIDTH/2-btnWidth/2, y,textbutton.getWidth(), btnStart.getHeight());
+		textbutton.addListener(new ClickListener(){
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				_mainStage.globalState = GLOBAL_STATE.GRID_LEVEL;
-				Audios.audio.play(Audios.audio.click_grid);
-				System.out.println(_mainStage.globalState);
-				return true;
-			}
-		});
-	}
-
-	private void activeButtonGuide(float y){
-		float btnWidth = (float)buttonsAtlas.findRegion("button_guide").getRegionWidth();
-		float btnHeight = (float)buttonsAtlas.findRegion("button_guide").getRegionHeight();
-		btnGuide.setSize(btnWidth, btnHeight);
-		btnGuide.setPosition(Constants.APP_WIDTH/2-btnWidth/2, y);
-
-		btnGuide.setBounds(Constants.APP_WIDTH/2-btnWidth/2, y,
-				btnGuide.getWidth(), btnGuide.getHeight());
-		btnGuide.addListener(new ClickListener(){
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				_mainStage.globalState = GLOBAL_STATE.GUIDE;
-				Audios.audio.play(Audios.audio.click_grid);
+				if(textbutton == btnStart){
+					_mainStage.globalState = GLOBAL_STATE.GRID_LEVEL;
+					Audios.audio.play(Audios.audio.click);
+					System.out.println(_mainStage.globalState);
+				}
+				else {
+					_mainStage.globalState = GLOBAL_STATE.GUIDE;
+					Audios.audio.play(Audios.audio.click);
+				}
 				return true;
 			}
 		});
@@ -104,5 +97,12 @@ public class StartView extends Actor {
 		_scoreFont = generator.generateFont(parameter);
 		generator.dispose();
 		_scoreFont.setColor(Color.BLUE);
+	}
+
+	@Override
+	public void dispose() {
+		_buttonsAtlas.dispose();
+		_buttonSkin.dispose();
+		_scoreFont.dispose();
 	}
 }

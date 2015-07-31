@@ -1,5 +1,9 @@
 package com.bluebirdaward.dynaball.screens;
-
+/*
+ *  created by tuankhac 
+ *  group losers
+ *  update 31/7/2015
+ * */
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -10,36 +14,50 @@ import com.bluebirdaward.dynaball.stages.MainStage;
 import com.bluebirdaward.dynaball.utils.Constants;
 
 public class MainScreen implements Screen {
-	private MainStage stage;
-	private Texture texture ;
-	private Sprite sprite ;
-	SpriteBatch batch;
-	float deltaTime = 0;
-	public MainScreen() { 
-		batch = new SpriteBatch();
-		texture = new Texture(Gdx.files.internal("images/bluebird_logo.png"));
-		sprite = new Sprite(texture);
-		sprite.setSize(Constants.APP_WIDTH, (float) texture.getHeight()/1.8125f);
-		sprite.setPosition(0, Constants.APP_HEIGHT/2 - (float) texture.getHeight()/3.625f);
-		stage = new MainStage(); 
+	private MainStage _stage;
+	private Texture _texture ;
+	private Sprite _sprite ;
+	private SpriteBatch _batch;
+	private float _deltaTime = 0;
+	
+	public static byte  exit = 0;
+	public static  float timer = 0;
+	
+	public MainScreen(IActivityRequestHandler iActHandler) { 
+		_batch = new SpriteBatch();
+		_texture = new Texture(Gdx.files.internal("images/bluebird_logo.png"));
+		_sprite = new Sprite(_texture);
+		_sprite.setSize(Constants.APP_WIDTH, (float) _texture.getHeight()/1.8125f);
+		_sprite.setPosition(Gdx.graphics.getWidth()/2 - _sprite.getWidth()/2,
+				Gdx.graphics.getHeight()/2 - (float) _texture.getHeight()/3.625f);
+
+		_stage = new MainStage(iActHandler); 
 	}
 
 	@Override public void render(float delta) {
 		//Clear the screen
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		if(deltaTime < 3){
-			deltaTime += Gdx.graphics.getDeltaTime();
+		
+		//update timer to handle when onBackpressed to exit game
+		timer += Gdx.graphics.getDeltaTime();
+		if(timer > 1.5f){
+			exit = 0;
+			timer = 0;
+		}
+		
+		//update _deltaTime to move to main stage screen when overtime
+		if(_deltaTime < 3){
+			_deltaTime += Gdx.graphics.getDeltaTime();
 			Gdx.gl.glClearColor(1, 1, 1, 1);
-			batch.begin();
-			sprite.draw(batch);
-			batch.end();
+			_batch.begin();
+			_sprite.draw(_batch);
+			_batch.end();
 		}
 		else{
-			//Update the stage
-			stage.draw();
-			stage.act(delta);
+			//Update the _stage
+			_stage.draw();
+			_stage.act(delta);
 		}
-
 	}
 
 	@Override public void show() { }
@@ -52,5 +70,5 @@ public class MainScreen implements Screen {
 
 	@Override public void hide() { }
 
-	@Override public void dispose() { }
+	@Override public void dispose() { _deltaTime = 0; _batch.dispose(); _texture.dispose(); }
 }

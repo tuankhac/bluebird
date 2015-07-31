@@ -1,5 +1,9 @@
 package com.bluebirdaward.dynaball.render;
-
+/*
+ *  created by tuankhac 
+ *  group losers
+ *  update 31/7/2015
+ * */
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -15,13 +19,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Disposable;
 import com.bluebirdaward.dynaball.logic.Assets;
 import com.bluebirdaward.dynaball.utils.Audios;
 import com.bluebirdaward.dynaball.utils.Constants;
 
-public class GridLevel extends Actor {
+public class GridLevel extends Actor implements Disposable {
 
-	public TextureAtlas buttonsAtlas;
+	private TextureAtlas _buttonsAtlas;
 
 	public Button[] buttons;
 	public int[] _displayGridLevel;
@@ -55,9 +60,9 @@ public class GridLevel extends Actor {
 	}
 
 	private void initButtons(){
-		buttonsAtlas = new TextureAtlas("images/buttons.pack");
-		buttonSkin = new Skin();
-		buttonSkin.addRegions(buttonsAtlas);
+		_buttonsAtlas = new TextureAtlas("images/buttons.pack");
+		_buttonSkin = new Skin();
+		_buttonSkin.addRegions(_buttonsAtlas);
 
 		initGridLevel();
 	}
@@ -91,19 +96,19 @@ public class GridLevel extends Actor {
 		}
 	}
 
-	private Skin buttonSkin;
+	private Skin _buttonSkin;
 	private TextButton initButton(String name, String display){
 		TextButtonStyle style = new TextButtonStyle();
-		style.up = buttonSkin.getDrawable(name);
-		style.down = buttonSkin.getDrawable(name);
-		style.font = scoreFont;
-		buttonSkin.dispose();
+		style.up = _buttonSkin.getDrawable(name);
+		style.down = _buttonSkin.getDrawable(name);
+		style.font = _scoreFont;
+		_buttonSkin.dispose();
 		return new TextButton(display, style);
 	}
 
 	private void activeButton(Button button, String name, final int display, float x, float y){
-		float btnWidth = (float)buttonsAtlas.findRegion(name).getRegionWidth();
-		float btnHeight = (float)buttonsAtlas.findRegion(name).getRegionHeight();
+		float btnWidth = (float)_buttonsAtlas.findRegion(name).getRegionWidth();
+		float btnHeight = (float)_buttonsAtlas.findRegion(name).getRegionHeight();
 		button.setSize(btnWidth, btnHeight);
 
 		button.setPosition(x, y);
@@ -112,23 +117,30 @@ public class GridLevel extends Actor {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				touchedGridButton = true;
 				GridLevel.this.display = display;
-				Audios.audio.play(Audios.audio.click_grid);
+				Audios.audio.play(Audios.audio.click);
 				return true;
 			}
 		});
 	}
 
-	BitmapFont scoreFont;
+	private BitmapFont _scoreFont;
 	private void initFont(){
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/avenir_game.ttf"));
-		scoreFont = new BitmapFont();
+		_scoreFont = new BitmapFont();
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
 		parameter.size = 60;
 		parameter.characters = "0123456789";
 
-		scoreFont = generator.generateFont(parameter);
+		_scoreFont = generator.generateFont(parameter);
 		generator.dispose();
-		scoreFont.setColor(Color.BLUE);
+		_scoreFont.setColor(Color.BLUE);
+	}
+
+	@Override
+	public void dispose() {
+		_buttonsAtlas.dispose();
+		_scoreFont.dispose();
+		_buttonSkin.dispose();
 	}
 }
 

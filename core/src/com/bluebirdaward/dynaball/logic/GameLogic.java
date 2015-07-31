@@ -1,5 +1,9 @@
 package com.bluebirdaward.dynaball.logic;
-
+/*
+ *  created by tuankhac 
+ *  group losers
+ *  update 31/7/2015
+ * */
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -40,7 +44,6 @@ public class GameLogic {
 		setPosition(currentPosition);
 	}
 	
-//	protected void reset() { hit = false; }
 	public void reset() { hit = false; }
 	
 	public void hit() { hit = true; }

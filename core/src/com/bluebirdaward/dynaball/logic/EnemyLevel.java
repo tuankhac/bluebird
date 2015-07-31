@@ -1,5 +1,9 @@
 package com.bluebirdaward.dynaball.logic;
-
+/*
+ *  created by tuankhac 
+ *  group losers
+ *  update 31/7/2015
+ * */
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -12,12 +16,12 @@ import com.bluebirdaward.dynaball.utils.Constants;
 public class EnemyLevel {
 	private int _countEnemy;
 	private World _world; 
-	
-	public EnemyLogic enemyLogic;
-	public BarieLogic barieLogic;
+
+	private EnemyLogic _enemyLogic;
+	private BarieLogic _barieLogic;
 	private Array<GameLogic> _listLogic = new Array<GameLogic>();
 
-	public EnemyLevel(World world) {
+	 EnemyLevel(World world) {
 		this._world = world;
 	}
 
@@ -25,6 +29,7 @@ public class EnemyLevel {
 
 	public Array<GameLogic> getArr(){ return _listLogic; }
 
+	//load map from text
 	void setArrSence(String path ){
 		_countEnemy = 0;
 		FileHandle fileHandle = Gdx.files.internal(path);
@@ -38,30 +43,30 @@ public class EnemyLevel {
 					if(index > 0){
 						switch (index) {
 						case 1:
-							enemyLogic = new EnemyLogic(this._world, Constants.USERDATA_ENEMY);
-							enemyLogic.setPosition((i+1) * Constants.VP_WIDTH/15 - Constants.BALL_RADIUS , (25-j)*Constants.VP_HEIGHT/25 - Constants.BALL_RADIUS);
-							_listLogic.add(enemyLogic);
+							_enemyLogic = new EnemyLogic(this._world, Constants.USERDATA_ENEMY);
+							_enemyLogic.setPosition((i+1) * Constants.VP_WIDTH/15 - Constants.BALL_RADIUS , (25-j)*Constants.VP_HEIGHT/25 - Constants.BALL_RADIUS);
+							_listLogic.add(_enemyLogic);
 							_countEnemy ++;
 							break;
 						case 2:
-							barieLogic = new BarieLogic(this._world,false,false,false);
-							barieLogic.setPosition((i+1) * Constants.VP_WIDTH/15 - Constants.BALL_RADIUS, (25-j)*Constants.VP_HEIGHT/25 - Constants.BALL_RADIUS);
-							_listLogic.add(barieLogic);
+							_barieLogic = new BarieLogic(this._world,false,false,false);
+							_barieLogic.setPosition((i+1) * Constants.VP_WIDTH/15 - Constants.BALL_RADIUS, (25-j)*Constants.VP_HEIGHT/25 - Constants.BALL_RADIUS);
+							_listLogic.add(_barieLogic);
 							break;
 						case 3:
-							barieLogic = new BarieLogic(this._world,true,false,false);
-							barieLogic.setPosition((i+1) * Constants.VP_WIDTH/15 - Constants.BALL_RADIUS, (25-j)*Constants.VP_HEIGHT/25 - Constants.BALL_RADIUS);
-							_listLogic.add(barieLogic);
+							_barieLogic = new BarieLogic(this._world,true,false,false);
+							_barieLogic.setPosition((i+1) * Constants.VP_WIDTH/15 - Constants.BALL_RADIUS, (25-j)*Constants.VP_HEIGHT/25 - Constants.BALL_RADIUS);
+							_listLogic.add(_barieLogic);
 							break;
 						case 4:
-							barieLogic = new BarieLogic(this._world,false,true,false);
-							barieLogic.setPosition((i+1) * Constants.VP_WIDTH/15 - Constants.BALL_RADIUS, (25-j)*Constants.VP_HEIGHT/25 - Constants.BALL_RADIUS);
-							_listLogic.add(barieLogic);
+							_barieLogic = new BarieLogic(this._world,false,true,false);
+							_barieLogic.setPosition((i+1) * Constants.VP_WIDTH/15 - Constants.BALL_RADIUS, (25-j)*Constants.VP_HEIGHT/25 - Constants.BALL_RADIUS);
+							_listLogic.add(_barieLogic);
 							break;
 						case 5:
-							barieLogic = new BarieLogic(this._world,false,false, true);
-							barieLogic.setPosition((i+1) * Constants.VP_WIDTH/15 - Constants.BALL_RADIUS, (25-j)*Constants.VP_HEIGHT/25 - Constants.BALL_RADIUS);
-							_listLogic.add(barieLogic);
+							_barieLogic = new BarieLogic(this._world,false,false, true);
+							_barieLogic.setPosition((i+1) * Constants.VP_WIDTH/15 - Constants.BALL_RADIUS, (25-j)*Constants.VP_HEIGHT/25 - Constants.BALL_RADIUS);
+							_listLogic.add(_barieLogic);
 							break;
 						default:
 							break;

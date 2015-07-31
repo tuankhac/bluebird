@@ -1,5 +1,9 @@
 package com.bluebirdaward.dynaball.render;
-
+/*
+ *  created by tuankhac 
+ *  group losers
+ *  update 31/7/2015
+ * */
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -16,7 +20,7 @@ public class Level extends Actor {
 	private float _height = 200f;
 	private float _width = 50f;
 	private float _yArrow =  3f*Constants.BARIE_WIDTH ;
-	
+
 	public float _xArrow = Constants.APP_WIDTH /2 -_width/2;
 	
 	@Override public void draw(Batch batch,float delta){

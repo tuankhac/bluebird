@@ -1,9 +1,13 @@
 package com.bluebirdaward.dynaball.logic;
-
+/*
+ *  created by tuankhac 
+ *  group losers
+ *  update 31/7/2015
+ * */
 import com.badlogic.gdx.physics.box2d.World;
 import com.bluebirdaward.dynaball.utils.Constants;
 
-public class LimitedLogic extends GameLogic {
+class LimitedLogic extends GameLogic {
 
 	public LimitedLogic(World world) {
 		super();

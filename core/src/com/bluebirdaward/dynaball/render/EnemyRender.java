@@ -1,5 +1,9 @@
 package com.bluebirdaward.dynaball.render;
-
+/*
+ *  created by tuankhac 
+ *  group losers
+ *  update 31/7/2015
+ * */
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.bluebirdaward.dynaball.logic.BarieLogic;

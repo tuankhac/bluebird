@@ -1,5 +1,9 @@
 package com.bluebirdaward.dynaball.render;
-
+/*
+ *  created by tuankhac 
+ *  group losers
+ *  update 31/7/2015
+ * */
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.bluebirdaward.dynaball.logic.Assets;
 import com.bluebirdaward.dynaball.logic.EnemyLogic;

@@ -1,5 +1,9 @@
 package com.bluebirdaward.dynaball.stages;
-
+/*
+ *  created by tuankhac 
+ *  group losers
+ *  update 31/7/2015
+ * */
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
@@ -18,7 +22,7 @@ import com.bluebirdaward.dynaball.render.GridLevel;
 import com.bluebirdaward.dynaball.render.Level;
 import com.bluebirdaward.dynaball.render.Player;
 import com.bluebirdaward.dynaball.render.StartView;
-import com.bluebirdaward.dynaball.utils.Audios;
+import com.bluebirdaward.dynaball.screens.IActivityRequestHandler;
 import com.bluebirdaward.dynaball.utils.Constants;
 import com.bluebirdaward.dynaball.utils.Constants.GLOBAL_STATE;
 
@@ -36,7 +40,7 @@ public class MainStage extends Stage {
 	private Vector3 _touchPoint;
 
 	private Level _level;
-	private	 Player _player ;
+	private	Player _player ;
 	private EnemyRender _enemyRender;
 
 	private GridLevel _gridLevel;
@@ -48,12 +52,15 @@ public class MainStage extends Stage {
 	private boolean addedGrid = true;
 	private boolean addedStart = true;
 	private boolean addedPlayAgain = true;
-
+	
 	private WorldLogic _worldLogic;
 
-	public MainStage() {
-		super(new ScalingViewport(Scaling.stretch, VP_WIDTH, VP_HEIGHT,
-				new OrthographicCamera(VP_WIDTH, VP_HEIGHT)));
+	private  boolean isShowAd = true;
+
+	public MainStage(){}
+
+	public MainStage(IActivityRequestHandler iActHandler) {
+		super(new ScalingViewport(Scaling.stretch, VP_WIDTH, VP_HEIGHT,	new OrthographicCamera(VP_WIDTH, VP_HEIGHT)));
 		setupCamera();
 		setupTouchControlAreas();
 
@@ -75,27 +82,7 @@ public class MainStage extends Stage {
 
 		_eventButtons = new EventsButtons(this);
 	}
-
-	private void setupNewStart(){
-		addActor(_front);
-		addActor(_front.btnStart);
-		addActor(_front.btnGuide);
-	}
-
-	private void setupGridView(){
-		addActor(_gridLevel);
-	}
-
-	public void setupNewRunning(){
-		_enemyRender.init();
-		addActor(_level);
-		addActor(_player);
-		for(Actor actor: _enemyRender.getActor()){
-			addActor(actor);
-		}
-		addActor(_eventButtons);
-	}
-
+	
 	private void setupCamera() {
 		_gUICam = new OrthographicCamera(VP_WIDTH, VP_HEIGHT);
 		_gUICam.position.set(14f*Constants.BALL_RADIUS, _gUICam.viewportHeight / 2, 0f);
@@ -108,16 +95,32 @@ public class MainStage extends Stage {
 		_screenBottomSide = new Rectangle(0, 0, getCamera().viewportWidth, vpHeight);
 		_screenTopSide = new Rectangle(0, vpHeight, getCamera().viewportWidth, vpHeight * 2);
 	}
+	
+	private void setupNewStart(){
+		addActor(_front);
+		addActor(_front.btnStart);
+		addActor(_front.btnGuide);
+	}
 
-	private void removeGrid(){
+	private void setupNewRunning(){
+		_enemyRender.init();
+		addActor(_level);
+		addActor(_player);
+		for(Actor actor: _enemyRender.getActor()){
+			addActor(actor);
+		}
+		addActor(_eventButtons);
+	}
+
+	private void removeGridView(){
 		_gridLevel.remove();
-
 		for (int i = 0; i < _gridLevel.buttons.length; i++) {
 			_gridLevel.buttons[i].remove();
 		}
 	}
-	public void removeAllActor(){
-		removeGrid();
+	
+	private void removeAllActor(){
+		removeGridView();
 		_level.remove();
 		_player.remove();
 		for(Actor actor: _enemyRender.getActor()){
@@ -141,43 +144,18 @@ public class MainStage extends Stage {
 		_worldLogic.initNewLevel();
 		globalState = GLOBAL_STATE.PLAY;
 	}
+	
 	private void touchPlayAgain(){
+		removeAllActor();
 		_worldLogic.resetLevel();
 		_worldLogic.gameOver = 0;
-		removeAllActor();
 		setupNewRunning();
 		globalState = GLOBAL_STATE.RUNNING;
 		addedPlayAgain = true;
 	}
-	private void touchUpRunning(int screenX, int screenY){
-		float tempX = _gUICam.getPickRay(screenX, screenY).origin.x;
-		float tempY = _gUICam.getPickRay(screenX, screenY).origin.y;
-		Vector2 velocityOrigin = new Vector2(tempX, tempY);
-		getCamera().unproject(_touchPoint.set(screenX, screenY, 0));
-
-		if (bottomSideTouched(_touchPoint.x, _touchPoint.y)) {
-			if (_worldLogic.allowPlayerHandle){
-				_worldLogic.player.setVelocity(velocityOrigin.scl(0.35f));
-				_worldLogic.allowPlayerHandle = false;
-			}
-
-		}
-		else if (topSideTouched(_touchPoint.x, _touchPoint.y)) {}
-	}
-
-	private void touchDragRunning(int screenX, int screenY){
-		if (bottomSideTouched(_touchPoint.x, _touchPoint.y)) {
-			if (_worldLogic.allowPlayerHandle){
-				float tempX  = _gUICam.getPickRay(screenX, screenY).origin.x;
-				if(tempX > 0)
-					_level.rotation = -(float)Math.atan2(tempX ,_level._xArrow)* 100 + Constants.BALL_RADIUS ;
-				else if(tempX < 0)
-					_level.rotation = -(float)Math.atan2(tempX , _level._xArrow)* 100 - Constants.BALL_RADIUS ;
-			}
-		}else if (topSideTouched(_touchPoint.x, _touchPoint.y)) ;
-	}
-
+	
 	private void touchUpGridLevel(){
+		addActor(_gridLevel);
 		for (int i = 0; i < _gridLevel.buttons.length; i++) {
 			if(_gridLevel.allowActiveButton[i])
 				addActor(_gridLevel.buttons[i]);
@@ -190,11 +168,9 @@ public class MainStage extends Stage {
 
 	@Override public void dispose(){
 		addedStart = true;
+		isShowAd = true;
 		Assets.instance.dispose();
 		_debugRenderer.dispose();
-		_front.buttonsAtlas.dispose();
-		_gridLevel.buttonsAtlas.dispose();
-		dispose();
 	}
 
 	/** Logic */
@@ -206,7 +182,10 @@ public class MainStage extends Stage {
 				setupNewStart();
 				addedStart = false;
 			}
-//			Audios.audio.play(Audios.audio.play_ball);
+//			if (isShowAd)  {
+//				myRqstHandler.showAds(true);
+//				isShowAd = false;
+//			}
 			break;
 
 		case GRID_LEVEL:
@@ -232,7 +211,6 @@ public class MainStage extends Stage {
 			if(globalState !=GLOBAL_STATE.CONGRATULATION){
 				if(addedGrid){
 					_gridLevel.initGridLevel();
-					setupGridView();
 					touchUpGridLevel();
 					addedGrid = false;
 				}
@@ -244,10 +222,9 @@ public class MainStage extends Stage {
 			break;
 
 		case PLAY:
-			removeGrid();
+			removeGridView();
 
 			if(_worldLogic.gameOver == 1){
-
 				_worldLogic.nextLevel();
 				_worldLogic.gameOver = 0;
 				addedPlay = true;
@@ -262,6 +239,10 @@ public class MainStage extends Stage {
 			break;
 
 		case RUNNING:
+//			if (!isShowAd ) {
+//				myRqstHandler.showAds(false);
+//				isShowAd = true;
+//			}
 			_debugRenderer.render(_worldLogic.getWorldLogic(), _gUICam.combined);
 			_worldLogic.update();
 			for(int i= _worldLogic.enemyLevel.getArr().size -1 ;i >= 0;i--){
@@ -286,12 +267,40 @@ public class MainStage extends Stage {
 				touchPlayAgain();
 				_eventButtons.touchedPlayAgain = false;
 			}
-			addedPlay = true;
-			addedGrid = true;
+//			addedPlay = true;
+//			addedGrid = true;
 			break;
 		default:
 			break;
 		}
+	}
+
+	private void touchUpRunning(int screenX, int screenY){
+		float tempX = _gUICam.getPickRay(screenX, screenY).origin.x;
+		float tempY = _gUICam.getPickRay(screenX, screenY).origin.y;
+		Vector2 velocityOrigin = new Vector2(tempX, tempY);
+//		System.out.println(PAGE.SIGN_CREATE.getValue()+"   "+PAGE.SIGN_CREATE.ordinal());
+		getCamera().unproject(_touchPoint.set(screenX, screenY, 0));
+		if (bottomSideTouched(_touchPoint.x, _touchPoint.y)) {
+			if (_worldLogic.allowPlayerHandle){
+				_worldLogic.player.setVelocity(velocityOrigin.scl(0.35f));
+				_worldLogic.allowPlayerHandle = false;
+			}
+
+		}
+		else if (topSideTouched(_touchPoint.x, _touchPoint.y)) {}
+	}
+
+	private void touchDragRunning(int screenX, int screenY){
+		if (bottomSideTouched(_touchPoint.x, _touchPoint.y)) {
+			if (_worldLogic.allowPlayerHandle){
+				float tempX  = _gUICam.getPickRay(screenX, screenY).origin.x;
+				if(tempX > 0)
+					_level.rotation = -(float)Math.atan2(tempX ,_level._xArrow)* 100 + Constants.BALL_RADIUS ;
+				else if(tempX < 0)
+					_level.rotation = -(float)Math.atan2(tempX , _level._xArrow)* 100 - Constants.BALL_RADIUS ;
+			}
+		}else if (topSideTouched(_touchPoint.x, _touchPoint.y)) ;
 	}
 
 	@Override public boolean touchUp(int screenX, int screenY, int pointer, int button) {
@@ -327,7 +336,6 @@ public class MainStage extends Stage {
 		case RUNNING:
 			touchDragRunning(x, y);
 			break;
-
 		default:
 			break;
 		}

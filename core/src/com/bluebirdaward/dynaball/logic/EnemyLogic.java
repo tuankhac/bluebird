@@ -1,12 +1,15 @@
 package com.bluebirdaward.dynaball.logic;
-
+/*
+ *  created by tuankhac 
+ *  group losers
+ *  update 31/7/2015
+ * */
 import com.badlogic.gdx.physics.box2d.World;
 
 public class EnemyLogic extends GameLogic {
 
-	public EnemyLogic(World world, Object userdata) {
+	 EnemyLogic(World world, Object userdata) {
 		super();
-//		initDynamicBall(world, userdata);
 		initKinematicBall(world, userdata);
 	}
 }

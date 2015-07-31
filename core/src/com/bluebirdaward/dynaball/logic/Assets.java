@@ -1,5 +1,9 @@
 package com.bluebirdaward.dynaball.logic;
-
+/*
+ *  created by tuankhac 
+ *  group losers
+ *  update 31/7/2015
+ * */
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,11 +17,11 @@ import com.bluebirdaward.dynaball.utils.Constants;
 public class Assets implements Disposable {
 	public static final Assets instance = new Assets();
 	public AssetAtlats assetatlas;
-	
+
 	private AssetManager _assetManager;
-	
+
 	private Assets() {}
-	
+
 	public void init(AssetManager assetManager) {
 		this._assetManager = assetManager;
 		assetManager.load(Constants.TEXTURE_ATLAS_OBJECTS, TextureAtlas.class);
@@ -43,13 +47,11 @@ public class Assets implements Disposable {
 
 		public AssetFonts() {
 			// create three fonts using Libgdx's 15px bitmap font
-			defaultSmall = new BitmapFont(
-					Gdx.files.internal("font/arial-15.fnt"), false);
+			defaultSmall = new BitmapFont(Gdx.files.internal("font/arial-15.fnt"), false);
 			// set font sizes
 			defaultSmall.getData().setScale(2.5f);
 			// enable linear texture filtering for smooth fonts
-			defaultSmall.getRegion().getTexture()
-			.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+			defaultSmall.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		}
 	}
 }
