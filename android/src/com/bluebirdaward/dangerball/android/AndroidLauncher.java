@@ -21,7 +21,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 
 public class AndroidLauncher extends AndroidApplication implements IActivityRequestHandler {
-	private static final String AD_BANNER_UNIT_ID = "ca-app-pub-3940256099942544/6300978111";
+	//standard key
+	private static final String AD_BANNER_UNIT_ID = "ca-app-pub-8112894826901791/9996240462";
 
 	protected AdView adView;
 	protected View gameView;
@@ -81,6 +82,7 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 			Toast.makeText(getContext(), "Double press to exit", Toast.LENGTH_SHORT).show();
 		if(MainScreen.exit >= 2){
 			super.onBackPressed();
+			finish();
 		}
 	}
 	@Override public void onResume() {	super.onResume();	}

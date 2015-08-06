@@ -45,12 +45,11 @@ public class MainStage extends Stage {
 	private EventsButtons _eventButtons;
 
 	private byte vitri = 0;
-	public boolean addedPlay = true;
-	public boolean addedGrid = true;
-	public boolean addedStart = true;
-	public boolean addedPlayAgain = true;
-	public boolean condition = false;
-	
+	private boolean addedPlay = true;
+	private boolean addedGrid = true;
+	private boolean addedStart = true;
+	private boolean addedPlayAgain = true;
+	private boolean addedBack =true;
 	private WorldLogic _worldLogic;
 
 	private boolean isShowAd = true;
@@ -78,6 +77,7 @@ public class MainStage extends Stage {
 		_enemyRender = new EnemyRender(_worldLogic);
 
 		_eventButtons = new EventsButtons();
+		
 	}
 	
 	private void setupCamera() {
@@ -97,6 +97,7 @@ public class MainStage extends Stage {
 		addActor(_front);
 		addActor(_front.btnStart);
 		addActor(_front.btnGuide);
+		
 	}
 
 	private void setupNewRunning(){
@@ -185,7 +186,22 @@ public class MainStage extends Stage {
 				isShowAd = false;
 			}
 			break;
-
+		case GUIDE:
+			if(addedBack) {
+				
+				_front.btnStart.remove();
+				_front.btnGuide.remove();
+				addActor(_eventButtons.btnBack);
+				addedBack = false;
+			}
+			if(_eventButtons.touchedBack){
+				addedStart = true;
+				addedBack = true;
+				_eventButtons.touchedBack = false;
+				_front.remove();
+				Constants.globalState = GLOBAL_STATE.START;
+			}
+			break;
 		case GRID_LEVEL:
 			_front.remove();
 			_front.btnStart.remove();
@@ -292,7 +308,6 @@ public class MainStage extends Stage {
 				float tempX  = _gUICam.getPickRay(screenX, screenY).origin.x;
 				float tempY  = _gUICam.getPickRay(screenX, screenY).origin.y;
 					_level.rotation = -(float)Math.toDegrees(Math.atan2(tempX,tempY)) ;
-					System.out.println(_level.rotation);
 			}
 		}else if (topSideTouched(_touchPoint.x, _touchPoint.y)) ;
 	}

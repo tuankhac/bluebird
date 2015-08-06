@@ -6,6 +6,7 @@ package com.bluebirdaward.dangerball.render;
  * */
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -37,7 +38,9 @@ public class StartView extends Actor implements Disposable {
 
 	@Override public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		batch.draw(Assets.instance.assetatlas.background, 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
+		batch.draw(Assets.instance.assetatlas.set("background").get(), 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
+		if(Constants.globalState == GLOBAL_STATE.GUIDE)
+			batch.draw(new Texture(Gdx.files.internal("images/guide.png")), 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT );
 	}
 
 	private void initButtons(){
@@ -73,7 +76,6 @@ public class StartView extends Actor implements Disposable {
 				if(textbutton == btnStart){
 					Constants.globalState = GLOBAL_STATE.GRID_LEVEL;
 					Audios.audio.play(Audios.audio.click);
-					System.out.println(Constants.globalState);
 				}
 				else {
 					Constants.globalState = GLOBAL_STATE.GUIDE;

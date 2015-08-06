@@ -30,12 +30,12 @@ public class EventsButtons extends Actor implements Disposable {
 	public Button btnPlayAgain;
 	public Button btnBack;
 	public boolean touchedPlayAgain = false;
-
+	public boolean touchedBack = false;
 	private TextureAtlas _buttonsAtlas;
 	private Skin _buttonSkin;
 	private BitmapFont _scoreFont;
 
-	private Sprite _sprite = new Sprite(Assets.instance.assetatlas.finish);
+	private Sprite _sprite = new Sprite(Assets.instance.assetatlas.set("finish").get());
 	private float _alphaModulation = 0;
 
 	public EventsButtons() {
@@ -48,9 +48,9 @@ public class EventsButtons extends Actor implements Disposable {
 	@Override public void draw(Batch batch, float delta) {
 		super.draw(batch, delta);
 		if(Constants.globalState == GLOBAL_STATE.GAMEOVER)
-			batch.draw(Assets.instance.assetatlas.gameOver, Constants.APP_WIDTH/8, Constants.APP_HEIGHT/3, 3*Constants.APP_WIDTH/4, Constants.APP_HEIGHT/3);
+			batch.draw(Assets.instance.assetatlas.set("game_over").get(), Constants.APP_WIDTH/8, Constants.APP_HEIGHT/3, 3*Constants.APP_WIDTH/4, Constants.APP_HEIGHT/3);
 		if(Constants.globalState == GLOBAL_STATE.CONGRATULATION){
-			batch.draw(Assets.instance.assetatlas.background, 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
+			batch.draw(Assets.instance.assetatlas.set("background").get(), 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
 
 			if(_alphaModulation < 1f)
 				_alphaModulation += Gdx.graphics.getDeltaTime()/2;
@@ -97,15 +97,15 @@ public class EventsButtons extends Actor implements Disposable {
 				if(buttons == btnPlay){
 					Constants.globalState = GLOBAL_STATE.RUNNING;
 					Audios.audio.play(Audios.audio.play_ball);
-					System.out.println(Constants.globalState);
 				}
 				else if(buttons == btnPlayAgain){
 					touchedPlayAgain = true;
 					Audios.audio.play(Audios.audio.click);
-					System.out.println(Constants.globalState);
 				}
 				else if(buttons == btnBack){
-					Constants.globalState = GLOBAL_STATE.START;
+					touchedBack = true;
+					Audios.audio.play(Audios.audio.click);
+					btnBack.remove();
 				}
 				return true;
 			}

@@ -20,7 +20,7 @@ public class Player extends RenderActor{
 	}
 
 	@Override public void draw(Batch batch, float delta){
-		batch.draw(Assets.instance.assetatlas.player, _x, _y, _width, _height);
+		batch.draw(Assets.instance.assetatlas.set("redball").get(), _x, _y, _width, _height);
 	}
 	
 	@Override public void act(float delta) {

@@ -17,7 +17,7 @@ public class Balloon extends RenderActor {
 	}
 	
 	@Override public void draw(Batch batch, float delta){
-		batch.draw(Assets.instance.assetatlas.ball, x, y, width, height);
+		batch.draw(Assets.instance.assetatlas.set("greenball").get(), x, y, width, height);
 	}
 	
 	@Override public void act(float delta) {

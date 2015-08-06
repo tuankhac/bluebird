@@ -58,7 +58,7 @@ public class GridLevel extends Actor implements Disposable {
 
 	@Override public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		batch.draw(Assets.instance.assetatlas.background, 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
+		batch.draw(Assets.instance.assetatlas.set("background").get(), 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
 		for (byte i = 0; i < displayGridLevel.length; i++) {
 			buttons[i].draw(batch, parentAlpha);
 		}
