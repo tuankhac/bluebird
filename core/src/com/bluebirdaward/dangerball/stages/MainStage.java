@@ -54,7 +54,6 @@ public class MainStage extends Stage {
 
 	private boolean isShowAd = true;
 	private IActivityRequestHandler myRqstHandler;
-	public MainStage(){}
 
 	public MainStage(IActivityRequestHandler iActHandler) {
 		super(new ScalingViewport(Scaling.stretch, VP_WIDTH, VP_HEIGHT,	new OrthographicCamera(VP_WIDTH, VP_HEIGHT)));
