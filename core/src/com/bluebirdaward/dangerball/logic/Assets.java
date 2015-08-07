@@ -31,7 +31,6 @@ public class Assets implements Disposable {
 			t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		// create game resource objects
 		assetatlas = new AssetAtlats(atlas);
-//		assetatlas = AssetAtlats.getInstance(atlas);
 		fonts = new AssetFonts();
 	}
 
