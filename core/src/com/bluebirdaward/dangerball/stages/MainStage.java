@@ -181,10 +181,10 @@ public class MainStage extends Stage {
 				setupNewStart();
 				addedStart = false;
 			}
-			if (isShowAd)  {
-				myRqstHandler.showAds(true);
-				isShowAd = false;
-			}
+//			if (isShowAd)  {
+//				myRqstHandler.showAds(true);
+//				isShowAd = false;
+//			}
 			break;
 		case GUIDE:
 			if(addedBack) {
@@ -253,10 +253,10 @@ public class MainStage extends Stage {
 			break;
 
 		case RUNNING:
-			if (!isShowAd ) {
-				myRqstHandler.showAds(false);
-				isShowAd = true;
-			}
+//			if (!isShowAd ) {
+//				myRqstHandler.showAds(false);
+//				isShowAd = true;
+//			}
 			_worldLogic.update();
 			for(int i= _worldLogic.enemyLevel.getArr().size -1 ;i >= 0;i--){
 				if(_worldLogic.enemyLevel.getArr().get(i).isHit() == true){

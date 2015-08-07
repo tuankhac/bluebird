@@ -154,14 +154,14 @@ public class WorldLogic {
 		}
 
 		//update timer and score
-		_level.updateDeltaTime();
+//		_level.updateDeltaTime();
 
 		// reset level when over timer
-		if(_level.timer == 0){
-			Audios.audio.play(Audios.audio.game_over);
-			Constants.globalState = GLOBAL_STATE.GAMEOVER;
-			gameOver = -1;
-		}
+//		if(_level.timer == 0){
+//			Audios.audio.play(Audios.audio.game_over);
+//			Constants.globalState = GLOBAL_STATE.GAMEOVER;
+//			gameOver = -1;
+//		}
 
 		if(_getScore == enemyLevel.countEnemy()){
 			Audios.audio.play(Audios.audio.next);
