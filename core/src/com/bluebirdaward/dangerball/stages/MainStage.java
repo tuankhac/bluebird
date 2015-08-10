@@ -174,16 +174,21 @@ public class MainStage extends Stage {
 	/** Logic */
 	@Override public void act(float delta) {
 		super.act(delta);
+		if (Constants.globalState == GLOBAL_STATE.RUNNING && !isShowAd) {
+			myRqstHandler.showAds(false);
+			isShowAd = true;
+		}
+		if (Constants.globalState != GLOBAL_STATE.RUNNING && isShowAd)  {
+			myRqstHandler.showAds(true);
+			isShowAd = false;
+		}
 		switch (Constants.globalState) {
 		case START:
 			if(addedStart){
 				setupNewStart();
 				addedStart = false;
 			}
-//			if (isShowAd)  {
-//				myRqstHandler.showAds(true);
-//				isShowAd = false;
-//			}
+
 			break;
 		case GUIDE:
 			if(addedBack) {
@@ -252,10 +257,7 @@ public class MainStage extends Stage {
 			break;
 
 		case RUNNING:
-//			if (!isShowAd ) {
-//				myRqstHandler.showAds(false);
-//				isShowAd = true;
-//			}
+
 			_worldLogic.update();
 			for(int i= _worldLogic.enemyLevel.getArr().size -1 ;i >= 0;i--){
 				if(_worldLogic.enemyLevel.getArr().get(i).isHit() == true){
