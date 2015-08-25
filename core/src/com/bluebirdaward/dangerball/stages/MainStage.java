@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
@@ -49,7 +48,6 @@ public class MainStage extends Stage {
 	public boolean addedGrid = true;
 	public boolean addedStart = true;
 	public boolean addedPlayAgain = true;
-	public boolean condition = false;
 	
 	private WorldLogic _worldLogic;
 
@@ -82,7 +80,8 @@ public class MainStage extends Stage {
 	
 	private void setupCamera() {
 		_gUICam = new OrthographicCamera(VP_WIDTH, VP_HEIGHT);
-		_gUICam.position.set(14f*Constants.BALL_RADIUS, _gUICam.viewportHeight / 2, 0f);
+//		_gUICam.position.set(14f*Constants.BALL_RADIUS, _gUICam.viewportHeight / 2, 0f);
+		_gUICam.translate(14f*Constants.BALL_RADIUS, _gUICam.viewportHeight / 2);
 		_gUICam.update();
 	}
 
@@ -102,10 +101,8 @@ public class MainStage extends Stage {
 	private void setupNewRunning(){
 		_enemyRender.init();
 		addActor(_level);
+		addActor(_enemyRender);
 		addActor(_player);
-		for(Actor actor: _enemyRender.getActor()){
-			addActor(actor);
-		}
 		addActor(_eventButtons);
 	}
 
@@ -120,19 +117,8 @@ public class MainStage extends Stage {
 		removeGridView();
 		_level.remove();
 		_player.remove();
-		for(Actor actor: _enemyRender.getActor()){
-			actor.remove();
-		}
+		_enemyRender.remove();
 		_enemyRender.getActor().clear();
-	}
-
-	private void touchUpEventPlayButton(){
-		addActor(_eventButtons.btnPlay);
-	}
-
-	private void touchUpEventPlayAgainButton(){
-
-		addActor(_eventButtons.btnPlayAgain);
 	}
 
 	private void touchGridButton(){
@@ -180,10 +166,10 @@ public class MainStage extends Stage {
 				setupNewStart();
 				addedStart = false;
 			}
-			if (isShowAd)  {
-				myRqstHandler.showAds(true);
-				isShowAd = false;
-			}
+//			if (isShowAd)  {
+//				myRqstHandler.showAds(true);
+//				isShowAd = false;
+//			}
 			break;
 
 		case GRID_LEVEL:
@@ -231,21 +217,21 @@ public class MainStage extends Stage {
 			}
 			if(addedPlay){
 				setupNewRunning();
-				touchUpEventPlayButton();
+				//touvh event play button
+				addActor(_eventButtons.btn);
 				addedPlay = false;
 			}
 			break;
 
 		case RUNNING:
-			if (!isShowAd ) {
-				myRqstHandler.showAds(false);
-				isShowAd = true;
-			}
+//			if (!isShowAd ) {
+//				myRqstHandler.showAds(false);
+//				isShowAd = true;
+//			}
 			_worldLogic.update();
-			for(int i= _worldLogic.enemyLevel.getArr().size -1 ;i >= 0;i--){
+			for(int i= _worldLogic.enemyLevel.getArr().size() -1 ;i >= 0;i--){
 				if(_worldLogic.enemyLevel.getArr().get(i).isHit() == true){
-					_enemyRender.getActor().get(i).remove();
-					_enemyRender.getActor().get(i).clear();
+					_enemyRender.getActor().remove(i);
 					_worldLogic.enemyLevel.getArr().get(i).getBody().setTransform(Constants.VP_WIDTH -3*Constants.BALL_RADIUS,
 							Constants.VP_HEIGHT - 2*Constants.BALL_RADIUS,0);
 					_worldLogic.enemyLevel.getArr().get(i).reset();
@@ -257,7 +243,8 @@ public class MainStage extends Stage {
 
 		case GAMEOVER:
 			if(addedPlayAgain){
-				touchUpEventPlayAgainButton();
+				//touch event play again button
+				addActor(_eventButtons.btnPlayAgain);
 				addedPlayAgain = false;
 			}
 			if(_eventButtons.touchedPlayAgain){

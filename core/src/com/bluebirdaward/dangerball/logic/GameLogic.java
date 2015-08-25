@@ -16,9 +16,7 @@ import com.bluebirdaward.dangerball.utils.Constants;
 
 public class GameLogic {
 	private Body _gameObjBody;
-	private float _width;
-	private float _height;
-	
+
 	protected Vector2 position;
 	protected boolean hit;
 	
@@ -29,19 +27,6 @@ public class GameLogic {
 	public GameLogic() {
 		this.position = new Vector2();
 		hit = false;
-		_width = _height = Constants.BALL_RADIUS;
-	}
-	
-	public GameLogic(World world) {
-		this.position = new Vector2();
-		hit = false;
-		_width = _height = Constants.BALL_RADIUS;
-		initKinematicLimited(world, Constants.USERDATA_BARIE,
-				Constants.BALL_RADIUS*2, Constants.BALL_RADIUS);
-	}
-	protected void gameOver(Vector2 currentPosition) {
-		setVelocity(0, 0);
-		setPosition(currentPosition);
 	}
 	
 	public void reset() { hit = false; }
@@ -52,10 +37,6 @@ public class GameLogic {
 	
 	protected void initDynamicBall(World world, Object userData) {
 		createBall(world, userData, BodyType.DynamicBody);
-	}
-	
-	protected void initStaticBall(World world, Object userData) {
-		createBall(world, userData, BodyType.StaticBody);
 	}
 	
 	protected void initKinematicBall(World world, Object userData) {
@@ -77,10 +58,6 @@ public class GameLogic {
 		_gameObjBody.createFixture(fd);
 		_gameObjBody.setUserData(userData);
 		circle.dispose();
-	}
-	
-	protected void initDynamicLimited(World world, Object userData, float hWidth, float hHeight) {
-		createBarie(world, userData, BodyType.DynamicBody, hWidth, hHeight);
 	}
 	
 	protected void initStaticLimited(World world, Object userData, float hWidth, float hHeight, float x, float y) {
@@ -108,8 +85,6 @@ public class GameLogic {
 		_gameObjBody.resetMassData();
 		_gameObjBody.setUserData(userData);
 		shape.dispose();
-		_width = hWidth;
-		_height = hHeight;
 	}
 	
 	/**
@@ -123,21 +98,11 @@ public class GameLogic {
 	}
 	
 	// Get/set functions
-	public Vector2 getPosition() { return position; }
-	
 	public void setPosition(float x, float y) { _gameObjBody.setTransform(x, y, 0); }
-	
-	public void setPosition(Vector2 pos) { _gameObjBody.setTransform(pos.x, pos.y, 0); }
 	
 	public void setVelocity(float x, float y) { _gameObjBody.setLinearVelocity(x,y); }
 	
 	public void setVelocity(Vector2 velocity) { _gameObjBody.setLinearVelocity(velocity.x, velocity.y);}
-	
-	public Vector2 getVelocity(){ return _gameObjBody.getLinearVelocity();}
-	
-	public float getWidth(){ return _width;}
-	
-	public float getHeight() { return _height; }
 	
 	public Body getBody(){ return _gameObjBody;}
 }

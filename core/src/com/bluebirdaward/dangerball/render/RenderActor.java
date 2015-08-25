@@ -4,12 +4,12 @@ package com.bluebirdaward.dangerball.render;
  *  group losers
  *  update 31/7/2015
  * */
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.bluebirdaward.dangerball.logic.GameLogic;
 import com.bluebirdaward.dangerball.utils.Constants;
 
-public class RenderActor extends Actor {
+public abstract class RenderActor  {
 
 	protected GameLogic gameLogic;
 	protected Rectangle screenRectangle;
@@ -21,5 +21,9 @@ public class RenderActor extends Actor {
     }
     
     protected float transformToScreen(float n) { return Constants.LOGIC_TO_RENDER * n; }
+    
+    public abstract void draw(Batch batch);
+   
+    public abstract void act();
     
 }

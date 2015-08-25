@@ -33,6 +33,7 @@ public class MainScreen implements Screen {
 				Gdx.graphics.getHeight()/2 - (float) _texture.getHeight()/3.625f);
 
 		_stage = new MainStage(iActHandler); 
+		
 	}
 
 	@Override public void render(float delta) {
@@ -45,18 +46,18 @@ public class MainScreen implements Screen {
 			timer = 0;
 		}
 		//update _deltaTime to move to main stage screen when overtime
-		if(_deltaTime < 3){
-			_deltaTime += Gdx.graphics.getDeltaTime();
-			Gdx.gl.glClearColor(1, 1, 1, 1);
-			_batch.begin();
-			_sprite.draw(_batch);
-			_batch.end();
-		}
-		else{
+//		if(_deltaTime < 3){
+//			_deltaTime += Gdx.graphics.getDeltaTime();
+//			Gdx.gl.glClearColor(1, 1, 1, 1);
+//			_batch.begin();
+//			_sprite.draw(_batch);
+//			_batch.end();
+//		}
+//		else{
 			//Update the _stage
 			_stage.draw();
 			_stage.act(delta);
-		}
+//		}
 	}
 
 	@Override public void show() { }
@@ -70,5 +71,5 @@ public class MainScreen implements Screen {
 
 	@Override public void hide() { Constants.globalState = GLOBAL_STATE.START; }
 
-	@Override public void dispose() { _deltaTime = 0; 	_batch.dispose();	_texture.dispose(); 	}
+	@Override public void dispose() { }
 }

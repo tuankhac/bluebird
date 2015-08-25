@@ -6,11 +6,11 @@ package com.bluebirdaward.dangerball.logic;
  * */
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
 import com.bluebirdaward.dangerball.utils.Constants;
 
 public class EnemyLevel {
@@ -19,7 +19,7 @@ public class EnemyLevel {
 
 	private EnemyLogic _enemyLogic;
 	private BarieLogic _barieLogic;
-	private Array<GameLogic> _listLogic = new Array<GameLogic>();
+	private ArrayList<GameLogic> _listLogic = new ArrayList<GameLogic>();
 
 	 EnemyLevel(World world) {
 		this._world = world;
@@ -27,7 +27,7 @@ public class EnemyLevel {
 
 	byte countEnemy(){ return _countEnemy;}
 
-	public Array<GameLogic> getArr(){ return _listLogic; }
+	public ArrayList<GameLogic> getArr(){ return _listLogic; }
 
 	//load map from text
 	void setArrSence(String path ){
