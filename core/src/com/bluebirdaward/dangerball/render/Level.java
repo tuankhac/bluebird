@@ -17,8 +17,8 @@ public class Level extends Actor {
 
 	private float _elapsed = 0;
 	private float _originX =  Constants.VP_WIDTH/2 + 10f, _originY = 0;
-	private float _height = 200f;
-	private float _width = 50f;
+	private float _height = 300f;
+	private float _width = 25f;
 	
 	public float _yArrow =  3f*Constants.BARIE_WIDTH ;
 	public float _xArrow = Constants.APP_WIDTH /2 -_width/2;

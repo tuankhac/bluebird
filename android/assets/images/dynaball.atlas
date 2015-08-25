@@ -38,6 +38,13 @@ game_over
   orig: 363, 301
   offset: 0, 0
   index: -1
+arrow
+  rotate: false
+  xy: 965, 733
+  size: 30, 250
+  orig: 30, 250
+  offset: 0, 0
+  index: -1
 greenball
   rotate: false
   xy: 848, 597
@@ -50,13 +57,6 @@ redball
   xy: 1, 33
   size: 96, 96
   orig: 96, 96
-  offset: 0, 0
-  index: -1
-arrow
-  rotate: false
-  xy: 965, 829
-  size: 30, 154
-  orig: 30, 154
   offset: 0, 0
   index: -1
 brick

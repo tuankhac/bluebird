@@ -54,7 +54,6 @@ public class MainStage extends Stage {
 
 	private boolean isShowAd = true;
 	private IActivityRequestHandler myRqstHandler;
-	public MainStage(){}
 
 	public MainStage(IActivityRequestHandler iActHandler) {
 		super(new ScalingViewport(Scaling.stretch, VP_WIDTH, VP_HEIGHT,	new OrthographicCamera(VP_WIDTH, VP_HEIGHT)));
@@ -175,16 +174,21 @@ public class MainStage extends Stage {
 	/** Logic */
 	@Override public void act(float delta) {
 		super.act(delta);
+		if (Constants.globalState == GLOBAL_STATE.RUNNING && !isShowAd) {
+			myRqstHandler.showAds(false);
+			isShowAd = true;
+		}
+		if (Constants.globalState != GLOBAL_STATE.RUNNING && isShowAd)  {
+			myRqstHandler.showAds(true);
+			isShowAd = false;
+		}
 		switch (Constants.globalState) {
 		case START:
 			if(addedStart){
 				setupNewStart();
 				addedStart = false;
 			}
-//			if (isShowAd)  {
-//				myRqstHandler.showAds(true);
-//				isShowAd = false;
-//			}
+
 			break;
 		case GUIDE:
 			if(addedBack) {
@@ -253,10 +257,7 @@ public class MainStage extends Stage {
 			break;
 
 		case RUNNING:
-//			if (!isShowAd ) {
-//				myRqstHandler.showAds(false);
-//				isShowAd = true;
-//			}
+
 			_worldLogic.update();
 			for(int i= _worldLogic.enemyLevel.getArr().size -1 ;i >= 0;i--){
 				if(_worldLogic.enemyLevel.getArr().get(i).isHit() == true){
