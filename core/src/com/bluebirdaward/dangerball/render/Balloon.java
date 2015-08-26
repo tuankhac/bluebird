@@ -16,7 +16,11 @@ public class Balloon extends RenderActor {
 		super(gameLogic);
 	}
 	
+<<<<<<< HEAD
 	 public void draw(Batch batch){
+=======
+	@Override public void draw(Batch batch, float delta){
+>>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
 		batch.draw(Assets.instance.assetatlas.set("greenball").get(), x, y, width, height);
 	}
 	

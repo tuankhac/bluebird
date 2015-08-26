@@ -20,6 +20,13 @@ public class EventsButtons extends Buttons {
 	public Button btnPlayAgain;
 	public Button btnBack;
 	public boolean touchedPlayAgain = false;
+<<<<<<< HEAD
+=======
+	public boolean touchedBack = false;
+	private TextureAtlas _buttonsAtlas;
+	private Skin _buttonSkin;
+	private BitmapFont _scoreFont;
+>>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
 
 	private Sprite _sprite = new Sprite(Assets.instance.assetatlas.set("finish").get());
 	private float _alphaModulation = 0;
@@ -36,7 +43,11 @@ public class EventsButtons extends Buttons {
 		if(Constants.globalState == GLOBAL_STATE.GAMEOVER)
 			batch.draw(Assets.instance.assetatlas.set("game_over").get(), Constants.APP_WIDTH/8, Constants.APP_HEIGHT/3, 3*Constants.APP_WIDTH/4, Constants.APP_HEIGHT/3);
 		if(Constants.globalState == GLOBAL_STATE.CONGRATULATION){
+<<<<<<< HEAD
 			batch.draw(Assets.instance.assetatlas.textureRegion, 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
+=======
+			batch.draw(Assets.instance.assetatlas.set("background").get(), 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
+>>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
 
 			if(_alphaModulation < 1f)
 				_alphaModulation += Gdx.graphics.getDeltaTime()/2;
@@ -71,15 +82,15 @@ public class EventsButtons extends Buttons {
 				if(buttons == btn){
 					Constants.globalState = GLOBAL_STATE.RUNNING;
 					Audios.audio.play(Audios.audio.play_ball);
-					System.out.println(Constants.globalState);
 				}
 				else if(buttons == btnPlayAgain){
 					touchedPlayAgain = true;
 					Audios.audio.play(Audios.audio.click);
-					System.out.println(Constants.globalState);
 				}
 				else if(buttons == btnBack){
-					Constants.globalState = GLOBAL_STATE.START;
+					touchedBack = true;
+					Audios.audio.play(Audios.audio.click);
+					btnBack.remove();
 				}
 				return true;
 			}

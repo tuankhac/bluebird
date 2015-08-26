@@ -4,6 +4,12 @@ package com.bluebirdaward.dangerball.render;
  *  group losers
  *  update 31/7/2015
  * */
+<<<<<<< HEAD
+=======
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+>>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -24,6 +30,11 @@ public class StartView extends Buttons {
 	@Override public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		batch.draw(Assets.instance.assetatlas.set("background").get(), 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
+<<<<<<< HEAD
+=======
+		if(Constants.globalState == GLOBAL_STATE.GUIDE)
+			batch.draw(new Texture(Gdx.files.internal("images/guide.png")), 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT );
+>>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
 	}
 
 	private void initButtons(){
@@ -47,7 +58,6 @@ public class StartView extends Buttons {
 				if(textbutton == btnStart){
 					Constants.globalState = GLOBAL_STATE.GRID_LEVEL;
 					Audios.audio.play(Audios.audio.click);
-					System.out.println(Constants.globalState);
 				}
 				else {
 					Constants.globalState = GLOBAL_STATE.GUIDE;

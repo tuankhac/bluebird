@@ -2,7 +2,7 @@ package com.bluebirdaward.dangerball.logic;
 /*
  *  created by tuankhac 
  *  group losers
- *  update 31/7/2015
+ *  update 6/8/2015
  * */
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -16,7 +16,10 @@ import com.bluebirdaward.dangerball.utils.Constants;
 
 public class GameLogic {
 	private Body _gameObjBody;
+<<<<<<< HEAD
 
+=======
+>>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
 	protected Vector2 position;
 	protected boolean hit;
 	
@@ -27,6 +30,20 @@ public class GameLogic {
 	public GameLogic() {
 		this.position = new Vector2();
 		hit = false;
+<<<<<<< HEAD
+=======
+	}
+	
+	public GameLogic(World world) {
+		this.position = new Vector2();
+		hit = false;
+		initKinematicLimited(world, Constants.USERDATA_BARIE,
+				Constants.BALL_RADIUS*2, Constants.BALL_RADIUS);
+	}
+	protected void gameOver(Vector2 currentPosition) {
+		setVelocity(0, 0);
+		setPosition(currentPosition);
+>>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
 	}
 	
 	public void reset() { hit = false; }
@@ -98,6 +115,10 @@ public class GameLogic {
 	}
 	
 	// Get/set functions
+<<<<<<< HEAD
+=======
+	
+>>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
 	public void setPosition(float x, float y) { _gameObjBody.setTransform(x, y, 0); }
 	
 	public void setVelocity(float x, float y) { _gameObjBody.setLinearVelocity(x,y); }

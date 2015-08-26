@@ -44,16 +44,23 @@ public class MainStage extends Stage {
 	private EventsButtons _eventButtons;
 
 	private byte vitri = 0;
+<<<<<<< HEAD
 	public boolean addedPlay = true;
 	public boolean addedGrid = true;
 	public boolean addedStart = true;
 	public boolean addedPlayAgain = true;
 	
+=======
+	private boolean addedPlay = true;
+	private boolean addedGrid = true;
+	private boolean addedStart = true;
+	private boolean addedPlayAgain = true;
+	private boolean addedBack =true;
+>>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
 	private WorldLogic _worldLogic;
 
 	private boolean isShowAd = true;
 	private IActivityRequestHandler myRqstHandler;
-	public MainStage(){}
 
 	public MainStage(IActivityRequestHandler iActHandler) {
 		super(new ScalingViewport(Scaling.stretch, VP_WIDTH, VP_HEIGHT,	new OrthographicCamera(VP_WIDTH, VP_HEIGHT)));
@@ -76,6 +83,7 @@ public class MainStage extends Stage {
 		_enemyRender = new EnemyRender(_worldLogic);
 
 		_eventButtons = new EventsButtons();
+		
 	}
 	
 	private void setupCamera() {
@@ -96,6 +104,7 @@ public class MainStage extends Stage {
 		addActor(_front);
 		addActor(_front.btnStart);
 		addActor(_front.btnGuide);
+		
 	}
 
 	private void setupNewRunning(){
@@ -160,18 +169,45 @@ public class MainStage extends Stage {
 	/** Logic */
 	@Override public void act(float delta) {
 		super.act(delta);
+		if (Constants.globalState == GLOBAL_STATE.RUNNING && !isShowAd) {
+			myRqstHandler.showAds(false);
+			isShowAd = true;
+		}
+		if (Constants.globalState != GLOBAL_STATE.RUNNING && isShowAd)  {
+			myRqstHandler.showAds(true);
+			isShowAd = false;
+		}
 		switch (Constants.globalState) {
 		case START:
 			if(addedStart){
 				setupNewStart();
 				addedStart = false;
 			}
+<<<<<<< HEAD
 //			if (isShowAd)  {
 //				myRqstHandler.showAds(true);
 //				isShowAd = false;
 //			}
-			break;
+=======
 
+			break;
+		case GUIDE:
+			if(addedBack) {
+				
+				_front.btnStart.remove();
+				_front.btnGuide.remove();
+				addActor(_eventButtons.btnBack);
+				addedBack = false;
+			}
+			if(_eventButtons.touchedBack){
+				addedStart = true;
+				addedBack = true;
+				_eventButtons.touchedBack = false;
+				_front.remove();
+				Constants.globalState = GLOBAL_STATE.START;
+			}
+>>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
+			break;
 		case GRID_LEVEL:
 			_front.remove();
 			_front.btnStart.remove();
@@ -224,10 +260,14 @@ public class MainStage extends Stage {
 			break;
 
 		case RUNNING:
+<<<<<<< HEAD
 //			if (!isShowAd ) {
 //				myRqstHandler.showAds(false);
 //				isShowAd = true;
 //			}
+=======
+
+>>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
 			_worldLogic.update();
 			for(int i= _worldLogic.enemyLevel.getArr().size() -1 ;i >= 0;i--){
 				if(_worldLogic.enemyLevel.getArr().get(i).isHit() == true){
@@ -279,7 +319,6 @@ public class MainStage extends Stage {
 				float tempX  = _gUICam.getPickRay(screenX, screenY).origin.x;
 				float tempY  = _gUICam.getPickRay(screenX, screenY).origin.y;
 					_level.rotation = -(float)Math.toDegrees(Math.atan2(tempX,tempY)) ;
-					System.out.println(_level.rotation);
 			}
 		}else if (topSideTouched(_touchPoint.x, _touchPoint.y)) ;
 	}

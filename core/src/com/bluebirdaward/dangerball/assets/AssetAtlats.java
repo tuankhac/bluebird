@@ -2,7 +2,7 @@ package com.bluebirdaward.dangerball.assets;
 /*
  *  created by tuankhac 
  *  group losers
- *  update 31/7/2015
+ *  update 6/8/2015
  * */
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -21,4 +21,8 @@ public class AssetAtlats {
 	public TextureRegion get(){
 		return textureRegion;
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
