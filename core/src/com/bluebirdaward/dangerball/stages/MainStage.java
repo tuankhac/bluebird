@@ -44,19 +44,16 @@ public class MainStage extends Stage {
 	private EventsButtons _eventButtons;
 
 	private byte vitri = 0;
-<<<<<<< HEAD
-	public boolean addedPlay = true;
-	public boolean addedGrid = true;
-	public boolean addedStart = true;
-	public boolean addedPlayAgain = true;
+//	public boolean addedPlay = true;
+//	public boolean addedGrid = true;
+//	public boolean addedStart = true;
+//	public boolean addedPlayAgain = true;
 	
-=======
 	private boolean addedPlay = true;
 	private boolean addedGrid = true;
 	private boolean addedStart = true;
 	private boolean addedPlayAgain = true;
 	private boolean addedBack =true;
->>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
 	private WorldLogic _worldLogic;
 
 	private boolean isShowAd = true;
@@ -183,12 +180,10 @@ public class MainStage extends Stage {
 				setupNewStart();
 				addedStart = false;
 			}
-<<<<<<< HEAD
 //			if (isShowAd)  {
 //				myRqstHandler.showAds(true);
 //				isShowAd = false;
 //			}
-=======
 
 			break;
 		case GUIDE:
@@ -206,7 +201,6 @@ public class MainStage extends Stage {
 				_front.remove();
 				Constants.globalState = GLOBAL_STATE.START;
 			}
->>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
 			break;
 		case GRID_LEVEL:
 			_front.remove();
@@ -260,14 +254,11 @@ public class MainStage extends Stage {
 			break;
 
 		case RUNNING:
-<<<<<<< HEAD
 //			if (!isShowAd ) {
 //				myRqstHandler.showAds(false);
 //				isShowAd = true;
 //			}
-=======
 
->>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
 			_worldLogic.update();
 			for(int i= _worldLogic.enemyLevel.getArr().size() -1 ;i >= 0;i--){
 				if(_worldLogic.enemyLevel.getArr().get(i).isHit() == true){

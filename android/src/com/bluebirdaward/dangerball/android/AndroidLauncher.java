@@ -81,10 +81,7 @@ public class AndroidLauncher extends AndroidApplication implements IActivityRequ
 		if(MainScreen.exit < 2)
 			Toast.makeText(getContext(), "Double press to exit", Toast.LENGTH_SHORT).show();
 		if(MainScreen.exit >= 2){
-<<<<<<< HEAD
-=======
 			super.onBackPressed();
->>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
 			finish();
 		}
 	}

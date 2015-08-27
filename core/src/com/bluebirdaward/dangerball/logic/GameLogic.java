@@ -16,10 +16,6 @@ import com.bluebirdaward.dangerball.utils.Constants;
 
 public class GameLogic {
 	private Body _gameObjBody;
-<<<<<<< HEAD
-
-=======
->>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
 	protected Vector2 position;
 	protected boolean hit;
 	
@@ -30,8 +26,6 @@ public class GameLogic {
 	public GameLogic() {
 		this.position = new Vector2();
 		hit = false;
-<<<<<<< HEAD
-=======
 	}
 	
 	public GameLogic(World world) {
@@ -42,8 +36,6 @@ public class GameLogic {
 	}
 	protected void gameOver(Vector2 currentPosition) {
 		setVelocity(0, 0);
-		setPosition(currentPosition);
->>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
 	}
 	
 	public void reset() { hit = false; }
@@ -115,10 +107,6 @@ public class GameLogic {
 	}
 	
 	// Get/set functions
-<<<<<<< HEAD
-=======
-	
->>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
 	public void setPosition(float x, float y) { _gameObjBody.setTransform(x, y, 0); }
 	
 	public void setVelocity(float x, float y) { _gameObjBody.setLinearVelocity(x,y); }

@@ -46,18 +46,18 @@ public class MainScreen implements Screen {
 			timer = 0;
 		}
 		//update _deltaTime to move to main stage screen when overtime
-//		if(_deltaTime < 3){
-//			_deltaTime += Gdx.graphics.getDeltaTime();
-//			Gdx.gl.glClearColor(1, 1, 1, 1);
-//			_batch.begin();
-//			_sprite.draw(_batch);
-//			_batch.end();
-//		}
-//		else{
+		if(_deltaTime < 3){
+			_deltaTime += Gdx.graphics.getDeltaTime();
+			Gdx.gl.glClearColor(1, 1, 1, 1);
+			_batch.begin();
+			_sprite.draw(_batch);
+			_batch.end();
+		}
+		else{
 			//Update the _stage
 			_stage.draw();
 			_stage.act(delta);
-//		}
+		}
 	}
 
 	@Override public void show() { }

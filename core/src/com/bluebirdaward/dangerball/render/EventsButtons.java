@@ -6,9 +6,12 @@ package com.bluebirdaward.dangerball.render;
  * */
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.bluebirdaward.dangerball.logic.Assets;
 import com.bluebirdaward.dangerball.utils.Audios;
@@ -20,13 +23,10 @@ public class EventsButtons extends Buttons {
 	public Button btnPlayAgain;
 	public Button btnBack;
 	public boolean touchedPlayAgain = false;
-<<<<<<< HEAD
-=======
 	public boolean touchedBack = false;
 	private TextureAtlas _buttonsAtlas;
 	private Skin _buttonSkin;
 	private BitmapFont _scoreFont;
->>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
 
 	private Sprite _sprite = new Sprite(Assets.instance.assetatlas.set("finish").get());
 	private float _alphaModulation = 0;
@@ -43,11 +43,8 @@ public class EventsButtons extends Buttons {
 		if(Constants.globalState == GLOBAL_STATE.GAMEOVER)
 			batch.draw(Assets.instance.assetatlas.set("game_over").get(), Constants.APP_WIDTH/8, Constants.APP_HEIGHT/3, 3*Constants.APP_WIDTH/4, Constants.APP_HEIGHT/3);
 		if(Constants.globalState == GLOBAL_STATE.CONGRATULATION){
-<<<<<<< HEAD
 			batch.draw(Assets.instance.assetatlas.textureRegion, 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
-=======
 			batch.draw(Assets.instance.assetatlas.set("background").get(), 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
->>>>>>> b2fcd0be945d07866a34cff9663536fab150b88e
 
 			if(_alphaModulation < 1f)
 				_alphaModulation += Gdx.graphics.getDeltaTime()/2;
