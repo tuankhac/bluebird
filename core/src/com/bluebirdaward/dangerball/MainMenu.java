@@ -14,6 +14,7 @@ import com.bluebirdaward.dangerball.utils.Audios;
 
 public class MainMenu extends Game{
 	IActivityRequestHandler iActHandler;
+	public MainMenu(){}
 	public MainMenu(IActivityRequestHandler iActHandler) {
 		this.iActHandler = iActHandler;
 	}

@@ -61,7 +61,7 @@ public class EventsButtons extends Actor implements Disposable {
 		}
 	}
 	private void initButtons(){
-		_buttonsAtlas = new TextureAtlas("images/dynaball.atlas");
+		_buttonsAtlas = new TextureAtlas("images/buttons.pack");
 		_buttonSkin = new Skin();
 		_buttonSkin.addRegions(_buttonsAtlas);
 		_buttonSkin.getAtlas();

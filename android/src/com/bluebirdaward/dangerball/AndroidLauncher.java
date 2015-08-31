@@ -1,4 +1,4 @@
-package com.loser.game.bubblefire.android;
+package com.bluebirdaward.dangerball;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
@@ -20,8 +20,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 
 public class AndroidLauncher extends AndroidApplication implements IActivityRequestHandler {
-	private static final String AD_BANNER_UNIT_ID = "ca-app-pub-6288116306885369/2207249930";
-	private static final String AD_INTERSTITIAL_UNIT_ID = "ca-app-pub-6288116306885369/3683983138";
+	private static final String AD_BANNER_UNIT_ID = "ca-app-pub-8112894826901791/9996240462";
+	private static final String AD_INTERSTITIAL_UNIT_ID = "ca-app-pub-8112894826901791/2472973661";
 	
 	private boolean isShowInterstitial;
 	private AdRequest adRequestBuilder;

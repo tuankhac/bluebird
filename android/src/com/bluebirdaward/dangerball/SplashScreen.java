@@ -1,4 +1,4 @@
-package com.loser.game.bubblefire.android;
+package com.bluebirdaward.dangerball;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +14,7 @@ import android.widget.ImageView;
 
 public class SplashScreen extends Activity {
 
-    private static int SPLASH_TIME_OUT = 2000;
+    private static int SPLASH_TIME_OUT = 3000;
  
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +30,7 @@ public class SplashScreen extends Activity {
         // To load image
              try {
               // get input stream
-            	InputStream ims = getAssets().open("images/bluebird_logo.jpg");
+            	InputStream ims = getAssets().open("images/bluebird_logo.png");
               // create drawable from stream
               Drawable d = Drawable.createFromStream(ims, null);
               // set the drawable to imageview

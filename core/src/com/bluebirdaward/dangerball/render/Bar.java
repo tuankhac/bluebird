@@ -19,9 +19,9 @@ public class Bar extends RenderActor {
 	
 	@Override public void draw(Batch batch, float delta){
 		if(gameLogic.allowHit)
-			batch.draw(Assets.instance.assetatlas.set("moss").get(), x, y, width, height);
+			batch.draw(Assets.instance.assetatlas.set("brick_ice").get(), x, y, width, height);
 		else
-			batch.draw(Assets.instance.assetatlas.set("rock").get(), x, y, width, height);
+			batch.draw(Assets.instance.assetatlas.set("brick").get(), x, y, width, height);
 	}
 	
 	@Override public void act(float delta) {

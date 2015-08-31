@@ -47,7 +47,7 @@ public class StartView extends Actor implements Disposable {
 	}
 
 	private void initButtons(){
-		_buttonsAtlas = new TextureAtlas("images/dynaball.atlas");
+		_buttonsAtlas = new TextureAtlas("images/buttons.pack");
 		_buttonSkin = new Skin();
 		_buttonSkin.addRegions(_buttonsAtlas);
 
