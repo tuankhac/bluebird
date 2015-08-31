@@ -16,6 +16,7 @@ public class MainScreen implements Screen {
 
 	public MainScreen(IActivityRequestHandler iActHandler) { 
 		_stage = new MainStage(iActHandler); 
+		
 	}
 
 	@Override public void render(float delta) {
@@ -37,5 +38,9 @@ public class MainScreen implements Screen {
 
 	@Override public void hide() { Constants.globalState = GLOBAL_STATE.START; }
 
+<<<<<<< HEAD
 	@Override public void dispose() {}
+=======
+	@Override public void dispose() { }
+>>>>>>> 5c9816ea6841b230c2e1df31d3711646ff55e128
 }

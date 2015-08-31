@@ -36,7 +36,6 @@ public class GameLogic {
 	
 	protected void gameOver(Vector2 currentPosition) {
 		setVelocity(0, 0);
-		setPosition(currentPosition);
 	}
 	
 	public void reset() { hit = false; }
@@ -104,10 +103,7 @@ public class GameLogic {
 	public void mAllowMotion(float vX, float vY){	setVelocity(vX,vY); }
 	
 	// Get/set functions
-	
 	public void setPosition(float x, float y) { _gameObjBody.setTransform(x, y, 0); }
-	
-	public void setPosition(Vector2 pos) { _gameObjBody.setTransform(pos.x, pos.y, 0); }
 	
 	public void setVelocity(float x, float y) { _gameObjBody.setLinearVelocity(x,y); }
 	

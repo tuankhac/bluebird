@@ -38,7 +38,8 @@ public class WorldLogic {
 	private float vYBarieHorizontal = 0f;
 	private float vXBarieVertical = 0f;
 	private float vYBarieVertical = 0f;
-	private float vXBalloon = 0f , vYBalloon = 0f;
+	private float vXBalloon = 0f ;
+	private float vYBalloon = 0f;
 
 	public WorldLogic(Level level) {
 
@@ -131,6 +132,7 @@ public class WorldLogic {
 	}
 
 	/* Handle to remove object*/
+<<<<<<< HEAD
 	void remove(GameLogic object){ enemyLevel.getArr().removeIndex(enemyLevel.getArr().indexOf(object, true));}
 	
 	private void changeForEachMap(){
@@ -157,9 +159,12 @@ public class WorldLogic {
 		
 		setTimer = SETTIMER.valueOf("LEVEL"+level).getValue();
 	}
+=======
+	void remove(GameLogic object){ enemyLevel.getArr().remove(enemyLevel.getArr().indexOf(object));}
+>>>>>>> 5c9816ea6841b230c2e1df31d3711646ff55e128
 
 	private void catchRunning(){
-		for(int i= enemyLevel.getArr().size -1 ;i>=0;i--)
+		for(int i= enemyLevel.getArr().size() -1 ;i>=0;i--)
 			if(enemyLevel.getArr().get(i).isHit() == true){
 				_getScore ++;
 				break;
@@ -167,7 +172,7 @@ public class WorldLogic {
 		if(level>5){
 			_elapse = _elapse +Gdx.graphics.getDeltaTime();
 			calculateMotion();
-			for(int i=0; i< enemyLevel.getArr().size; i++){
+			for(int i=0; i< enemyLevel.getArr().size(); i++){
 				if(enemyLevel.getArr().get(i).getBody().getUserData() == Constants.USERDATA_ENEMY){
 					enemyLevel.getArr().get(i).mAllowMotion(vXBalloon, vYBalloon);
 				}
@@ -216,7 +221,7 @@ public class WorldLogic {
 
 	private void removeAllBodyLogic(){
 		_getScore = 0;
-		for(int i=0;i < enemyLevel.getArr().size;i++ )
+		for(int i=0;i < enemyLevel.getArr().size();i++ )
 			_world.destroyBody(enemyLevel.getArr().get(i).getBody());
 		enemyLevel.getArr().clear();
 	}

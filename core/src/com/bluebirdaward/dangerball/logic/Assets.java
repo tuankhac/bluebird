@@ -5,7 +5,6 @@ package com.bluebirdaward.dangerball.logic;
  *  update 31/7/2015
  * */
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -20,14 +19,9 @@ public class Assets implements Disposable {
 
 	private TextureAtlas atlas;
 	private Assets() {}
-	private AssetManager assetManager;
-	public void init(AssetManager assetManager) {
-		this.assetManager = assetManager;
-		this.assetManager.load(Constants.TEXTURE_ATLAS_OBJECTS, TextureAtlas.class);
-		this.assetManager.finishLoading();
-		atlas = this.assetManager.get(Constants.TEXTURE_ATLAS_OBJECTS);
-		// enable texture filtering for pixel smoothing
-		for (Texture t : atlas.getTextures())
+	public void init() {
+		atlas = new TextureAtlas(Constants.TEXTURE_ATLAS_OBJECTS);
+		for(Texture t : atlas.getTextures())
 			t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		// create game resource objects
 		assetatlas = new AssetAtlats(atlas);
@@ -36,7 +30,6 @@ public class Assets implements Disposable {
 
 	@Override	public void dispose() {
 		atlas.dispose();
-		assetManager.dispose();
 		fonts.defaultSmall.dispose();
 	}
 
