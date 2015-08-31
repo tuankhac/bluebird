@@ -39,16 +39,12 @@ public class Audios implements Disposable {
 		}
 	}
 
-	private void disposeAll(){
+	@Override
+	public void dispose() {	
 		play_ball.dispose();
 		ball_restitution.dispose();
 		player_hit_enemy.dispose();
 		click.dispose();
 		game_over.dispose();
-	}
-
-	@Override
-	public void dispose() {
-		disposeAll();
 	}
 }

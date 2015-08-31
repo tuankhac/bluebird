@@ -95,8 +95,7 @@ public class MainStage extends Stage {
 	private void setupNewStart(){
 		addActor(_front);
 		addActor(_front.btnStart);
-		addActor(_front.btnGuide);
-		
+		addActor(_front.btnGuide);	
 	}
 
 	private void setupNewRunning(){
@@ -212,18 +211,19 @@ public class MainStage extends Stage {
 			_front.btnGuide.remove();
 			if(_worldLogic.gameOver == 1){
 				removeAllActor();
-				if(SaveScore.getDisplayGridLevel() < _worldLogic.level){
+				if(SaveScore.getDisplayGridLevel() <= _worldLogic.level){
 					vitri = _worldLogic.level;
 					_gridLevel.displayGridLevel[_worldLogic.level - 1] = 1;
 					if(_worldLogic.level< 20){
 						_gridLevel.displayGridLevel[_worldLogic.level] = 0; 
 						_gridLevel.allowActiveButton[_worldLogic.level] = true;
+						SaveScore.saveData(vitri);
 					}
 					else{
 						Constants.globalState = GLOBAL_STATE.CONGRATULATION;
 
 					}
-					SaveScore.saveData(vitri);
+//					SaveScore.saveData(vitri);
 				}
 				addedGrid = true;
 			}
@@ -298,7 +298,6 @@ public class MainStage extends Stage {
 				_worldLogic.player.setVelocity(velocityOrigin.scl(0.25f));
 				_worldLogic.allowPlayerHandle = false;
 			}
-
 		}
 		else if (topSideTouched(_touchPoint.x, _touchPoint.y)) {}
 	}
@@ -319,7 +318,6 @@ public class MainStage extends Stage {
 		case RUNNING:
 			touchUpRunning(screenX,screenY);
 			break;
-
 		default:
 			break;
 		}
@@ -327,12 +325,11 @@ public class MainStage extends Stage {
 	}
 
 	@Override public boolean touchDragged(int screenX, int screenY, int pointer) {
-
+		getCamera().unproject(_touchPoint.set(screenX, screenY, 0));
 		switch (Constants.globalState) {
 		case RUNNING:
 			touchDragRunning(screenX, screenY);
 			break;
-
 		default:
 			break;
 		}

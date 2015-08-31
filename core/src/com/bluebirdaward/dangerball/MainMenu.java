@@ -17,7 +17,6 @@ public class MainMenu extends Game{
 	public MainMenu(IActivityRequestHandler iActHandler) {
 		this.iActHandler = iActHandler;
 	}
-//	public MainMenu() {}
 	@Override	public void create() {
 		Assets.instance.init(new AssetManager());
 		Audios.audio.initAudio();

@@ -28,6 +28,9 @@ public class StartView extends Actor implements Disposable {
 
 	private Skin _buttonSkin;
 	private BitmapFont _scoreFont;
+	
+	private float app_width = Constants.APP_WIDTH;
+	private float app_height = Constants.APP_HEIGHT;
 
 	public TextButton btnStart, btnGuide;
 
@@ -38,21 +41,21 @@ public class StartView extends Actor implements Disposable {
 
 	@Override public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		batch.draw(Assets.instance.assetatlas.set("background").get(), 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
+		batch.draw(Assets.instance.assetatlas.set("background").get(), 0, 0, app_width, app_height);
 		if(Constants.globalState == GLOBAL_STATE.GUIDE)
-			batch.draw(new Texture(Gdx.files.internal("images/guide.png")), 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT );
+			batch.draw(new Texture(Gdx.files.internal("images/guide.jpg")), 0, 0, app_width, app_height );
 	}
 
 	private void initButtons(){
-		_buttonsAtlas = new TextureAtlas("images/buttons.pack");
+		_buttonsAtlas = new TextureAtlas("images/dynaball.atlas");
 		_buttonSkin = new Skin();
 		_buttonSkin.addRegions(_buttonsAtlas);
 
 		btnStart = initButton("button_start");
 		btnGuide = initButton("button_guide");
 
-		activeButton(btnStart,"button_start",Constants.APP_HEIGHT/2 + 55);
-		activeButton(btnGuide,"button_guide",Constants.APP_HEIGHT/2 - 55 );
+		activeButton(btnStart,"button_start",app_height/2 + 55);
+		activeButton(btnGuide,"button_guide",app_height/2 - 105 );
 
 	}
 
@@ -68,9 +71,9 @@ public class StartView extends Actor implements Disposable {
 		float btnWidth = (float)_buttonsAtlas.findRegion(name).getRegionWidth();
 		float btnHeight = (float)_buttonsAtlas.findRegion(name).getRegionHeight();
 		textbutton.setSize(btnWidth, btnHeight);
-		textbutton.setPosition(Constants.APP_WIDTH/2-btnWidth/2, y);
+		textbutton.setPosition(app_width/2-btnWidth/2, y);
 
-		textbutton.setBounds(Constants.APP_WIDTH/2-btnWidth/2, y,textbutton.getWidth(), btnStart.getHeight());
+		textbutton.setBounds(app_width/2-btnWidth/2, y,textbutton.getWidth(), btnStart.getHeight());
 		textbutton.addListener(new ClickListener(){
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				if(textbutton == btnStart){

@@ -86,24 +86,7 @@ public class WorldLogic {
 	public void initNewLevel(){
 		if(countPressed >0){
 			level = _level.level;
-			if(level < 8)  vXBarieHorizontal = VELOCITY.valueOf("LEVEL"+level).getVX(); 
-			else if(level < 10)	vYBarieVertical = VELOCITY.valueOf("LEVEL"+level).getVY();
-			else if(level < 14){
-				vXBarieHorizontal = VELOCITY.valueOf("LEVEL"+level).getVX();
-				vYBarieVertical = VELOCITY.valueOf("LEVEL"+level).getVY();
-			}
-			else if(level < 16) 
-			{
-				vYBarieHorizontal =  VELOCITY.valueOf("LEVEL"+level).getVX();
-				vYBarieVertical =  VELOCITY.valueOf("LEVEL"+level).getVY();
-			}
-			else if(level < 17) vXBarieHorizontal = VELOCITY.valueOf("LEVEL"+level).getVY();
-			else if(level < 18) {
-				vYBarieVertical = VELOCITY.valueOf("LEVEL"+level).getVY();
-			}
-			else if(level < 20) vXBarieHorizontal = VELOCITY.valueOf("LEVEL"+level).getVX();
-			else if(level < 21) vXBarieHorizontal = VELOCITY.valueOf("LEVEL"+level).getVX();
-			setTimer = SETTIMER.valueOf("LEVEL"+level).getValue();
+			changeForEachMap();
 			enemyLevel.setArrSence("level/map"+ level);	
 			countPressed = 0;
 		}
@@ -121,12 +104,59 @@ public class WorldLogic {
 		player.update();
 		catchRunning();
 	}
+	
+	public void resetLevel(){
+		switchLevel();
+		player.reset();
+		allowPlayerHandle = true;
+		_elapse = 0;
 
-	/** Used to Debug logic */
-	//	public World getWorldLogic() { return _world; }
+		changeForEachMap();
+
+		removeAllBodyLogic();
+		enemyLevel.setArrSence("level/map"+level);
+	}
+
+	public void nextLevel(){
+		vXBarieHorizontal = 0;
+		vYBarieHorizontal = 0;
+		vXBarieVertical = 0;
+		vYBarieVertical = 0;
+		vXBalloon = 0;
+		vYBalloon = 0;
+		_elapse = 0;
+		removeAllBodyLogic();
+		initNewLevel();
+		switchLevel();
+	}
 
 	/* Handle to remove object*/
 	void remove(GameLogic object){ enemyLevel.getArr().removeIndex(enemyLevel.getArr().indexOf(object, true));}
+	
+	private void changeForEachMap(){
+		if(level == 6)  vXBarieHorizontal = VELOCITY.valueOf("LEVEL"+level).getVX(); 
+		else if(level ==7)  vYBarieVertical = VELOCITY.valueOf("LEVEL"+level).getVY();
+		else if(level == 8) vXBarieHorizontal = VELOCITY.valueOf("LEVEL"+level).getVX();
+		else if(level < 10)	vYBarieVertical = VELOCITY.valueOf("LEVEL"+level).getVY();
+		else if(level < 14){
+			vXBarieHorizontal = VELOCITY.valueOf("LEVEL"+level).getVX();
+			vYBarieVertical = VELOCITY.valueOf("LEVEL"+level).getVY();
+		}
+		else if(level < 16) 
+		{
+			vYBarieHorizontal =  VELOCITY.valueOf("LEVEL"+level).getVX();
+			vYBarieVertical =  VELOCITY.valueOf("LEVEL"+level).getVY();
+		}
+		else if(level < 17) vXBarieHorizontal = VELOCITY.valueOf("LEVEL"+level).getVY();
+		else if(level < 18) {
+			vYBarieVertical = VELOCITY.valueOf("LEVEL"+level).getVY();
+		}
+		else if(level == 18) vYBarieVertical = VELOCITY.valueOf("LEVEL"+level).getVY();
+		else if(level ==19) vXBarieHorizontal = VELOCITY.valueOf("LEVEL"+level).getVX();
+		else if(level ==20) vXBarieHorizontal = VELOCITY.valueOf("LEVEL"+level).getVX();
+		
+		setTimer = SETTIMER.valueOf("LEVEL"+level).getValue();
+	}
 
 	private void catchRunning(){
 		for(int i= enemyLevel.getArr().size -1 ;i>=0;i--)
@@ -170,43 +200,6 @@ public class WorldLogic {
 		}
 	}
 
-	public void resetLevel(){
-		switchLevel();
-		player.reset();
-		allowPlayerHandle = true;
-		_elapse = 0;
-		setTimer = SETTIMER.valueOf("LEVEL"+level).getValue();
-		if(level < 8)  vXBarieHorizontal = VELOCITY.valueOf("LEVEL"+level).getVX(); 
-		else if(level < 10)	vYBarieVertical = VELOCITY.valueOf("LEVEL"+level).getVY();
-		else if(level < 14){
-			vXBarieHorizontal = VELOCITY.valueOf("LEVEL"+level).getVX();
-			vYBarieVertical = VELOCITY.valueOf("LEVEL"+level).getVY();
-		}
-		else if(level < 16) {
-			vYBarieHorizontal =  VELOCITY.valueOf("LEVEL"+level).getVX();
-			vYBarieVertical =  VELOCITY.valueOf("LEVEL"+level).getVY();
-		}
-		else if(level < 17) vXBarieHorizontal = VELOCITY.valueOf("LEVEL"+level).getVX();
-		else if(level < 18) vYBarieVertical = VELOCITY.valueOf("LEVEL"+level).getVY();
-		else if(level < 20) vXBarieHorizontal = VELOCITY.valueOf("LEVEL"+level).getVX();
-		else if(level < 21) vXBarieHorizontal = VELOCITY.valueOf("LEVEL"+level).getVX();
-		removeAllBodyLogic();
-		enemyLevel.setArrSence("level/map"+level);
-	}
-
-	public void nextLevel(){
-		vXBarieHorizontal = 0;
-		vYBarieHorizontal = 0;
-		vXBarieVertical = 0;
-		vYBarieVertical = 0;
-		vXBalloon = 0;
-		vYBalloon = 0;
-		_elapse = 0;
-		removeAllBodyLogic();
-		initNewLevel();
-		switchLevel();
-	}
-
 	private void calculateMotion(){
 		if(_elapse >= setTimer){
 			if(vXBarieHorizontal != 0) vXBarieHorizontal *= -1;
@@ -219,9 +212,7 @@ public class WorldLogic {
 		}
 	}
 
-	private void switchLevel(){
-		_level.timer = (byte)TIMER.valueOf("LEVEL"+level).getValue();
-	}
+	private void switchLevel(){	_level.timer = (byte)TIMER.valueOf("LEVEL"+level).getValue();	}
 
 	private void removeAllBodyLogic(){
 		_getScore = 0;

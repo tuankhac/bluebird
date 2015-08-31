@@ -15,19 +15,21 @@ public class Player extends RenderActor{
 	private float _width;
 	private float _height;
 	
+	private float ball_radius = Constants.BALL_RADIUS;
+	
 	public Player(PlayerLogic playerLogic) {
 		super(playerLogic);
 	}
 
 	@Override public void draw(Batch batch, float delta){
-		batch.draw(Assets.instance.assetatlas.set("redball").get(), _x, _y, _width, _height);
+		batch.draw(Assets.instance.assetatlas.set("player01").get(), _x, _y, _width, _height);
 	}
 	
 	@Override public void act(float delta) {
 		super.act(delta);
-		_x = transformToScreen(gameLogic.getBody().getPosition().x -  Constants.BALL_RADIUS);
-		_y = transformToScreen(gameLogic.getBody().getPosition().y - Constants.BALL_RADIUS);
-		_width = transformToScreen(2*Constants.BALL_RADIUS);
-		_height = transformToScreen(2*Constants.BALL_RADIUS);
+		_x = transformToScreen(gameLogic.getBody().getPosition().x -  ball_radius);
+		_y = transformToScreen(gameLogic.getBody().getPosition().y - ball_radius);
+		_width = transformToScreen(2*ball_radius);
+		_height = transformToScreen(2*ball_radius);
 	}
 }

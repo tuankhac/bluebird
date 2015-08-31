@@ -65,7 +65,7 @@ public class GridLevel extends Actor implements Disposable {
 	}
 
 	private GridLevel initButtons(){
-		_buttonsAtlas = new TextureAtlas("images/buttons.pack");
+		_buttonsAtlas = new TextureAtlas("images/dynaball.atlas");
 		_buttonSkin = new Skin();
 		_buttonSkin.addRegions(_buttonsAtlas);
 

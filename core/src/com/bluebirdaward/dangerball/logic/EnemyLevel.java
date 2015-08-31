@@ -19,13 +19,14 @@ public class EnemyLevel {
 
 	private EnemyLogic _enemyLogic;
 	private BarieLogic _barieLogic;
+	private float width = Constants.VP_WIDTH;
+	private float height = Constants.VP_HEIGHT;
+	private float ball_radius = Constants.BALL_RADIUS;
 	private Array<GameLogic> _listLogic = new Array<GameLogic>();
 
-	 EnemyLevel(World world) {
-		this._world = world;
-	}
+	EnemyLevel(World world) {	this._world = world; }
 
-	byte countEnemy(){ return _countEnemy;}
+	byte countEnemy(){ return _countEnemy; }
 
 	public Array<GameLogic> getArr(){ return _listLogic; }
 
@@ -44,28 +45,28 @@ public class EnemyLevel {
 						switch (index) {
 						case 1:
 							_enemyLogic = new EnemyLogic(this._world, Constants.USERDATA_ENEMY);
-							_enemyLogic.setPosition((i+1) * Constants.VP_WIDTH/15 - Constants.BALL_RADIUS , (25-j)*Constants.VP_HEIGHT/25 - Constants.BALL_RADIUS);
+							_enemyLogic.setPosition((i+1) * width/15 - ball_radius , (25-j)*height/25 - ball_radius);
 							_listLogic.add(_enemyLogic);
 							_countEnemy ++;
 							break;
 						case 2:
 							_barieLogic = new BarieLogic(this._world,false,false,false);
-							_barieLogic.setPosition((i+1) * Constants.VP_WIDTH/15 - Constants.BALL_RADIUS, (25-j)*Constants.VP_HEIGHT/25 - Constants.BALL_RADIUS);
+							_barieLogic.setPosition((i+1) * width/15 - ball_radius, (25-j)*height/25 - ball_radius);
 							_listLogic.add(_barieLogic);
 							break;
 						case 3:
 							_barieLogic = new BarieLogic(this._world,true,false,false);
-							_barieLogic.setPosition((i+1) * Constants.VP_WIDTH/15 - Constants.BALL_RADIUS, (25-j)*Constants.VP_HEIGHT/25 - Constants.BALL_RADIUS);
+							_barieLogic.setPosition((i+1) * width/15 - ball_radius, (25-j)*height/25 - ball_radius);
 							_listLogic.add(_barieLogic);
 							break;
 						case 4:
 							_barieLogic = new BarieLogic(this._world,false,true,false);
-							_barieLogic.setPosition((i+1) * Constants.VP_WIDTH/15 - Constants.BALL_RADIUS, (25-j)*Constants.VP_HEIGHT/25 - Constants.BALL_RADIUS);
+							_barieLogic.setPosition((i+1) * width/15 - ball_radius, (25-j)*height/25 - ball_radius);
 							_listLogic.add(_barieLogic);
 							break;
 						case 5:
 							_barieLogic = new BarieLogic(this._world,false,false, true);
-							_barieLogic.setPosition((i+1) * Constants.VP_WIDTH/15 - Constants.BALL_RADIUS, (25-j)*Constants.VP_HEIGHT/25 - Constants.BALL_RADIUS);
+							_barieLogic.setPosition((i+1) * width/15 - ball_radius, (25-j)*height/25 - ball_radius);
 							_listLogic.add(_barieLogic);
 							break;
 						default:

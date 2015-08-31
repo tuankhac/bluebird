@@ -31,9 +31,9 @@ public class GameLogic {
 	public GameLogic(World world) {
 		this.position = new Vector2();
 		hit = false;
-		initKinematicLimited(world, Constants.USERDATA_BARIE,
-				Constants.BALL_RADIUS*2, Constants.BALL_RADIUS);
+		initKinematicLimited(world, Constants.USERDATA_BARIE,Constants.BALL_RADIUS*2, Constants.BALL_RADIUS);
 	}
+	
 	protected void gameOver(Vector2 currentPosition) {
 		setVelocity(0, 0);
 		setPosition(currentPosition);
@@ -99,13 +99,9 @@ public class GameLogic {
 	
 	/**
 	 * update position for Sprite via Body */
-	public void update() {
-		position = _gameObjBody.getPosition();
-	}
+	public void update() {	position = _gameObjBody.getPosition();	}
 	
-	public void mAllowMotion(float vX, float vY){
-		setVelocity(vX,vY);
-	}
+	public void mAllowMotion(float vX, float vY){	setVelocity(vX,vY); }
 	
 	// Get/set functions
 	

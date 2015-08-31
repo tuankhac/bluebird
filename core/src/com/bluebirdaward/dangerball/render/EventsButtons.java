@@ -37,28 +37,31 @@ public class EventsButtons extends Actor implements Disposable {
 
 	private Sprite _sprite = new Sprite(Assets.instance.assetatlas.set("finish").get());
 	private float _alphaModulation = 0;
+	private float width = Constants.APP_WIDTH;
+	private float height = Constants.APP_HEIGHT;
 
 	public EventsButtons() {
 		initFont();
 		initButtons();
 
-		_sprite.setPosition(Constants.APP_WIDTH/8, Constants.APP_HEIGHT/3);
+		_sprite.setPosition(width/8, height/3);
 	}
 
 	@Override public void draw(Batch batch, float delta) {
 		super.draw(batch, delta);
 		if(Constants.globalState == GLOBAL_STATE.GAMEOVER)
-			batch.draw(Assets.instance.assetatlas.set("game_over").get(), Constants.APP_WIDTH/8, Constants.APP_HEIGHT/3, 3*Constants.APP_WIDTH/4, Constants.APP_HEIGHT/3);
+			batch.draw(Assets.instance.assetatlas.set("game_over").get(), width/8, height/3, 3*width/4, height/3);
 		if(Constants.globalState == GLOBAL_STATE.CONGRATULATION){
-			batch.draw(Assets.instance.assetatlas.set("background").get(), 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
+			batch.draw(Assets.instance.assetatlas.set("background").get(), 0, 0, width, height);
 
 			if(_alphaModulation < 1f)
 				_alphaModulation += Gdx.graphics.getDeltaTime()/2;
+			else _alphaModulation = 1;
 			_sprite.draw(batch, _alphaModulation);
 		}
 	}
 	private void initButtons(){
-		_buttonsAtlas = new TextureAtlas("images/buttons.pack");
+		_buttonsAtlas = new TextureAtlas("images/dynaball.atlas");
 		_buttonSkin = new Skin();
 		_buttonSkin.addRegions(_buttonsAtlas);
 		_buttonSkin.getAtlas();
@@ -67,9 +70,9 @@ public class EventsButtons extends Actor implements Disposable {
 		btnPlayAgain = initButton("button_playagain");
 		btnBack = initButton("button_back");
 
-		activeButton(btnPlay,"button_play",Constants.APP_HEIGHT/2);
-		activeButton(btnPlayAgain,"button_playagain",Constants.APP_HEIGHT/2 - (float)_buttonsAtlas.findRegion("button_playagain").getRegionHeight()*0.375f );
-		activeButton(btnBack,"button_back",Constants.APP_HEIGHT/2 );
+		activeButton(btnPlay,"button_play",height/2);
+		activeButton(btnPlayAgain,"button_playagain",height/2 - (float)_buttonsAtlas.findRegion("button_playagain").getRegionHeight()*0.575f );
+		activeButton(btnBack,"button_back",height/2 );
 	}
 
 
@@ -85,12 +88,12 @@ public class EventsButtons extends Actor implements Disposable {
 		float btnWidth = (float)_buttonsAtlas.findRegion(name).getRegionWidth();
 		float btnHeight = (float)_buttonsAtlas.findRegion(name).getRegionHeight();
 		buttons.setSize(btnWidth, btnHeight);
-		buttons.setPosition(Constants.APP_WIDTH/2-btnWidth/2, y);
+		buttons.setPosition(width/2-btnWidth/2, y);
 
 		if(buttons == btnPlayAgain)
-			buttons.setBounds(Constants.APP_WIDTH/2-btnWidth*0.75f/2, y, buttons.getWidth()*0.75f, buttons.getHeight()*0.75f);
+			buttons.setBounds(width/2-btnWidth*0.75f/2, y, buttons.getWidth()*0.75f, buttons.getHeight()*0.75f);
 		else 
-			buttons.setBounds(Constants.APP_WIDTH/2-btnWidth/2, y, buttons.getWidth(), buttons.getHeight());
+			buttons.setBounds(width/2-btnWidth/2, y, buttons.getWidth(), buttons.getHeight());
 		buttons.addListener(new ClickListener(){
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				buttons.remove();
