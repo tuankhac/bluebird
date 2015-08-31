@@ -5,18 +5,27 @@ package com.bluebirdaward.dangerball.render;
  *  update 31/7/2015
  * */
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Disposable;
 import com.bluebirdaward.dangerball.logic.Assets;
 import com.bluebirdaward.dangerball.utils.Audios;
 import com.bluebirdaward.dangerball.utils.Constants;
 import com.bluebirdaward.dangerball.utils.Constants.GLOBAL_STATE;
-public class StartView extends Buttons {
+public class StartView extends Actor implements Disposable {
+	private TextureAtlas _buttonsAtlas;
 
-<<<<<<< HEAD
 	private Skin _buttonSkin;
 	private BitmapFont _scoreFont;
 	
@@ -24,9 +33,6 @@ public class StartView extends Buttons {
 	private float app_height = Constants.APP_HEIGHT;
 
 	public TextButton btnStart, btnGuide;
-=======
-	public Button btnStart, btnGuide;
->>>>>>> 5c9816ea6841b230c2e1df31d3711646ff55e128
 
 	public StartView(){
 		initFont();
@@ -41,7 +47,6 @@ public class StartView extends Buttons {
 	}
 
 	private void initButtons(){
-<<<<<<< HEAD
 		_buttonsAtlas = new TextureAtlas("images/buttons.pack");
 		_buttonSkin = new Skin();
 		_buttonSkin.addRegions(_buttonsAtlas);
@@ -60,19 +65,11 @@ public class StartView extends Buttons {
 		style.down = _buttonSkin.getDrawable(name);
 		style.font = _scoreFont;
 		return new TextButton("", style);
-=======
-		setSkin().getSkin().addRegions(setAtlas("images/buttons.pack").getAtlas());
-		btnStart = setButtons("button_start").getButton();
-		btnGuide = setButtons("button_guide").getButton();
-		
-		activeButton(btnStart,"button_start",Constants.APP_HEIGHT/2 + 55);
-		activeButton(btnGuide,"button_guide",Constants.APP_HEIGHT/2 - 55 );
->>>>>>> 5c9816ea6841b230c2e1df31d3711646ff55e128
 	}
 
-	private void activeButton(final Button textbutton,String name,float y){
-		float btnWidth = (float)getAtlas().findRegion(name).getRegionWidth();
-		float btnHeight = (float)getAtlas().findRegion(name).getRegionHeight();
+	private void activeButton(final TextButton textbutton,String name,float y){
+		float btnWidth = (float)_buttonsAtlas.findRegion(name).getRegionWidth();
+		float btnHeight = (float)_buttonsAtlas.findRegion(name).getRegionHeight();
 		textbutton.setSize(btnWidth, btnHeight);
 		textbutton.setPosition(app_width/2-btnWidth/2, y);
 
@@ -92,4 +89,22 @@ public class StartView extends Buttons {
 		});
 	}
 
+	private void initFont(){
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/avenir_game.ttf"));
+		_scoreFont = new BitmapFont();
+		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+		parameter.size = 20;
+		parameter.characters = "0123456789";
+
+		_scoreFont = generator.generateFont(parameter);
+		generator.dispose();
+		_scoreFont.setColor(Color.BLUE);
+	}
+
+	@Override
+	public void dispose() {
+		_buttonsAtlas.dispose();
+		_buttonSkin.dispose();
+		_scoreFont.dispose();
+	}
 }

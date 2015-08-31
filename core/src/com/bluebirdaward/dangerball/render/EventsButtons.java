@@ -6,12 +6,9 @@ package com.bluebirdaward.dangerball.render;
  * */
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.bluebirdaward.dangerball.logic.Assets;
 import com.bluebirdaward.dangerball.utils.Audios;
@@ -24,10 +21,6 @@ public class EventsButtons extends Buttons {
 	public Button btnBack;
 	public boolean touchedPlayAgain = false;
 	public boolean touchedBack = false;
-	private TextureAtlas _buttonsAtlas;
-	private Skin _buttonSkin;
-	private BitmapFont _scoreFont;
-
 	private Sprite _sprite = new Sprite(Assets.instance.assetatlas.set("finish").get());
 	private float _alphaModulation = 0;
 	private float width = Constants.APP_WIDTH;
@@ -45,12 +38,8 @@ public class EventsButtons extends Buttons {
 		if(Constants.globalState == GLOBAL_STATE.GAMEOVER)
 			batch.draw(Assets.instance.assetatlas.set("game_over").get(), width/8, height/3, 3*width/4, height/3);
 		if(Constants.globalState == GLOBAL_STATE.CONGRATULATION){
-<<<<<<< HEAD
-			batch.draw(Assets.instance.assetatlas.set("background").get(), 0, 0, width, height);
-=======
 			batch.draw(Assets.instance.assetatlas.textureRegion, 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
 			batch.draw(Assets.instance.assetatlas.set("background").get(), 0, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
->>>>>>> 5c9816ea6841b230c2e1df31d3711646ff55e128
 
 			if(_alphaModulation < 1f)
 				_alphaModulation += Gdx.graphics.getDeltaTime()/2;
@@ -65,15 +54,9 @@ public class EventsButtons extends Buttons {
 		btnPlayAgain = setButtons("button_playagain").getButton();
 		btnBack = setButtons("button_back").getButton();
 
-<<<<<<< HEAD
-		activeButton(btnPlay,"button_play",height/2);
-		activeButton(btnPlayAgain,"button_playagain",height/2 - (float)_buttonsAtlas.findRegion("button_playagain").getRegionHeight()*0.575f );
+		activeButton(btn,"button_play",height/2);
+		activeButton(btnPlayAgain,"button_playagain",height/2 - (float)getAtlas().findRegion("button_playagain").getRegionHeight()*0.575f );
 		activeButton(btnBack,"button_back",height/2 );
-=======
-		activeButton(btn,"button_play",Constants.APP_HEIGHT/2);
-		activeButton(btnPlayAgain,"button_playagain",Constants.APP_HEIGHT/2 - (float)getAtlas().findRegion("button_playagain").getRegionHeight()*0.375f );
-		activeButton(btnBack,"button_back",Constants.APP_HEIGHT/2 );
->>>>>>> 5c9816ea6841b230c2e1df31d3711646ff55e128
 	}
 
 	private void activeButton(final Button buttons,String name,float y){

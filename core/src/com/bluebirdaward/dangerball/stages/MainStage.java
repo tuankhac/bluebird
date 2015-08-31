@@ -44,11 +44,6 @@ public class MainStage extends Stage {
 	private EventsButtons _eventButtons;
 
 	private byte vitri = 0;
-//	public boolean addedPlay = true;
-//	public boolean addedGrid = true;
-//	public boolean addedStart = true;
-//	public boolean addedPlayAgain = true;
-	
 	private boolean addedPlay = true;
 	private boolean addedGrid = true;
 	private boolean addedStart = true;

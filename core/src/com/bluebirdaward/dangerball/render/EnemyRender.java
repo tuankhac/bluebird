@@ -11,25 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.bluebirdaward.dangerball.logic.WorldLogic;
 import com.bluebirdaward.dangerball.utils.Constants;
 
-<<<<<<< HEAD
-public class EnemyRender {
-	private Array<Actor> _enemy = new Array<Actor>();
-
-	private WorldLogic _worldLogic;
-
-	public EnemyRender(WorldLogic worldLogic) {	this._worldLogic = worldLogic;	}
-
-	public void init(){
-		for(int i=0 ;i< _worldLogic.enemyLevel.getArr().size;i++){
-			if (_worldLogic.enemyLevel.getArr().get(i).getBody().getUserData() == Constants.USERDATA_ENEMY) 
-				_enemy.add(new Balloon((EnemyLogic)_worldLogic.enemyLevel.getArr().get(i)));
-			else
-				_enemy.add(new Bar((BarieLogic)_worldLogic.enemyLevel.getArr().get(i)));
-		}
-	}
-
-	public Array<Actor> getActor(){	return _enemy; }
-=======
 public class EnemyRender extends Actor {
 	private ArrayList<RenderActor> _enemy = new ArrayList<RenderActor>();
 
@@ -62,5 +43,4 @@ public class EnemyRender extends Actor {
 	public ArrayList<RenderActor> getActor(){
 		return _enemy;
 	}
->>>>>>> 5c9816ea6841b230c2e1df31d3711646ff55e128
 }

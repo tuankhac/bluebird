@@ -132,8 +132,6 @@ public class WorldLogic {
 	}
 
 	/* Handle to remove object*/
-<<<<<<< HEAD
-	void remove(GameLogic object){ enemyLevel.getArr().removeIndex(enemyLevel.getArr().indexOf(object, true));}
 	
 	private void changeForEachMap(){
 		if(level == 6)  vXBarieHorizontal = VELOCITY.valueOf("LEVEL"+level).getVX(); 
@@ -159,9 +157,7 @@ public class WorldLogic {
 		
 		setTimer = SETTIMER.valueOf("LEVEL"+level).getValue();
 	}
-=======
 	void remove(GameLogic object){ enemyLevel.getArr().remove(enemyLevel.getArr().indexOf(object));}
->>>>>>> 5c9816ea6841b230c2e1df31d3711646ff55e128
 
 	private void catchRunning(){
 		for(int i= enemyLevel.getArr().size() -1 ;i>=0;i--)

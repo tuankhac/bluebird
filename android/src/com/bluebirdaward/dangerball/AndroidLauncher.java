@@ -12,7 +12,6 @@ import android.widget.RelativeLayout;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.bluebirdaward.dangerball.MainMenu;
 import com.bluebirdaward.dangerball.screens.IActivityRequestHandler;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;

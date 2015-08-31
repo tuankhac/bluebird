@@ -19,14 +19,10 @@ public class EnemyLevel {
 
 	private EnemyLogic _enemyLogic;
 	private BarieLogic _barieLogic;
-<<<<<<< HEAD
 	private float width = Constants.VP_WIDTH;
 	private float height = Constants.VP_HEIGHT;
 	private float ball_radius = Constants.BALL_RADIUS;
-	private Array<GameLogic> _listLogic = new Array<GameLogic>();
-=======
 	private ArrayList<GameLogic> _listLogic = new ArrayList<GameLogic>();
->>>>>>> 5c9816ea6841b230c2e1df31d3711646ff55e128
 
 	EnemyLevel(World world) {	this._world = world; }
 
